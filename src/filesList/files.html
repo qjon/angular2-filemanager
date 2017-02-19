@@ -1,0 +1,24 @@
+<div class="files-list">
+  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}">
+    <input class="file-selection-input" type="checkbox" [(ngModel)]="file.selected">
+    <div class="img-rounded file-img" [ngClass]="{'file-img-symbol': !file.isImage()}"
+         [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
+    <span class="file-name">{{file.name}}</span>
+    <div class="file-menu">
+      <!--<button (click)="renameFile(file)" class="btn btn-primary btn-icon">-->
+      <!--<i class="fa fa-edit"></i>-->
+      <!--</button>-->
+      <button mwlConfirm [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
+              [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
+              class="btn btn-danger btn-icon">
+        <i class="fa fa-trash"></i>
+      </button>
+      <button (click)="openPreview(file)" class="btn btn-default btn-icon">
+        <i class="fa fa-search"></i>
+      </button>
+      <button (click)="openCrop(file)" class="btn btn-default btn-icon">
+        <i class="fa fa-crop"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+@width: 140px;
+@height: 110px;
+
+@borderSize: 1px;
+
+@paddingSize: 5px;
+@marginSize: 20px;
+@borderRadius: 10px;
+
+@borderColor: #cccccc;
+@backgroundColor: #eee;
+@backgroundColorAlpha: rgba(238, 238, 238, 0.5);
+@backgroundColorSelected: rgb(255, 243, 58);
+@backgroundColorSelectedAlpha: rgba(255, 243, 58, 0.5);
+
+.files-list {
+  .file {
+    display: inline-block;
+    position: relative;
+
+    text-align: center;
+
+    width: @width;
+    height: @height;
+
+    padding: @paddingSize;
+    border: @borderSize solid @borderColor;
+    background-color: @backgroundColor;
+    border-radius: @borderRadius;
+    margin: 0 0 @marginSize @marginSize;
+
+    .file-img {
+      width: @width - 2 * (@paddingSize + @borderSize);
+      height: @height - 2 * (@paddingSize + @borderSize);
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      &.file-img-symbol {
+        background-size: contain;
+        background-position-x: 50%;
+      }
+    }
+
+    .file-name {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background-color: @backgroundColorAlpha;
+    }
+
+    .file-menu {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 0;
+      right: 0;
+      text-align: center;
+
+    }
+
+    .file-selection-input {
+      display: none;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    &:hover {
+      .file-img {
+        opacity: 0.3;
+      }
+
+      .file-name, .file-menu, .file-selection-input {
+        display: block;
+      }
+    }
+
+    &.selected {
+      border-color: @backgroundColorSelected;
+      background-color: @backgroundColorSelectedAlpha;
+
+      .file-name {
+        background-color: @backgroundColorSelectedAlpha;
+      }
+
+      .file-menu {
+        display: none;
+      }
+
+      .file-selection-input {
+        display: block;
+      }
+    }
+  }
+}
+

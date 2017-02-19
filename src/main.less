@@ -1,0 +1,56 @@
+@foldersBoxWidth: 300px;
+.container {
+  width: 990px;
+  height: 700px;
+}
+
+.fm-main-box {
+  position: relative;
+  height: 100%;
+
+  .folders-box {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: @foldersBoxWidth;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .files-box {
+    display: block;
+    position: absolute;
+    left: @foldersBoxWidth;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+@modalWidth: 600px;
+.modal-view {
+  margin: 50px auto;
+  max-width: @modalWidth;
+
+  .modal-close {
+    text-align: right;
+    margin: 5px 0;
+    color: #fff;
+
+    .fa {
+      cursor: pointer;
+    }
+  }
+}

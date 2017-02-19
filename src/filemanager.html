@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="fm-header">
+    <h1>Filemanager</h1>
+    <toolbar
+      #toolbar
+      [currentFolderId]="currentFolderId"
+      [numberOfSelectedItems]="numberOfSelectedItems"
+      (onAddFolderClick)="onAddFolder($event)"
+      (onUpload)="onUpload($event)"
+      (onUploadItem)="onUploadItem($event)"
+      (onMenuButtonClick)="onMenuButtonClick($event)"
+      (onSearchChange)="onSearchChange($event)"
+      (onFilterTypeChange)="onFilterTypeChange($event)"
+    ></toolbar>
+  </div>
+  <div class="fm-main-box">
+    <rign-tree class="folders-box" [nodes]="folders"
+               [menu]="menu"
+               (onAdd)="onAdd($event)"
+               (onChange)="onChange($event)"
+               (onRemove)="onRemove($event)"
+               (onToggle)="onToggle($event)"
+               (onSelect)="onSelect($event)"
+    ></rign-tree>
+    <files-list class="files-box" [files]="files"
+                (onDeleteFile)="onDeleteFile($event)"
+                (onRenameFile)="onRenameFile($event)"
+                (onPreviewFile)="onPreviewFile($event)"
+                (onCropFile)="onOpenCropFileEditor($event)"
+    ></files-list>
+  </div>
+  <div *ngIf="isPreviewMode || isCropMode" class="backdrop">
+    <div class="modal-view">
+      <div class="modal-close">
+        <i class="fa fa-2x fa-times" (click)="closeModal()"></i>
+      </div>
+      <file-preview *ngIf="isPreviewMode" [files]="files" [file]="currentSelectedFile"></file-preview>
+      <crop-image *ngIf="isCropMode" [file]="currentSelectedFile" (onCrop)="onCropFile($event)"></crop-image>
+    </div>
+  </div>
+  <simple-notifications [options]="notificationOptions"></simple-notifications>
+</div>
