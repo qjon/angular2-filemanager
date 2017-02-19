@@ -4,7 +4,7 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
-### v0.3.0
+### v0.4.1
 
 * manage directory structure
 * upload/delete files 
