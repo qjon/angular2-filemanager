@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Output, Input, OnChanges, Inject} from "@angular/core";
-import {FileUploader} from "ng2-file-upload";
+import {Component, EventEmitter, Output, Input, OnChanges} from "@angular/core";
 import {IButton} from "../dropdown/IButton";
 import {Button} from "./models/button.model";
 import {ToolbarEventModel} from "./models/toolbarEvent.model";
@@ -9,7 +8,7 @@ import {Positioning} from "angular2-bootstrap-confirm/position";
 import {FormControl} from "@angular/forms";
 import {IFileTypeFilter} from "./interface/IFileTypeFilter";
 import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
-import {IUrlConfiguration} from "../configuration/IUrlConfiguration";
+import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
 
 @Component({
   selector: 'toolbar',
@@ -28,8 +27,6 @@ export class Toolbar implements OnChanges {
   @Output() onMenuButtonClick = new EventEmitter();
   @Output() onSearchChange = new EventEmitter();
   @Output() onFilterTypeChange = new EventEmitter();
-
-  public uploader: FileUploader;
 
   public searchField = new FormControl();
 
@@ -62,22 +59,17 @@ export class Toolbar implements OnChanges {
   public typeFilterList: IFileTypeFilter[];
 
   public constructor(private configuration: FileManagerConfiguration,
-                     @Inject('fileManagerUrls') urls: IUrlConfiguration) {
-    let options = {};
-    options['removeAfterUpload'] = true;
-    options['autoUpload'] = true;
-    options['method'] = 'POST';
+                     public fileManagerUploader: FileManagerUploader) {
+
+    this.fileManagerUploader.clear();
 
     this.typeFilterList = configuration.fileTypesFilter;
 
-    this.uploader = new FileUploader({url: urls.filesUrl});
-
-    this.uploader.setOptions(options);
-    this.uploader.onCompleteAll = () => {
+    this.fileManagerUploader.uploader.onCompleteAll = () => {
       this.onUpload.emit(this.currentFolderId || '');
     };
 
-    this.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
+    this.fileManagerUploader.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
       this.onUploadItem.emit({response: response, status: status, name: item.file.name});
     };
 
@@ -93,11 +85,7 @@ export class Toolbar implements OnChanges {
   }
 
   public ngOnChanges() {
-    let options = {
-      headers: [{name: 'folderId', value: this.currentFolderId || ''}]
-    };
-
-    this.uploader.setOptions(options);
+    this.fileManagerUploader.setDirectoryId(this.currentFolderId || '');
   }
 
   public addFolder() {

@@ -15,6 +15,7 @@ import {Dropdown} from "./dropdown/dropdown.component";
 import {FileUploadModule} from "ng2-file-upload";
 import {FileManagerConfiguration} from "./configuration/fileManagerConfiguration.service";
 import {TreeUrls} from "./configuration/treeUrls.service";
+import {FileManagerUploader} from "./filesList/fileManagerUploader.service";
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import {TreeUrls} from "./configuration/treeUrls.service";
   entryComponents: [ImageCropperComponent],
   providers: [
     FileManagerConfiguration,
+    FileManagerUploader,
     {provide: ConfigService, useClass: TreeUrls}
   ],
   exports: [FileManagerComponent],

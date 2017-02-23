@@ -8,7 +8,7 @@
       <button class="btn btn-default btn-file">
         <i class="fa fa-plus"></i>
         <i class="fa fa-file-o"></i>
-        <input type="file" ng2FileSelect [uploader]="uploader" (onCompleteAll)="onUpload()"
+        <input type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()"
                (onCompleteItem)="onUploadItem()" multiple/>
       </button>
     </div>
