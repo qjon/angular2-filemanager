@@ -1,4 +1,10 @@
 <div class="container">
-  <h1>Filemanager</h1>
-  <filemanager>Loading...</filemanager>
+    <h1>Filemanager</h1>
+    <div class="configuration-bar">
+        <button class="btn btn-primary" (click)="toggleMultiSelection()">
+            <i class="fa" [ngClass]="{'fa-check-square': isMultiSelection, 'fa-square': !isMultiSelection}"></i>
+            <span>Use multiselection</span>
+        </button>
+    </div>
+    <filemanager [multiSelection]="isMultiSelection" (onSingleFileSelect)="selectFile($event)">Loading...</filemanager>
 </div>

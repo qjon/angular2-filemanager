@@ -4,6 +4,11 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v0.5.0
+
+* add multi selection configuration
+* add _onSingleFileSelect_ event, which could be use to select file
+
 ### v0.4.4
 
 * remove title from main template
@@ -37,9 +42,37 @@ Install npm package
   
 In your project put this line
   
-    <filemanager>Loading...</filemanager>
+    <filemanager  [multiSelection]="isMultiSelection" (onSingleFileSelect)="selectFile($event)">Loading...</filemanager>
 
 ## Override API
 
+To override endpoints to manage files and directories provide special provider in you module
+
+    @NgModule({
+        ...
+        providers: [
+            ...
+            {
+                provide: 'fileManagerUrls',
+                useValue: {foldersUrl: '/api/filemanager/folder', filesUrl: '/api/filemanager/file'}
+            }
+        ]
+        ...
+    })
+
 ## Demo
 
+To run demo you have to serve frontend and backend. To do this run:
+
+* frontend:
+    
+        npm start
+    
+* backend
+
+        npm run backend
+
+## TODO
+
+* files upload progress
+* multi selection events (delete, select)

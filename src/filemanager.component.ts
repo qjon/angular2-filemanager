@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild, HostListener, Input, OnChanges, EventEmitter, Output} from '@angular/core';
 import {TreeComponent, FolderService, IContextMenu, IOuterNode, ITreeItemEvent} from '@rign/angular2-tree/main';
 import {FilesService} from "./filesList/files.service";
-import {IOuterFile} from "./filesList/IOuterFile";
+import {IOuterFile} from "./filesList/interface/IOuterFile";
 import {FileModel} from "./filesList/file.model";
 import {log} from "./decorators/logFunction.decorator";
 import {IUploadItemEvent} from "./toolbar/interface/IUploadItemEvent";
@@ -21,7 +21,10 @@ import {ICropBounds} from "./crop/ICropBounds";
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit {
+export class FileManagerComponent implements OnInit, OnChanges {
+  @Input() multiSelection: boolean = false;
+  @Output() onSingleFileSelect = new EventEmitter();
+
   @ViewChild(TreeComponent)
   public treeComponent: TreeComponent;
 
@@ -102,6 +105,10 @@ export class FileManagerComponent implements OnInit {
 
 
     this.loadFiles('');
+  }
+
+  ngOnChanges() {
+    this.configuration.isMultiSelection = this.multiSelection;
   }
 
   /***********************************************************************
@@ -240,6 +247,11 @@ export class FileManagerComponent implements OnInit {
           this.notifications.error('Crop Image', 'Image has not been cropped');
         }
       );
+  }
+
+  @log
+  public onSelectFile(event: FileModel) {
+    this.onSingleFileSelect.next(event.getSelectData());
   }
 
   /***********************************************************************

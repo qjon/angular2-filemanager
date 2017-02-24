@@ -12,7 +12,7 @@
                (onCompleteItem)="onUploadItem()" multiple/>
       </button>
     </div>
-    <dropdown [mainButton]="selectAllButton" [buttons]="selectButtonsList"
+    <dropdown *ngIf="configuration.isMultiSelection" [mainButton]="selectAllButton" [buttons]="selectButtonsList"
               (onClick)="onSelectDropdownClick($event)"></dropdown>
     <div class="btn-group">
       <button class="btn btn-default" (click)="onRefreshFilesList()">

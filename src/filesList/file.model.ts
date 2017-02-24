@@ -1,5 +1,6 @@
-import {IOuterFile} from "./IOuterFile";
+import {IOuterFile} from "./interface/IOuterFile";
 import {IFileModel} from "./interface/IFileModel";
+import {ISelectFile} from "./interface/ISelectFile";
 
 export class FileModel implements IFileModel {
   static smallIconsFolder: string = '/icons/128px/';
@@ -62,4 +63,14 @@ export class FileModel implements IFileModel {
     return ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/png'].indexOf(this.getMime()) > -1;
   }
 
+  public getSelectData(): ISelectFile {
+    return {
+      id: this.getId(),
+      name: this.name,
+      url: this.url,
+      width: this.getWidth(),
+      height: this.getHeight(),
+      mime: this.getMime()
+    }
+  }
 }

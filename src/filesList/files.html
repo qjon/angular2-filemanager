@@ -1,6 +1,6 @@
 <div class="files-list">
-  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}">
-    <input class="file-selection-input" type="checkbox" [(ngModel)]="file.selected">
+  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}" (click)="clickImage(file)">
+    <input *ngIf="configuration.isMultiSelection" class="file-selection-input" type="checkbox" [(ngModel)]="file.selected">
     <div class="img-rounded file-img" [ngClass]="{'file-img-symbol': !file.isImage()}"
          [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
     <span class="file-name">{{file.name}}</span>

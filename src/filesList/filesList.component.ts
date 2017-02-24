@@ -4,6 +4,7 @@ import {IFileEvent} from "./interface/IFileEvent";
 import {IFileModel} from "./interface/IFileModel";
 import {ConfirmOptions, Position} from "angular2-bootstrap-confirm";
 import {Positioning} from "angular2-bootstrap-confirm/position";
+import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
 
 @Component({
   selector: 'files-list',
@@ -19,9 +20,12 @@ export class FilesList {
   @Output() onDeleteFile = new EventEmitter();
   @Output() onPreviewFile = new EventEmitter();
   @Output() onCropFile = new EventEmitter();
+  @Output() onSelectFile = new EventEmitter();
 
   public removeTitle: string = 'Remove file';
 
+  public constructor(public configuration: FileManagerConfiguration) {
+  }
 
   /**
    * Fired when clicked on button "delete file"
@@ -83,5 +87,9 @@ export class FilesList {
       file: file
     };
     this.onCropFile.emit(fileEvent);
+  }
+
+  public clickImage(file: FileModel) {
+    this.onSelectFile.next(file);
   }
 }

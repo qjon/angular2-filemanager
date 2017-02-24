@@ -41,4 +41,5 @@ Thumbs.db
 
 src/**/*.css
 proxy.config.json
-demo/**/*
+demo/data/**/*
+!demo/data/.gitkeep

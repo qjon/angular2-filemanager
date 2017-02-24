@@ -7,6 +7,9 @@ import {IUrlConfiguration} from "./IUrlConfiguration";
 @Injectable()
 export class FileManagerConfiguration {
   public contextMenuItems: IContextMenu[] = [];
+
+  public isMultiSelection: boolean = false;
+
   public fileTypesFilter: IFileTypeFilter[] = [
     {
       name: 'ALL',

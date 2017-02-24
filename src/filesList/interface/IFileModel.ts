@@ -1,4 +1,4 @@
-import {IOuterFile} from "../IOuterFile";
+import {IOuterFile} from "./IOuterFile";
 export interface IFileModel {
   name: string;
   thumbnailUrl: string;

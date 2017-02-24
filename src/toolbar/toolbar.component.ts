@@ -58,7 +58,7 @@ export class Toolbar implements OnChanges {
    */
   public typeFilterList: IFileTypeFilter[];
 
-  public constructor(private configuration: FileManagerConfiguration,
+  public constructor(public configuration: FileManagerConfiguration,
                      public fileManagerUploader: FileManagerUploader) {
 
     this.fileManagerUploader.clear();

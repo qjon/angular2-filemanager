@@ -1,7 +1,7 @@
 import {Http, Response, URLSearchParams} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {IOuterFile} from "./IOuterFile";
+import {IOuterFile} from "./interface/IOuterFile";
 import {IFileModel} from "./interface/IFileModel";
 import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
 import {ICropBounds} from "../crop/ICropBounds";

@@ -26,6 +26,7 @@
                 (onRenameFile)="onRenameFile($event)"
                 (onPreviewFile)="onPreviewFile($event)"
                 (onCropFile)="onOpenCropFileEditor($event)"
+                (onSelectFile)="onSelectFile($event)"
     ></files-list>
   </div>
   <div *ngIf="isPreviewMode || isCropMode" class="backdrop">
