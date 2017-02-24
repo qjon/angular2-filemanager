@@ -5,9 +5,6 @@
          [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
     <span class="file-name">{{file.name}}</span>
     <div class="file-menu">
-      <!--<button (click)="renameFile(file)" class="btn btn-primary btn-icon">-->
-      <!--<i class="fa fa-edit"></i>-->
-      <!--</button>-->
       <button mwlConfirm [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
               [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
               class="btn btn-danger btn-icon">

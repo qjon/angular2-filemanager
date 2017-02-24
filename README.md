@@ -4,6 +4,13 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v0.4.4
+
+* remove title from main template
+* fix crop example
+* fix preview
+* fix example API
+
 ### v0.4.3
 
 * create _FileManagerUploader_ service to control upload files, it could be override by external module

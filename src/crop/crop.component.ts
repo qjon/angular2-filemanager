@@ -98,6 +98,8 @@ export class CropComponent {
     let width = scale * this.file.getWidth();
     let height = scale * this.file.getHeight();
 
+    console.log(this.file, scale);
+
     cropperSettings.noFileInput = true;
     cropperSettings.width = this.currentCropSize.width;
     cropperSettings.height = this.currentCropSize.height;
