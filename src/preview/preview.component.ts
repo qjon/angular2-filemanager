@@ -4,7 +4,7 @@ import {IFileModel} from "../filesList/interface/IFileModel";
 @Component({
   selector: 'file-preview',
   template: `
-        <div class="preview">
+        <div class="filemanager-preview">
             <div class="carousel slide">
                 <div class="carousel-inner" role="listbox">
                     <div class="item" *ngFor="let file of files; let i = index;" [ngClass]="{'active': i == currentIndex}">
