@@ -37,7 +37,7 @@ app.use(express.static(basePath));
 
 app.get('/folders', function (req, res) {
   var paths = [];
-  var subdir = req.query.dirId || '';
+  var subdir = req.query.nodeId || '';
   var items = fs.readdirSync(basePath + subdir);
 
   for (var i = 0; i < items.length; i++) {
@@ -120,7 +120,7 @@ app.post('/folders', function (req, res) {
 
 app.delete('/folders', function (req, res) {
   var data = req.body;
-  var folderId = data.dirId || null;
+  var folderId = data.nodeId || null;
 
   if (isDirectory(folderId)) {
     fs.rmdirSync(basePath + folderId);
@@ -136,7 +136,7 @@ app.delete('/folders', function (req, res) {
 
 
 function prepareFile(filePath) {
-  var src = path.join('/uploads', filePath);
+  var src = path.join('/uploads', filePath).replace(/ /g, '\\ ');
   var mimeType = mime.lookup(filePath);
   var isImage = false;
   var dimensions;

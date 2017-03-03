@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, HostListener, Input, OnChanges, EventEmitter, Output} from '@angular/core';
-import {TreeComponent, FolderService, IContextMenu, IOuterNode, ITreeItemEvent} from '@rign/angular2-tree/main';
+import {TreeComponent, NodeService, IContextMenu, IOuterNode, ITreeItemEvent} from '@rign/angular2-tree/main';
 import {FilesService} from "./filesList/files.service";
 import {IOuterFile} from "./filesList/interface/IOuterFile";
 import {FileModel} from "./filesList/file.model";
@@ -17,7 +17,7 @@ import {ICropBounds} from "./crop/ICropBounds";
 
 @Component({
   selector: 'filemanager',
-  providers: [FolderService, FilesService, NotificationsService],
+  providers: [NodeService, FilesService, NotificationsService],
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
@@ -89,7 +89,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private folderService: FolderService,
+  constructor(private folderService: NodeService,
               private filesService: FilesService,
               private notifications: NotificationsService,
               private configuration: FileManagerConfiguration) {
