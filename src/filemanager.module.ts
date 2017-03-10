@@ -2,7 +2,7 @@ import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {TreeModule, ConfigService} from "@rign/angular2-tree/main";
+import {TreeModule} from "@rign/angular2-tree/main";
 import {SimpleNotificationsModule} from "angular2-notifications";
 import {ConfirmModule} from "angular2-bootstrap-confirm";
 import {FileManagerComponent} from "./filemanager.component";
@@ -14,8 +14,8 @@ import {PreviewComponent} from "./preview/preview.component";
 import {Dropdown} from "./dropdown/dropdown.component";
 import {FileUploadModule} from "ng2-file-upload";
 import {FileManagerConfiguration} from "./configuration/fileManagerConfiguration.service";
-import {TreeUrls} from "./configuration/treeUrls.service";
 import {FileManagerUploader} from "./filesList/fileManagerUploader.service";
+import {TreeService} from "./configuration/tree.service";
 
 @NgModule({
   imports: [
@@ -41,7 +41,7 @@ import {FileManagerUploader} from "./filesList/fileManagerUploader.service";
   providers: [
     FileManagerConfiguration,
     FileManagerUploader,
-    {provide: ConfigService, useClass: TreeUrls}
+    TreeService
   ],
   exports: [FileManagerComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

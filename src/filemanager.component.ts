@@ -14,6 +14,7 @@ import {IFileModel} from "./filesList/interface/IFileModel";
 import {FileManagerConfiguration} from "./configuration/fileManagerConfiguration.service";
 import {IFileTypeFilter} from "./toolbar/interface/IFileTypeFilter";
 import {ICropBounds} from "./crop/ICropBounds";
+import {TreeService} from "./configuration/tree.service";
 
 @Component({
   selector: 'filemanager',
@@ -57,7 +58,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
    */
   public currentFolderId: string;
 
-
   public currentSelectedFile: IFileModel;
 
   public isPreviewMode: boolean = false;
@@ -89,7 +89,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private folderService: NodeService,
+  constructor(private treeService: TreeService,
               private filesService: FilesService,
               private notifications: NotificationsService,
               private configuration: FileManagerConfiguration) {
@@ -98,7 +98,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.folderService.load()
+    this.treeService.load()
       .subscribe((items: IOuterNode[]) => {
         this.folders = items;
       });
@@ -126,7 +126,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
     let parentNode = node.parentNode;
     let parentNodeId = parentNode ? parentNode.id : null;
 
-    this.folderService.save(event.node.data, parentNodeId)
+    this.treeService.save(event.node.data, parentNodeId)
       .subscribe((folder: IOuterNode) => {
         node.refresh(folder);
       });
@@ -135,7 +135,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
   @log
   public onRemove(event: ITreeItemEvent) {
     let node = event.node;
-    this.folderService.remove(node.id)
+    this.treeService.remove(node.id)
       .subscribe(() => {
         if (node.id === this.currentFolderId) {
           this.currentFolderId = null;
@@ -150,7 +150,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
   public onChange(event: ITreeItemEvent) {
     let node = event.node;
 
-    this.folderService.update(node.toJSON())
+    this.treeService.update(node.toJSON())
       .subscribe((folder: IOuterNode) => {
         node.refresh(folder);
         node.collapse();
@@ -161,7 +161,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
   @log
   public onToggle(event: ITreeItemEvent) {
     if (event.status) {
-      this.folderService.load(event.node.id)
+      this.treeService.load(event.node.id)
         .subscribe((folders: IOuterNode[]) => {
           for (let folder of folders) {
             event.node.addChild(folder);

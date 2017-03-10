@@ -1,6 +1,6 @@
 {
   "name": "@rign/angular2-filemanager",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -27,7 +27,7 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
-    "@rign/angular2-tree": "^0.6.2",
+    "@rign/angular2-tree": "^0.7.0",
     "angular2-bootstrap-confirm": "^1.0.4",
     "angular2-notifications": "^0.4.53",
     "bootstrap": "^3.3.7",

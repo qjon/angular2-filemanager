@@ -4,6 +4,10 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v0.5.2
+
+* use 0.7.0 version of _angular2-tree_
+
 ### v0.5.1
 
 * use 0.6.2 version of _angular2-tree_
