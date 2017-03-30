@@ -5,12 +5,13 @@
         <i class="fa fa-plus"></i>
         <i class="fa fa-folder-o"></i>
       </button>
-      <button class="btn btn-default btn-file">
+      <button class="btn btn-default" (click)="fileInput.click()">
         <i class="fa fa-plus"></i>
         <i class="fa fa-file-o"></i>
-        <input type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()"
-               (onCompleteItem)="onUploadItem()" multiple/>
       </button>
+      <span class="hidden-input-file">
+        <input #fileInput type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()" (onCompleteItem)="onUploadItem()" multiple/>
+      </span>
     </div>
     <dropdown *ngIf="configuration.isMultiSelection" [mainButton]="selectAllButton" [buttons]="selectButtonsList"
               (onClick)="onSelectDropdownClick($event)"></dropdown>
@@ -19,14 +20,6 @@
         <i class="fa fa-refresh"></i>
       </button>
     </div>
-    <!--<div class="btn-group">-->
-    <!--<button class="btn btn-danger" [disabled]="numberOfSelectedItems == 0" mwlConfirm-->
-    <!--[title]="'Remove selection'"-->
-    <!--[message]="getRemoveMessage()" [appendToBody]="true" [confirmText]="'Yes'" [cancelText]="'No'"-->
-    <!--placement="bottom" (confirm)="onDeleteSelection()">-->
-    <!--<i class="fa fa-trash-o"></i>-->
-    <!--</button>-->
-    <!--</div>-->
   </div>
   <div class="col-md-3">
     <div class="btn-group">

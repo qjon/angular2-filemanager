@@ -11,18 +11,13 @@
   overflow: hidden;
 }
 
-.btn-file input[type=file] {
+.hidden-input-file {
+  visibility: hidden;
   position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  background: white;
-  cursor: inherit;
-  display: block;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  border: none;
+  margin: 0;
+  padding: 0
 }
