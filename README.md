@@ -4,6 +4,10 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v0.5.4
+
+* fix problem with open "choose file window" 
+
 ### v0.5.3
 
 * use 0.8.1 version of _angular2-tree_
