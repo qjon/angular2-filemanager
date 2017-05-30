@@ -1,30 +1,40 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {FileModel} from "./file.model";
-import {IFileEvent} from "./interface/IFileEvent";
-import {IFileModel} from "./interface/IFileModel";
-import {ConfirmOptions, Position} from "angular2-bootstrap-confirm";
-import {Positioning} from "angular2-bootstrap-confirm/position";
-import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {FileModel} from './file.model';
+import {IFileEvent} from './interface/IFileEvent';
+import {IFileModel} from './interface/IFileModel';
+import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
+import {Positioning} from 'angular2-bootstrap-confirm/position';
+import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {FileManagerActionsService, IFileManagerAction} from '../store/fileManagerActions.service';
+import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
+import {NotificationsService} from 'angular2-notifications';
+import {Actions} from '@ngrx/effects';
 
 @Component({
-  selector: 'files-list',
+  selector: 'ri-files-list',
   templateUrl: './files.html',
   providers: [ConfirmOptions, {provide: Position, useClass: Positioning}],
   styleUrls: ['./files-list.less']
 })
 
-export class FilesList {
+export class FilesListComponent {
   @Input() files: FileModel[];
 
-  @Output() onRenameFile = new EventEmitter();
-  @Output() onDeleteFile = new EventEmitter();
   @Output() onPreviewFile = new EventEmitter();
   @Output() onCropFile = new EventEmitter();
   @Output() onSelectFile = new EventEmitter();
 
-  public removeTitle: string = 'Remove file';
+  public removeTitle = 'Remove file';
 
-  public constructor(public configuration: FileManagerConfiguration) {
+  public constructor(public configuration: FileManagerConfiguration,
+                     private fileManagerDispatcher: FileManagerDispatcherService,
+                     notifications: NotificationsService,
+                     actions$: Actions) {
+
+    actions$.ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS)
+      .subscribe((action: IFileManagerAction) => {
+        notifications.success('File delete', `${action.payload.file.name} has been deleted`);
+      });
   }
 
   /**
@@ -33,10 +43,7 @@ export class FilesList {
    * @param file
    */
   public deleteFile(file: IFileModel) {
-    this.onDeleteFile.emit({
-      name: 'onDeleteFile',
-      file: file
-    });
+    this.fileManagerDispatcher.deleteFile(file);
   }
 
   public getRemoveMessage(file: IFileModel) {
@@ -44,25 +51,11 @@ export class FilesList {
   }
 
   /**
-   * Fired when clicked on button "rename file name"
-   *
-   * @param file
-   */
-  public renameFile(file: IFileModel) {
-    let fileEvent: IFileEvent = {
-      eventName: 'onRenameFile',
-      file: file
-    };
-
-    this.onRenameFile.emit(fileEvent);
-  }
-
-  /**
    * Select or unselect all files
    *
    * @param selected
    */
-  public allFilesSelection(selected: boolean = true) {
+  public allFilesSelection(selected = true) {
     this.files.map((file) => file.selected = selected);
   }
 

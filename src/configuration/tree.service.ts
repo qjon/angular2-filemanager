@@ -1,7 +1,7 @@
-import {Injectable, Inject} from "@angular/core";
-import {NodeService} from "@rign/angular2-tree/main";
-import {Http} from "@angular/http";
-import {IUrlConfiguration} from "./IUrlConfiguration";
+import {Injectable, Inject} from '@angular/core';
+import {NodeService} from '@rign/angular2-tree';
+import {Http} from '@angular/http';
+import {IUrlConfiguration} from './IUrlConfiguration';
 
 @Injectable()
 export class TreeService extends NodeService {
@@ -13,6 +13,7 @@ export class TreeService extends NodeService {
       getUrl: urls.foldersUrl,
       updateUrl: urls.foldersUrl,
       removeUrl: urls.foldersUrl,
+      moveUrl: urls.folderMoveUrl
     };
   }
 }

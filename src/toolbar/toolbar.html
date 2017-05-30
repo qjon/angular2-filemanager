@@ -13,8 +13,8 @@
         <input #fileInput type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()" (onCompleteItem)="onUploadItem()" multiple/>
       </span>
     </div>
-    <dropdown *ngIf="configuration.isMultiSelection" [mainButton]="selectAllButton" [buttons]="selectButtonsList"
-              (onClick)="onSelectDropdownClick($event)"></dropdown>
+    <ri-dropdown *ngIf="configuration.isMultiSelection" [mainButton]="selectAllButton" [buttons]="selectButtonsList"
+              (onClick)="onSelectDropdownClick($event)"></ri-dropdown>
     <div class="btn-group">
       <button class="btn btn-default" (click)="onRefreshFilesList()">
         <i class="fa fa-refresh"></i>
@@ -22,21 +22,9 @@
     </div>
   </div>
   <div class="col-md-3">
-    <div class="btn-group">
-      <button *ngFor="let type of typeFilterList" class="btn btn-default" [ngClass]="{'active': type === selectedType}"
-              (click)="setFilterType(type)">
-        <i class="{{type.iconCls}}"></i>
-      </button>
-    </div>
+    <ri-file-type-filter [typeFilterList]="configuration.fileTypesFilter"></ri-file-type-filter>
   </div>
   <div class="col-md-3">
-    <div class="input-group">
-      <input [formControl]="searchField" type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-                <button (click)="searchField.reset('')" class="btn btn-default" type="button">
-                    <i class="fa fa-times"></i>
-                </button>
-            </span>
-    </div>
+    <ri-search-file></ri-search-file>
   </div>
 </div>

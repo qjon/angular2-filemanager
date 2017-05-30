@@ -16,7 +16,7 @@
     "file",
     "manager"
   ],
-  "main": "main.ts",
+  "main": "main",
   "author": "Rafal Ignaszewski <rafal@ignaszewski.pl> http://ignaszewski.pl",
   "dependencies": {
     "@angular/common": "^2.4.0",
@@ -27,7 +27,10 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
-    "@rign/angular2-tree": "^0.8.1",
+    "@rign/angular2-tree": "git://github.com/qjon/angular2-tree.git#6b99173269e9c3b988846ff76cbfef72d20271ae",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.3",
+    "@ngrx/store": "^2.2.2",
     "angular2-bootstrap-confirm": "^1.0.4",
     "angular2-notifications": "^0.4.53",
     "bootstrap": "^3.3.7",
@@ -42,6 +45,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0-beta.32.3",
     "@angular/compiler-cli": "^2.4.0",
+    "@ngrx/store-devtools": "^3.2.4",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
     "codelyzer": "~2.0.0-beta.4",

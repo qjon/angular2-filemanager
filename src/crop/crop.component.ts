@@ -1,6 +1,6 @@
 import {
   Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Output,
-  EventEmitter
+  EventEmitter, OnDestroy
 } from "@angular/core";
 import {FileModel} from "../filesList/file.model";
 import {CropperSettings} from "ng2-img-cropper/src/cropperSettings";
@@ -78,7 +78,7 @@ export class CropComponent {
 
   ngAfterContentInit() {
     this.updateCropSize(this.cropSizeList[0]);
-  }
+  };
 
   public cropImage() {
     let bounds: ICropBounds = {
@@ -97,8 +97,6 @@ export class CropComponent {
     let scale = this.calculateScale();
     let width = scale * this.file.getWidth();
     let height = scale * this.file.getHeight();
-
-    console.log(this.file, scale);
 
     cropperSettings.noFileInput = true;
     cropperSettings.width = this.currentCropSize.width;

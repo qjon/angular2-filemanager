@@ -1,4 +1,4 @@
-import {environment} from "../../demo/src/environments/environment";
+import {environment} from '../../demo/src/environments/environment';
 
 export function log(target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
     let originalMethod = descriptor.value;

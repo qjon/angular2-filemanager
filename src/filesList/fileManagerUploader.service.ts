@@ -1,6 +1,6 @@
-import {Injectable, Inject} from "@angular/core";
-import {FileUploader} from "ng2-file-upload";
-import {IUrlConfiguration} from "../configuration/IUrlConfiguration";
+import {Injectable, Inject} from '@angular/core';
+import {FileUploader} from 'ng2-file-upload';
+import {IUrlConfiguration} from '../configuration/IUrlConfiguration';
 
 @Injectable()
 export class FileManagerUploader {

@@ -1,0 +1,6 @@
+<div class="btn-group">
+  <button *ngFor="let type of typeFilterList" class="btn btn-default" [ngClass]="{'active': type === selectedType}"
+          (click)="setFilterType(type)">
+    <i class="{{type.iconCls}}"></i>
+  </button>
+</div>

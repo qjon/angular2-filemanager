@@ -5,10 +5,9 @@ import {ToolbarEventModel} from "./models/toolbarEvent.model";
 import {IToolbarEvent} from "./interface/IToolbarEvent";
 import {ConfirmOptions, Position} from "angular2-bootstrap-confirm";
 import {Positioning} from "angular2-bootstrap-confirm/position";
-import {FormControl} from "@angular/forms";
-import {IFileTypeFilter} from "./interface/IFileTypeFilter";
 import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
 import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
+import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 
 @Component({
   selector: 'toolbar',
@@ -19,18 +18,10 @@ import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
 
 export class Toolbar implements OnChanges {
   @Input() currentFolderId: string;
-  @Input() numberOfSelectedItems: number;
 
   @Output() onAddFolderClick = new EventEmitter();
   @Output() onUpload = new EventEmitter();
-  @Output() onUploadItem = new EventEmitter();
   @Output() onMenuButtonClick = new EventEmitter();
-  @Output() onSearchChange = new EventEmitter();
-  @Output() onFilterTypeChange = new EventEmitter();
-
-  public searchField = new FormControl();
-
-  public selectedType: IFileTypeFilter = null;
 
   public selectAllButton: IButton = {
     symbol: Button.SELECT_ALL,
@@ -52,36 +43,23 @@ export class Toolbar implements OnChanges {
     }
   ];
 
-  /**
-   * List of filter types
-   * @typeObserv {IFileTypeFilter[]}
-   */
-  public typeFilterList: IFileTypeFilter[];
-
   public constructor(public configuration: FileManagerConfiguration,
-                     public fileManagerUploader: FileManagerUploader) {
+                     public fileManagerUploader: FileManagerUploader,
+                     private fileManagerDispatcher: FileManagerDispatcherService) {
 
     this.fileManagerUploader.clear();
-
-    this.typeFilterList = configuration.fileTypesFilter;
 
     this.fileManagerUploader.uploader.onCompleteAll = () => {
       this.onUpload.emit(this.currentFolderId || '');
     };
 
     this.fileManagerUploader.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
-      this.onUploadItem.emit({response: response, status: status, name: item.file.name});
-    };
-
-    this.searchField.valueChanges
-      .debounceTime(250)
-      .subscribe((value) => this.onSearchChange.emit(value));
-
-    this.typeFilterList.forEach((type) => {
-      if (type.defaultSelected) {
-        this.selectedType = type;
+      if (status === 200) {
+        this.fileManagerDispatcher.uploadSuccess(JSON.parse(response));
+      } else {
+        this.fileManagerDispatcher.uploadError(JSON.parse(response));
       }
-    });
+    };
   }
 
   public ngOnChanges() {
@@ -101,23 +79,5 @@ export class Toolbar implements OnChanges {
   public onRefreshFilesList() {
     let event: IToolbarEvent = new ToolbarEventModel(Button.REFRESH_FILES_LIST);
     this.onMenuButtonClick.emit(event);
-  }
-
-  public onDeleteSelection() {
-    let event: IToolbarEvent = new ToolbarEventModel(Button.DELETE_SELECTION);
-    this.onMenuButtonClick.emit(event);
-  }
-
-  public getRemoveMessage() {
-    return 'You are try to delete <b>' + this.numberOfSelectedItems.toString() + ' file(s)</b>. Are you sure?';
-  }
-
-  /**
-   * Set current filter and fire event
-   * @param type
-   */
-  public setFilterType(type: IFileTypeFilter) {
-    this.selectedType = type;
-    this.onFilterTypeChange.emit(type);
   }
 }
