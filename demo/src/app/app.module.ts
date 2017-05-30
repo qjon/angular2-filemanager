@@ -18,7 +18,7 @@ import {FileManagerModule} from "../../../src/filemanager.module";
     HttpModule
   ],
   providers: [
-    {provide: 'fileManagerUrls', useValue: {foldersUrl: '/api/folder', filesUrl: '/api/files'}}
+    {provide: 'fileManagerUrls', useValue: {foldersUrl: '/api/folder', filesUrl: '/api/files', folderMoveUrl: '/api/folder/move'}}
   ],
   bootstrap: [AppComponent]
 })

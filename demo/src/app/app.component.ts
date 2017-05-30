@@ -14,8 +14,4 @@ export class AppComponent {
     public toggleMultiSelection() {
         this.isMultiSelection = !this.isMultiSelection;
     }
-
-    public selectFile(data: ISelectFile) {
-        console.log(data);
-    }
 }

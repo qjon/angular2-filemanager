@@ -1,14 +1,14 @@
-import {IContextMenu} from "@rign/angular2-tree/main";
-import {Injectable, Inject} from "@angular/core";
-import {IFileTypeFilter} from "../toolbar/interface/IFileTypeFilter";
-import {ICropSize} from "../crop/ICropSize";
-import {IUrlConfiguration} from "./IUrlConfiguration";
+import {IContextMenu} from '@rign/angular2-tree/main';
+import {Injectable, Inject} from '@angular/core';
+import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
+import {ICropSize} from '../crop/ICropSize';
+import {IUrlConfiguration} from './IUrlConfiguration';
 
 @Injectable()
 export class FileManagerConfiguration {
   public contextMenuItems: IContextMenu[] = [];
 
-  public isMultiSelection: boolean = false;
+  public isMultiSelection = false;
 
   public fileTypesFilter: IFileTypeFilter[] = [
     {
@@ -44,7 +44,7 @@ export class FileManagerConfiguration {
     }
   ];
 
-  public fileUrl: string = '/api/files';
+  public fileUrl = '/api/files';
 
   public allowedCropSize: ICropSize[] = [
     {
@@ -61,7 +61,6 @@ export class FileManagerConfiguration {
 
 
   constructor(@Inject('fileManagerUrls') urls: IUrlConfiguration) {
-
     this.fileUrl = urls.filesUrl;
   }
 }

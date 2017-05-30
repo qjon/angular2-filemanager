@@ -14,7 +14,7 @@ export class FilesService {
     this.url = configuration.fileUrl;
   }
 
-  public crop(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile[]> {
+  public crop(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {
     return this.http.put(this.url, {id: file.getId(), bounds: bounds})
       .map((res: Response) => {
         let body = res.json();

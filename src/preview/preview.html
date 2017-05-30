@@ -1,0 +1,16 @@
+<div class="filemanager-preview">
+  <div class="carousel slide">
+    <div class="carousel-inner" role="listbox">
+      <div class="item" *ngFor="let file of files; let i = index;" [ngClass]="{'active': i == currentIndex}">
+        <img class="img-rounded" src="{{file.url}}" alt="{{file.name}}" style="margin: 0 auto;">
+        <div class="carousel-caption">{{file.name}}</div>
+      </div>
+    </div>
+    <a class="left carousel-control" role="button" (click)="prev()" *ngIf="currentIndex != 0">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="right carousel-control"role="button" (click)="next()" *ngIf="currentIndex + 1 < length">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+  </div>
+</div>

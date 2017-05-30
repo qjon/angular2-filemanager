@@ -5,6 +5,7 @@ export interface IFileModel {
   url: string;
   selected: boolean;
   fromJSON(data: IOuterFile): void;
+  toJSON(): IOuterFile;
   getId(): string|number;
   getMime(): string;
   getWidth(): number;
