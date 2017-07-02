@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {IFileModel} from '../filesList/interface/IFileModel';
 import {NotificationsService} from 'angular2-notifications';
 import {ICropBounds} from '../crop/ICropBounds';
+import {FileManagerApiService} from "./fileManagerApi.service";
 
 @Injectable()
 export class FileManagerEffectsService {
@@ -14,7 +15,8 @@ export class FileManagerEffectsService {
   constructor(private actions$: Actions,
               private filesService: FilesService,
               private fileManagerActions: FileManagerActionsService,
-              private notificationService: NotificationsService) {
+              private notificationService: NotificationsService,
+              private fileManagerApiService: FileManagerApiService) {
   }
 
   @Effect()
@@ -67,7 +69,7 @@ export class FileManagerEffectsService {
   }
 
   protected loadFiles(folderId: string | null): Observable<IOuterFile[]> {
-    return this.filesService.load(folderId);
+    return this.fileManagerApiService.loadFiles(folderId);
   }
 
   protected onCropFileError(file: IFileModel): void {

@@ -1,5 +1,6 @@
 export interface IOuterFile {
-  id: string|number;
+  id: string | number;
+  folderId?: string;
   name: string;
   thumbnailUrl: string;
   url: string;

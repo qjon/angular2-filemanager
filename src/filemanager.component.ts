@@ -33,6 +33,7 @@ import {FileTypeFilterService} from './services/fileTypeFilter.service';
 import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
+import {FileManagerApiService} from "./store/fileManagerApi.service";
 
 @Component({
   selector: 'ri-filemanager',
@@ -106,7 +107,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
   public constructor(private store: Store<ITreeState>,
                      private treeActions: TreeActionsService,
                      private nodeDispatcherService: NodeDispatcherService,
-                     private treeService: TreeService,
+                     private treeService: FileManagerApiService,
                      private filesService: FilesService,
                      private notifications: NotificationsService,
                      private configuration: FileManagerConfiguration,

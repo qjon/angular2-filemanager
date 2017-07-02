@@ -28,6 +28,7 @@ import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
 import {FileTypeFilterComponent} from './toolbar/fileTypeFilter/fileTypeFilter.component';
 import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
+import {FileManagerApiService} from './store/fileManagerApi.service';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
   entryComponents: [ImageCropperComponent],
   providers: [
     FileManagerActionsService,
+    FileManagerApiService,
     FileManagerConfiguration,
     FileManagerDispatcherService,
     FileManagerEffectsService,
