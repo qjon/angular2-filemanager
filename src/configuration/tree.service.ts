@@ -5,7 +5,7 @@ import {IUrlConfiguration} from './IUrlConfiguration';
 
 @Injectable()
 export class TreeService extends NodeService {
-  public constructor(http: Http, @Inject('fileManagerUrls') urls: IUrlConfiguration) {
+  public constructor(protected http: Http, @Inject('fileManagerUrls') urls: IUrlConfiguration) {
     super(http);
 
     this.apiConfig = {
