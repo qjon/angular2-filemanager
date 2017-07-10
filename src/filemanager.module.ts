@@ -29,6 +29,7 @@ import {FileManagerDispatcherService} from './store/fileManagerDispatcher.servic
 import {FileTypeFilterComponent} from './toolbar/fileTypeFilter/fileTypeFilter.component';
 import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
 import {FileManagerApiService} from './store/fileManagerApi.service';
+import {ImageDataConverter} from "./services/imageDataConverter.service";
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
     FileManagerUploader,
     FilesService,
     FileTypeFilterService,
+    ImageDataConverter,
     NotificationsService,
     SearchFilterService,
     TreeService
