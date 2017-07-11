@@ -1,5 +1,5 @@
 import {FileItem, FileUploader} from 'ng2-file-upload';
-import {IImageDataProperties, ImageDataConverter} from './imageDataConverter.service';
+import {IFileDataProperties, ImageDataConverter} from './imageDataConverter.service';
 
 export class ExtendedFileUploader extends FileUploader {
 
@@ -16,9 +16,11 @@ export class ExtendedFileUploader extends FileUploader {
 
       this.isUploading = true;
 
+      const header = this.options.headers.find((object: any) => object.name === 'folderId');
+
       this._onProgressItem(value, 50);
-      imageDataConverter.getProperties(value._file)
-        .subscribe((file: IImageDataProperties) => {
+      imageDataConverter.getProperties(value._file, header.value)
+        .subscribe((file: IFileDataProperties) => {
           this.isUploading = false;
 
           this._onProgressItem(value, 100);

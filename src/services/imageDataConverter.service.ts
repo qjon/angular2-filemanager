@@ -1,16 +1,14 @@
 import {Observable} from 'rxjs/Observable';
-import {Injectable} from "@angular/core";
 import {UUID} from 'angular2-uuid';
+import {Injectable} from '@angular/core';
 
 export interface IFileDataProperties {
   id: string;
+  folderId: string;
   name: string;
   size: number;
   data: string;
   type: string;
-}
-
-export interface IImageDataProperties extends IFileDataProperties {
   width?: number;
   height?: number;
 }
@@ -22,9 +20,10 @@ export interface IImageDimensions {
 
 @Injectable()
 export class ImageDataConverter {
-  public getProperties(file: File): Observable<IImageDataProperties> {
-    let properties: IImageDataProperties = {
+  public getProperties(file: File, folderId: string): Observable<IFileDataProperties> {
+    let properties: IFileDataProperties = {
       id: UUID.UUID(),
+      folderId: folderId,
       name: file.name,
       size: file.size,
       type: file.type,
@@ -64,7 +63,6 @@ export class ImageDataConverter {
 
     return Observable.fromEvent(reader, 'load')
       .map(() => {
-        console.log(reader);
         return reader.result;
       });
   };

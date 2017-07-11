@@ -23,6 +23,7 @@ export class FileManagerActionsService {
   static FILEMANAGER_DELETE_FILE_SUCCESS = 'FILEMANAGER_DELETE_FILE_SUCCESS';
   static FILEMANAGER_LOAD_FILES = 'FILEMANAGER_LOAD_FILES';
   static FILEMANAGER_LOAD_FILES_SUCCESS = 'FILEMANAGER_LOAD_FILES_SUCCESS';
+  static FILEMANAGER_UPLOAD_FILE = 'FILEMANAGER_UPLOAD_FILE';
   static FILEMANAGER_UPLOAD_FILE_ERROR = 'FILEMANAGER_UPLOAD_FILE_ERROR';
   static FILEMANAGER_UPLOAD_FILE_SUCCESS = 'FILEMANAGER_UPLOAD_FILE_SUCCESS';
 
@@ -78,6 +79,15 @@ export class FileManagerActionsService {
       payload: {
         folderId: folderId,
         files: files
+      }
+    }
+  }
+
+  public upload(file: IOuterFile): IFileManagerAction {
+    return {
+      type: FileManagerActionsService.FILEMANAGER_UPLOAD_FILE,
+      payload: {
+        files: [file]
       }
     }
   }

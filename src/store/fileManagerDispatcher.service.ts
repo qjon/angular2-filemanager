@@ -28,6 +28,10 @@ export class FileManagerDispatcherService {
     this.store.dispatch(this.fileManagerActions.uploadError(file));
   }
 
+  public upload(file: IOuterFile) {
+    this.store.dispatch(this.fileManagerActions.upload(file));
+  }
+
   public uploadSuccess(file: IOuterFile) {
     this.store.dispatch(this.fileManagerActions.uploadSuccess(file));
   }

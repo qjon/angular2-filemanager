@@ -4,15 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {UUID} from 'angular2-uuid';
 import {IFileManagerApi} from './IFileManagerApi';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
+import {IFileDataProperties} from '../services/imageDataConverter.service';
 
 @Injectable()
 export class FileManagerApiService implements IFileManagerApi {
   protected treeName = 'fileManagerTree';
-  protected fileManagerName= 'fileManagerFiles';
+  protected fileManagerName = 'fileManagerFiles';
 
 
   protected nodes: IOuterNode[];
-  protected files: IOuterFile[];
+  protected files: IFileDataProperties[];
 
   public load(nodeId = ''): Observable<IOuterNode[]> {
     if (!this.nodes) {
@@ -71,19 +72,29 @@ export class FileManagerApiService implements IFileManagerApi {
     } else {
       return Observable.throw('Node is not empty');
     }
-
   }
 
 
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
-
     if (!this.files) {
       this.files = this.getAllFileDataFromLocalStorage();
     }
 
     const files = this.getFilesFromFolder(nodeId);
 
-    return Observable.of(files);
+    const newFiles: IOuterFile[] = files.map((file: IFileDataProperties) => {
+      return this.convertLocalData2IOuterFile(file);
+    });
+
+    return Observable.of(newFiles);
+  }
+
+  public uploadFile(file: IOuterFile): Observable<IOuterFile> {
+    const fileData = this.convertIOuterFile2LocalData(file);
+    this.files.push(fileData);
+    this.saveFiles();
+
+    return Observable.of(this.convertLocalData2IOuterFile(fileData));
   }
 
 
@@ -97,8 +108,8 @@ export class FileManagerApiService implements IFileManagerApi {
     return this.nodes.filter((node: IOuterNode) => node.parentId === nodeId);
   }
 
-  private getFilesFromFolder(nodeId: string): IOuterFile[] {
-    return this.files.filter((file: IOuterFile) => file.folderId === nodeId);
+  private getFilesFromFolder(nodeId: string): IFileDataProperties[] {
+    return this.files.filter((file: IFileDataProperties) => file.folderId === nodeId);
   }
 
   protected getAllDataFromLocalStorage(): IOuterNode[] {
@@ -116,9 +127,9 @@ export class FileManagerApiService implements IFileManagerApi {
     }
   }
 
-  protected getAllFileDataFromLocalStorage(): IOuterFile[] {
+  protected getAllFileDataFromLocalStorage(): IFileDataProperties[] {
     try {
-      const data = localStorage.getItem(this.fileManagerName)
+      const data = localStorage.getItem(this.fileManagerName);
 
       if (data) {
         return JSON.parse(data);
@@ -136,6 +147,49 @@ export class FileManagerApiService implements IFileManagerApi {
       localStorage.setItem(this.treeName, JSON.stringify(this.nodes));
     } catch (e) {
       console.warn('State not save');
+    }
+  }
+
+  private saveFiles() {
+    try {
+      localStorage.setItem(this.fileManagerName, JSON.stringify(this.files));
+    } catch (e) {
+      console.warn('State not save');
+    }
+  }
+
+  /**
+   *
+   * @param file
+   * @returns {{id: string, folderId: string, name: string, thumbnailUrl: string, url: string, width: number, height: number, mime: string}}
+   */
+  private convertLocalData2IOuterFile(file: IFileDataProperties): IOuterFile {
+    return {
+      id: file.id,
+      folderId: file.folderId,
+      name: file.name,
+      thumbnailUrl: file.data,
+      url: file.data,
+      width: 0,
+      height: 0,
+      mime: file.type,
+      size: file.size
+    }
+  }
+
+  /**
+   *
+   * @param file
+   * @returns {{id: (any|string), folderId: string, name: string, type: string, data: string, size: number}}
+   */
+  private convertIOuterFile2LocalData(file: IOuterFile): IFileDataProperties {
+    return {
+      id: file.id.toString(),
+      folderId: file.folderId,
+      name: file.name,
+      type: file.mime,
+      data: file.data,
+      size: file.size
     }
   }
 }

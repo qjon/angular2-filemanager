@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {IFileModel} from '../filesList/interface/IFileModel';
 import {NotificationsService} from 'angular2-notifications';
 import {ICropBounds} from '../crop/ICropBounds';
-import {FileManagerApiService} from "./fileManagerApi.service";
+import {FileManagerApiService} from './fileManagerApi.service';
 
 @Injectable()
 export class FileManagerEffectsService {
@@ -50,6 +50,16 @@ export class FileManagerEffectsService {
       .catch(() => Observable.of(this.onDeleteFileError(action.payload.file)))
     );
 
+
+  @Effect()
+  public uploadFile$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_UPLOAD_FILE)
+    .switchMap((action: IFileManagerAction) => this.uploadFile(action.payload.files[0])
+      .map((result: IOuterFile): IFileManagerAction => {
+        return this.fileManagerActions.uploadSuccess(result);
+      })
+    );
+
   public uploadError$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_ERROR)
     .map((action: IFileManagerAction) => {
@@ -70,6 +80,10 @@ export class FileManagerEffectsService {
 
   protected loadFiles(folderId: string | null): Observable<IOuterFile[]> {
     return this.fileManagerApiService.loadFiles(folderId);
+  }
+
+  protected uploadFile(file: IOuterFile): Observable<IOuterFile> {
+    return this.fileManagerApiService.uploadFile(file);
   }
 
   protected onCropFileError(file: IFileModel): void {

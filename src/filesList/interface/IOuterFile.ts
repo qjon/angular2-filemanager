@@ -7,4 +7,6 @@ export interface IOuterFile {
   width: number;
   height: number;
   mime: string;
+  data?: string;
+  size?: number;
 }
