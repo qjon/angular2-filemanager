@@ -54,6 +54,7 @@ export class Toolbar implements OnChanges {
     };
 
     this.fileManagerUploader.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
+      console.log(response)
       if (status === 200) {
         this.fileManagerDispatcher.uploadSuccess(JSON.parse(response));
       } else {

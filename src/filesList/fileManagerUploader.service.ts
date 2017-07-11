@@ -8,7 +8,7 @@ export class FileManagerUploader {
 
 
   public constructor(@Inject('fileManagerUrls') urls: IUrlConfiguration) {
-    this.uploader = new ExtendedFileUploader({url: null});
+    this.uploader = new ExtendedFileUploader({url: urls.filesUrl});
   }
 
   public clear() {
@@ -25,14 +25,14 @@ export class FileManagerUploader {
     return options;
   }
 
-  public setAuthorizationToken(token:string) {
+  public setAuthorizationToken(token: string) {
     this.uploader.authToken = token;
   }
 
-  public setDirectoryId(directoryId: string|number): FileManagerUploader {
+  public setDirectoryId(directoryId: string | number): FileManagerUploader {
     let options = this.getDefaultOptions();
 
-    options['headers'] =  [{name: 'folderId', value: directoryId.toString()}];
+    options['headers'] = [{name: 'folderId', value: directoryId.toString()}];
 
     this.uploader.setOptions(options);
 

@@ -1,5 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
+import {UUID} from 'angular2-uuid';
 
 export interface IFileDataProperties {
   id: string;
@@ -23,7 +24,7 @@ export interface IImageDimensions {
 export class ImageDataConverter {
   public getProperties(file: File): Observable<IImageDataProperties> {
     let properties: IImageDataProperties = {
-      id: '12',
+      id: UUID.UUID(),
       name: file.name,
       size: file.size,
       type: file.type,

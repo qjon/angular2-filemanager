@@ -29,11 +29,13 @@ import {FileManagerDispatcherService} from './store/fileManagerDispatcher.servic
 import {FileTypeFilterComponent} from './toolbar/fileTypeFilter/fileTypeFilter.component';
 import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
 import {FileManagerApiService} from './store/fileManagerApi.service';
-import {ImageDataConverter} from "./services/imageDataConverter.service";
+import {ImageDataConverter} from './services/imageDataConverter.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ConfirmModule,
     EffectsModule.run(FileManagerEffectsService),
     FormsModule,

@@ -3,7 +3,7 @@ import {IOuterNode} from '@rign/angular2-tree';
 import {Observable} from 'rxjs/Observable';
 import {UUID} from 'angular2-uuid';
 import {IFileManagerApi} from './IFileManagerApi';
-import {IOuterFile} from "../filesList/interface/IOuterFile";
+import {IOuterFile} from '../filesList/interface/IOuterFile';
 
 @Injectable()
 export class FileManagerApiService implements IFileManagerApi {
