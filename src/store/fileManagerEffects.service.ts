@@ -70,12 +70,16 @@ export class FileManagerEffectsService {
     .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS);
 
 
+  public deleteFileSuccess$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
+
+
   protected cropFile(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {
     return this.filesService.crop(file, bounds);
   }
 
   protected deleteFile(file: IFileModel): Observable<boolean> {
-    return this.filesService.remove(file);
+    return this.fileManagerApiService.removeFile(file.toJSON());
   }
 
   protected loadFiles(folderId: string | null): Observable<IOuterFile[]> {

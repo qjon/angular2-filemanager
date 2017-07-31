@@ -89,6 +89,19 @@ export class FileManagerApiService implements IFileManagerApi {
     return Observable.of(newFiles);
   }
 
+  public removeFile(file: IOuterFile): Observable<boolean> {
+    const index = this.findIndexByFileId(file.id.toString());
+
+    if (index === -1) {
+      return Observable.of(false);
+    }
+
+    this.files.splice(index, 1);
+    this.saveFiles();
+
+    return Observable.of(true);
+  }
+
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
     const fileData = this.convertIOuterFile2LocalData(file);
     this.files.push(fileData);
@@ -102,6 +115,10 @@ export class FileManagerApiService implements IFileManagerApi {
     return this.nodes.findIndex((node) => {
       return node.id === nodeId;
     });
+  }
+
+  private findIndexByFileId(fileId: string): number {
+    return this.files.findIndex((file) => file.id === fileId);
   }
 
   private getChildren(nodeId: string): IOuterNode[] {
@@ -170,9 +187,9 @@ export class FileManagerApiService implements IFileManagerApi {
       name: file.name,
       thumbnailUrl: file.data,
       url: file.data,
-      width: 0,
-      height: 0,
-      mime: file.type,
+      width: file.width,
+      height: file.height,
+      type: file.type,
       size: file.size
     }
   }
@@ -187,9 +204,11 @@ export class FileManagerApiService implements IFileManagerApi {
       id: file.id.toString(),
       folderId: file.folderId,
       name: file.name,
-      type: file.mime,
+      type: file.type,
       data: file.data,
-      size: file.size
+      size: file.size,
+      width: file.width,
+      height: file.height
     }
   }
 }

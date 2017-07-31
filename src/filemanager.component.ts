@@ -89,11 +89,11 @@ export class FileManagerComponent implements OnInit, OnChanges {
   public isCropMode: boolean = false;
 
   public notificationOptions = {
-    position: ["bottom", "right"],
+    position: ['bottom', 'right'],
     timeOut: 3000,
     lastOnBottom: false,
     preventDuplicates: true,
-    rtl: true,
+    rtl: false,
     showProgressBar: true,
     pauseOnHover: true
   };

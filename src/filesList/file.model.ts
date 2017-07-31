@@ -56,7 +56,7 @@ export class FileModel implements IFileModel {
   }
 
   public getMime() {
-    return this._orgData.mime;
+    return this._orgData.type;
   }
 
   public getWidth(): number {
