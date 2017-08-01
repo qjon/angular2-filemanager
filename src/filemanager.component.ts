@@ -90,7 +90,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
 
   public notificationOptions = {
     position: ['bottom', 'right'],
-    timeOut: 3000,
+    timeOut: 0,
     lastOnBottom: false,
     preventDuplicates: true,
     rtl: false,
@@ -222,11 +222,11 @@ export class FileManagerComponent implements OnInit, OnChanges {
     this.isCropMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
-
-  @log
-  public onCropFile(event: any) {
-    this.fileManagerDispatcher.cropFile(event.file, event.bounds);
-  }
+  //
+  // @log
+  // public onCropFile(event: any) {
+  //   this.fileManagerDispatcher.cropFile(event.file, event.bounds);
+  // }
 
   @log
   public onSelectFile(event: FileModel) {

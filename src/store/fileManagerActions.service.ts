@@ -19,6 +19,7 @@ export interface IFileManagerAction extends Action {
 export class FileManagerActionsService {
   static FILEMANAGER_CROP_FILE = 'FILEMANAGER_CROP_FILE';
   static FILEMANAGER_CROP_FILE_SUCCESS = 'FILEMANAGER_CROP_FILE_SUCCESS';
+  static FILEMANAGER_CROP_FILE_ERROR = 'FILEMANAGER_CROP_FILE_ERROR';
   static FILEMANAGER_DELETE_FILE = 'FILEMANAGER_DELETE_FILE';
   static FILEMANAGER_DELETE_FILE_SUCCESS = 'FILEMANAGER_DELETE_FILE_SUCCESS';
   static FILEMANAGER_LOAD_FILES = 'FILEMANAGER_LOAD_FILES';
@@ -40,6 +41,15 @@ export class FileManagerActionsService {
   public cropFileSuccess(file: IFileModel): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS,
+      payload: {
+        file: file
+      }
+    }
+  }
+
+  public cropFileError(file: IFileModel): IFileManagerAction {
+    return {
+      type: FileManagerActionsService.FILEMANAGER_CROP_FILE_ERROR,
       payload: {
         file: file
       }

@@ -37,7 +37,7 @@ export class FileManagerEffectsService {
         this.notificationService.success('Crop Image', 'Image has been cropped');
         return this.fileManagerActions.cropFileSuccess(action.payload.file);
       })
-      .catch(() => Observable.of(this.onCropFileError(action.payload.file)))
+      .catch(() => Observable.of(this.fileManagerActions.cropFileError(action.payload.file)))
     );
 
   @Effect()
@@ -70,12 +70,18 @@ export class FileManagerEffectsService {
     .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS);
 
 
+  public cropFileError$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_ERROR)
+    .subscribe((action: IFileManagerAction) => {
+      this.onCropFileError(action.payload.file);
+    });
+
   public deleteFileSuccess$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
 
 
   protected cropFile(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {
-    return this.filesService.crop(file, bounds);
+    return this.fileManagerApiService.cropFile(file.toJSON(), bounds);
   }
 
   protected deleteFile(file: IFileModel): Observable<boolean> {
@@ -92,7 +98,7 @@ export class FileManagerEffectsService {
 
   protected onCropFileError(file: IFileModel): void {
     console.warn('[FILEMANAGER] Can not crop file' + file.name);
-    this.notificationService.error('Crop Image', 'Image has not been cropped');
+    this.notificationService.alert('Crop Image', 'Image has not been cropped');
   }
 
   protected onDeleteFileError(file: IFileModel): void {

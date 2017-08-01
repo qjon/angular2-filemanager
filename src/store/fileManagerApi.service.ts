@@ -5,6 +5,7 @@ import {UUID} from 'angular2-uuid';
 import {IFileManagerApi} from './IFileManagerApi';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileDataProperties} from '../services/imageDataConverter.service';
+import {ICropBounds} from "../crop/ICropBounds";
 
 @Injectable()
 export class FileManagerApiService implements IFileManagerApi {
@@ -74,7 +75,23 @@ export class FileManagerApiService implements IFileManagerApi {
     }
   }
 
+  /**
+   * Crop file
+   *
+   * @param {IOuterFile} file
+   * @param {ICropBounds} bounds
+   * @returns {Observable<IOuterFile>}
+   */
+  public cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile> {
+    return Observable.throw('This functionality is not available with LocalStorage');
+  }
 
+  /**
+   * Load files from directory
+   *
+   * @param {string} nodeId
+   * @returns {Observable<IOuterFile[]>}
+   */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
     if (!this.files) {
       this.files = this.getAllFileDataFromLocalStorage();
