@@ -1,14 +1,14 @@
 import {Injectable, Inject} from '@angular/core';
-import {IUrlConfiguration} from '../configuration/IUrlConfiguration';
 import {ExtendedFileUploader} from '../services/extendedFileUplaoder.service';
+import {IFileManagerConfiguration} from '../configuration/IFileManagerConfiguration';
 
 @Injectable()
 export class FileManagerUploader {
   public uploader: ExtendedFileUploader;
 
 
-  public constructor(@Inject('fileManagerUrls') urls: IUrlConfiguration) {
-    this.uploader = new ExtendedFileUploader({url: urls.filesUrl});
+  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration) {
+    this.uploader = new ExtendedFileUploader({url: configuration.urls.filesUrl});
   }
 
   public clear() {

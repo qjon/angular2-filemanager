@@ -3,12 +3,25 @@ import {Injectable, Inject} from '@angular/core';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {ICropSize} from '../crop/ICropSize';
 import {IUrlConfiguration} from './IUrlConfiguration';
+import {IFileManagerConfiguration} from './IFileManagerConfiguration';
 
 @Injectable()
 export class FileManagerConfiguration {
-  public contextMenuItems: IContextMenu[] = [];
 
-  public isMultiSelection = false;
+  public allowedCropSize: ICropSize[] = [
+    {
+      name: 'Landscape',
+      width: 300,
+      height: 100
+    },
+    {
+      name: 'Portrait',
+      width: 200,
+      height: 300
+    }
+  ];
+
+  public contextMenuItems: IContextMenu[] = [];
 
   public fileTypesFilter: IFileTypeFilter[] = [
     {
@@ -46,21 +59,16 @@ export class FileManagerConfiguration {
 
   public fileUrl = '/api/files';
 
-  public allowedCropSize: ICropSize[] = [
-    {
-      name: 'Landscape',
-      width: 300,
-      height: 100
-    },
-    {
-      name: 'Portrait',
-      width: 200,
-      height: 300
-    }
-  ];
+  public isMultiSelection: boolean;
 
+  public maxFileSize: number;
 
-  constructor(@Inject('fileManagerUrls') urls: IUrlConfiguration) {
-    this.fileUrl = urls.filesUrl;
+  public mimeTypes: string[] | null;
+
+  constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration) {
+    this.fileUrl = configuration.urls.filesUrl;
+    this.isMultiSelection = configuration.isMultiSelection || false;
+    this.maxFileSize = configuration.maxFileSize || 0;
+    this.mimeTypes = configuration.mimeTypes || null;
   }
 }

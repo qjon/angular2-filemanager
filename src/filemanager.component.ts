@@ -35,6 +35,7 @@ import {FileManagerDispatcherService} from './store/fileManagerDispatcher.servic
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
+import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @Component({
   selector: 'ri-filemanager',

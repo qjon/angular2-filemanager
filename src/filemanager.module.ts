@@ -1,4 +1,4 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Inject} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -32,6 +32,7 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
 import {ImageDataConverter} from './services/imageDataConverter.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
+import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @NgModule({
   imports: [
@@ -79,5 +80,11 @@ import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FileManagerModule {
+  constructor(@Inject('fileManagerConfiguration') private configuration: IFileManagerConfiguration) {
+    console.log(configuration);
+  }
 
+  private initDefaultConfiguration () {
+    this.configuration.isMultiSelection = this.configuration.isMultiSelection || false;
+  }
 }
