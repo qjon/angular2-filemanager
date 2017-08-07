@@ -31,6 +31,7 @@ import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {ImageDataConverter} from './services/imageDataConverter.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FileManagerConfiguration,
     FileManagerDispatcherService,
     FileManagerEffectsService,
+    FilemanagerNotifcations,
     FileManagerUploader,
     FilesService,
     FileTypeFilterService,

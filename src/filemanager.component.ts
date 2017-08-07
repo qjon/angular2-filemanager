@@ -33,7 +33,8 @@ import {FileTypeFilterService} from './services/fileTypeFilter.service';
 import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
-import {FileManagerApiService} from "./store/fileManagerApi.service";
+import {FileManagerApiService} from './store/fileManagerApi.service';
+import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 
 @Component({
   selector: 'ri-filemanager',
@@ -42,7 +43,7 @@ import {FileManagerApiService} from "./store/fileManagerApi.service";
   templateUrl: './filemanager.html'
 })
 export class FileManagerComponent implements OnInit, OnChanges {
-  @Input() multiSelection: boolean = false;
+  @Input() multiSelection = false;
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
@@ -90,7 +91,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
 
   public notificationOptions = {
     position: ['bottom', 'right'],
-    timeOut: 0,
+    timeOut: 3000,
     lastOnBottom: false,
     preventDuplicates: true,
     rtl: false,
@@ -114,9 +115,17 @@ export class FileManagerComponent implements OnInit, OnChanges {
                      private fileManagerDispatcher: FileManagerDispatcherService,
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService,
-                     private fileManagerEffects: FileManagerEffectsService) {
+                     private fileManagerEffects: FileManagerEffectsService,
+                     private filemanagerNotifcations: FilemanagerNotifcations) {
 
     this.menu = configuration.contextMenuItems;
+
+    this.filemanagerNotifcations.getNotificationStream()
+      .subscribe((notification: INotification) => {
+        const {type, title, message} = notification;
+
+        this.notifications[type](title, message);
+      })
   }
 
   ngOnInit() {
@@ -222,11 +231,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
     this.isCropMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
-  //
-  // @log
-  // public onCropFile(event: any) {
-  //   this.fileManagerDispatcher.cropFile(event.file, event.bounds);
-  // }
 
   @log
   public onSelectFile(event: FileModel) {

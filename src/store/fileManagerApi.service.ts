@@ -5,7 +5,8 @@ import {UUID} from 'angular2-uuid';
 import {IFileManagerApi} from './IFileManagerApi';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileDataProperties} from '../services/imageDataConverter.service';
-import {ICropBounds} from "../crop/ICropBounds";
+import {ICropBounds} from '../crop/ICropBounds';
+import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 
 @Injectable()
 export class FileManagerApiService implements IFileManagerApi {
@@ -15,6 +16,12 @@ export class FileManagerApiService implements IFileManagerApi {
 
   protected nodes: IOuterNode[];
   protected files: IFileDataProperties[];
+
+
+  public constructor(private filemanagerNotfication: FilemanagerNotifcations) {
+
+  }
+
 
   public load(nodeId = ''): Observable<IOuterNode[]> {
     if (!this.nodes) {
@@ -195,7 +202,11 @@ export class FileManagerApiService implements IFileManagerApi {
 
       return true;
     } catch (e) {
-      console.warn('State not save. Reload previous state.');
+      this.filemanagerNotfication.sendNotification({
+        type: 'error',
+        title: 'State is not saved.',
+        message: 'Reload previous state.'
+      });
 
       this.files = null;
       this.nodes = null;
@@ -212,7 +223,12 @@ export class FileManagerApiService implements IFileManagerApi {
 
       return true;
     } catch (e) {
-      console.warn('State not save. Reload previous data.');
+      this.filemanagerNotfication.sendNotification({
+        type: 'error',
+        title: 'State is not saved.',
+        message: 'Reload previous state.'
+      });
+
       const nodeId = this.files[(this.files.length - 1)].folderId || null;
 
       this.files = null;
