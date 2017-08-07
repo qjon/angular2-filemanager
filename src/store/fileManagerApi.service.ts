@@ -32,9 +32,12 @@ export class FileManagerApiService implements IFileManagerApi {
 
     this.nodes.push(node);
 
-    this.saveNodes();
+    if (this.saveNodes()) {
+      return Observable.of(node);
+    } else {
+      return Observable.empty();
+    }
 
-    return Observable.of(node);
   }
 
   public move(srcNode: IOuterNode, targetNode: IOuterNode | null): Observable<IOuterNode> {
@@ -44,18 +47,25 @@ export class FileManagerApiService implements IFileManagerApi {
     const index = this.findIndexByNodeId(srcId);
 
     this.nodes[index].parentId = targetId;
-    this.saveNodes();
 
-    return Observable.of(this.nodes[index]);
+    if (this.saveNodes()) {
+      return Observable.of(this.nodes[index]);
+    } else {
+      return Observable.empty();
+    }
+
   }
 
   public update(node: IOuterNode): Observable<IOuterNode> {
     const index = this.findIndexByNodeId(node.id);
 
     this.nodes[index] = node;
-    this.saveNodes();
 
-    return Observable.of(node);
+    if (this.saveNodes()) {
+      return Observable.of(node);
+    } else {
+      return Observable.empty();
+    }
   }
 
   public remove(nodeId: string): Observable<IOuterNode> {
@@ -122,9 +132,12 @@ export class FileManagerApiService implements IFileManagerApi {
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
     const fileData = this.convertIOuterFile2LocalData(file);
     this.files.push(fileData);
-    this.saveFiles();
 
-    return Observable.of(this.convertLocalData2IOuterFile(fileData));
+    if (this.saveFiles()) {
+      return Observable.of(this.convertLocalData2IOuterFile(fileData));
+    } else {
+      return Observable.throw('Upload error');
+    }
   }
 
 
@@ -179,16 +192,34 @@ export class FileManagerApiService implements IFileManagerApi {
   private saveNodes() {
     try {
       localStorage.setItem(this.treeName, JSON.stringify(this.nodes));
+
+      return true;
     } catch (e) {
-      console.warn('State not save');
+      console.warn('State not save. Reload previous state.');
+
+      this.files = null;
+      this.nodes = null;
+
+      this.load();
+
+      return false;
     }
   }
 
-  private saveFiles() {
+  private saveFiles(): boolean {
     try {
       localStorage.setItem(this.fileManagerName, JSON.stringify(this.files));
+
+      return true;
     } catch (e) {
-      console.warn('State not save');
+      console.warn('State not save. Reload previous data.');
+      const nodeId = this.files[(this.files.length - 1)].folderId || null;
+
+      this.files = null;
+
+      this.load(nodeId);
+
+      return false;
     }
   }
 

@@ -58,6 +58,9 @@ export class FileManagerEffectsService {
       .map((result: IOuterFile): IFileManagerAction => {
         return this.fileManagerActions.uploadSuccess(result);
       })
+      .catch(() => {
+        return Observable.empty()
+      })
     );
 
   public uploadError$ = this.actions$
