@@ -65,13 +65,25 @@ In your project put this line
 
 To override endpoints to manage files and directories provide special provider in you module
 
+
+    const fileManagerConfiguration: IFileManagerConfiguration = {
+      urls: {
+        foldersUrl: '/api/folder',
+        filesUrl: null,
+        folderMoveUrl: '/api/folder/move'
+      },
+      isMultiSelection: true,   //allow multiselect (default: false)
+      mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'], // allow upload only selected mime types (default: [] - all types)
+      maxFileSize: 50 * 1024 // max size (KB) of the file (default: 0 - no limits)
+    }
+
     @NgModule({
         ...
         providers: [
             ...
             {
-                provide: 'fileManagerUrls',
-                useValue: {foldersUrl: '/api/filemanager/folder', filesUrl: '/api/filemanager/file'}
+              provide: 'fileManagerConfiguration', 
+              useValue: fileManagerConfiguration
             }
         ]
         ...

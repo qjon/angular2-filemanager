@@ -1,14 +1,21 @@
 import {Injectable, Inject} from '@angular/core';
 import {ExtendedFileUploader} from '../services/extendedFileUplaoder.service';
 import {IFileManagerConfiguration} from '../configuration/IFileManagerConfiguration';
+import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
+import {FileUploaderOptions} from 'ng2-file-upload';
 
 @Injectable()
 export class FileManagerUploader {
   public uploader: ExtendedFileUploader;
 
+  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration, filemanagerNotification: FilemanagerNotifcations) {
+    const options: FileUploaderOptions = {
+      allowedMimeType: configuration.mimeTypes,
+      url: configuration.urls.filesUrl,
+      maxFileSize: configuration.maxFileSize
+    };
 
-  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration) {
-    this.uploader = new ExtendedFileUploader({url: configuration.urls.filesUrl});
+    this.uploader = new ExtendedFileUploader(options, filemanagerNotification);
   }
 
   public clear() {

@@ -2,7 +2,6 @@ import {IContextMenu} from '@rign/angular2-tree';
 import {Injectable, Inject} from '@angular/core';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {ICropSize} from '../crop/ICropSize';
-import {IUrlConfiguration} from './IUrlConfiguration';
 import {IFileManagerConfiguration} from './IFileManagerConfiguration';
 
 @Injectable()

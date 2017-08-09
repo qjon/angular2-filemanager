@@ -13,9 +13,9 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     filesUrl: null,
     folderMoveUrl: '/api/folder/move'
   },
-  // isMultiSelection: true,
-  mimeTypes: ['images/jpg', 'images/jpeg', 'images/png'],
-  maxFileSize: 50 * 1024 * 1024
+  isMultiSelection: true,
+  mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
+  maxFileSize: 50 * 1024
 }
 
 @NgModule({

@@ -80,11 +80,4 @@ import {IFileManagerConfiguration} from './configuration/IFileManagerConfigurati
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FileManagerModule {
-  constructor(@Inject('fileManagerConfiguration') private configuration: IFileManagerConfiguration) {
-    console.log(configuration);
-  }
-
-  private initDefaultConfiguration () {
-    this.configuration.isMultiSelection = this.configuration.isMultiSelection || false;
-  }
 }

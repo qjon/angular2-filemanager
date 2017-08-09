@@ -8,6 +8,7 @@ import {Positioning} from "angular2-bootstrap-confirm/position";
 import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
 import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
+import {FileItem} from 'ng2-file-upload';
 
 @Component({
   selector: 'toolbar',
