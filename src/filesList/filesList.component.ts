@@ -66,7 +66,7 @@ export class FilesListComponent {
     this.files.map((file) => file.selected = !file.selected);
   }
 
-  public openPreview(file: FileModel) {
+  public openPreview(file: FileModel): void {
     let fileEvent: IFileEvent = {
       eventName: 'onPreviewFile',
       file: file
@@ -74,7 +74,7 @@ export class FilesListComponent {
     this.onPreviewFile.emit(fileEvent);
   }
 
-  public openCrop(file: FileModel) {
+  public openCrop(file: FileModel): void {
     let fileEvent: IFileEvent = {
       eventName: 'onCropFile',
       file: file
@@ -82,7 +82,11 @@ export class FilesListComponent {
     this.onCropFile.emit(fileEvent);
   }
 
-  public clickImage(file: FileModel) {
-    this.onSelectFile.next(file);
+  public toggleSelection(file: IFileModel): void {
+    if (file.selected) {
+      this.fileManagerDispatcher.unSelectFile(file);
+    } else {
+      this.fileManagerDispatcher.selectFile(file);
+    }
   }
 }

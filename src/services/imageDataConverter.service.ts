@@ -11,6 +11,7 @@ export interface IFileDataProperties {
   type: string;
   width?: number;
   height?: number;
+  selected?: boolean;
 }
 
 export interface IImageDimensions {

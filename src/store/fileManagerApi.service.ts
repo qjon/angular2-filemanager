@@ -10,6 +10,7 @@ import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 
 @Injectable()
 export class FileManagerApiService implements IFileManagerApi {
+
   protected treeName = 'fileManagerTree';
   protected fileManagerName = 'fileManagerFiles';
 
@@ -17,9 +18,7 @@ export class FileManagerApiService implements IFileManagerApi {
   protected nodes: IOuterNode[];
   protected files: IFileDataProperties[];
 
-
   public constructor(private filemanagerNotfication: FilemanagerNotifcations) {
-
   }
 
 

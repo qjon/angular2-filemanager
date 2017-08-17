@@ -9,4 +9,5 @@ export interface IOuterFile {
   type: string;
   data?: string;
   size?: number;
+  selected?: boolean;
 }

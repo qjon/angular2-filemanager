@@ -253,13 +253,13 @@ export class FileManagerComponent implements OnInit, OnChanges {
         // });
         break;
       case Button.SELECT_ALL:
-        this.filesList.allFilesSelection(true);
+        this.fileManagerDispatcher.selectAllFiles();
         break;
       case Button.UNSELECT_ALL:
-        this.filesList.allFilesSelection(false);
+        this.fileManagerDispatcher.unSelectAllFiles();
         break;
       case Button.INVERSE_SELECTION:
-        this.filesList.selectInversion();
+        this.fileManagerDispatcher.inverseSelection();
         break;
       case Button.REFRESH_FILES_LIST:
         this.reloadFiles();

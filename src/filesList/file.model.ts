@@ -37,6 +37,7 @@ export class FileModel implements IFileModel {
     this._orgData = data;
 
     this.name = data.name;
+    this.selected = data.selected || false;
   }
 
   public toJSON() {

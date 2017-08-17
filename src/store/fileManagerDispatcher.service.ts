@@ -20,8 +20,32 @@ export class FileManagerDispatcherService {
     this.store.dispatch(this.fileManagerActions.deleteFile(file));
   }
 
+  public deleteSelectedFiles(): void {
+    this.store.dispatch(this.fileManagerActions.deleteSelectedFiles());
+  }
+
+  public inverseSelection(): void {
+    this.store.dispatch(this.fileManagerActions.inverseFileSelection());
+  }
+
   public loadFiles(folderId: string | null): void {
     this.store.dispatch(this.fileManagerActions.loadFiles(folderId));
+  }
+
+  public selectAllFiles(): void {
+    this.store.dispatch(this.fileManagerActions.selectAllFiles());
+  }
+
+  public selectFile(file: IFileModel): void {
+    this.store.dispatch(this.fileManagerActions.selectFile(file));
+  }
+
+  public unSelectAllFiles(): void {
+    this.store.dispatch(this.fileManagerActions.unSelectAll());
+  }
+
+  public unSelectFile(file: IFileModel): void {
+    this.store.dispatch(this.fileManagerActions.unSelectFile(file));
   }
 
   public uploadError(file: IOuterFile) {
