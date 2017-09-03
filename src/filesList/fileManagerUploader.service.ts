@@ -8,7 +8,8 @@ import {FileUploaderOptions} from 'ng2-file-upload';
 export class FileManagerUploader {
   public uploader: ExtendedFileUploader;
 
-  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration, filemanagerNotification: FilemanagerNotifcations) {
+  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration,
+                     filemanagerNotification: FilemanagerNotifcations) {
     const options: FileUploaderOptions = {
       allowedMimeType: configuration.mimeTypes,
       url: configuration.urls.filesUrl,

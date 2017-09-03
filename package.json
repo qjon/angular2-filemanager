@@ -5,7 +5,9 @@
   "angular-cli": {},
   "scripts": {
     "backend": "node demo/backend/index.js",
-    "start": "ng serve --proxy-config demo/proxy.config.example.json"
+    "start": "ng serve  --app withoutBackend",
+    "startWithBackend": "ng serve --proxy-config demo/proxy.config.example.json --app withBackend "
+
   },
   "repository": {
     "type": "git",

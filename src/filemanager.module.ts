@@ -20,7 +20,6 @@ import {EffectsModule} from '@ngrx/effects';
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {StoreModule} from '@ngrx/store';
 import {fileManagerReducer} from './store/fileManagerReducer';
-import {FilesService} from './filesList/files.service';
 import {FileManagerActionsService} from './store/fileManagerActions.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {FileTypeFilterService} from './services/fileTypeFilter.service';
@@ -32,7 +31,6 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
 import {ImageDataConverter} from './services/imageDataConverter.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
-import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @NgModule({
   imports: [
@@ -69,7 +67,6 @@ import {IFileManagerConfiguration} from './configuration/IFileManagerConfigurati
     FileManagerEffectsService,
     FilemanagerNotifcations,
     FileManagerUploader,
-    FilesService,
     FileTypeFilterService,
     ImageDataConverter,
     NotificationsService,

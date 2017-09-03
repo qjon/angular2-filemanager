@@ -13,7 +13,6 @@ import {
   TreeActionsService,
   NodeDispatcherService
 } from '@rign/angular2-tree';
-import {FilesService} from './filesList/files.service';
 import {IOuterFile} from './filesList/interface/IOuterFile';
 import {FileModel} from './filesList/file.model';
 import {log} from './decorators/logFunction.decorator';
@@ -25,7 +24,6 @@ import {IToolbarEvent} from './toolbar/interface/IToolbarEvent';
 import {IFileModel} from './filesList/interface/IFileModel';
 import {FileManagerConfiguration} from './configuration/fileManagerConfiguration.service';
 import {IFileTypeFilter} from './toolbar/interface/IFileTypeFilter';
-import {TreeService} from './configuration/tree.service';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import {IFileManagerState} from './store/fileManagerReducer';
@@ -35,11 +33,10 @@ import {FileManagerDispatcherService} from './store/fileManagerDispatcher.servic
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
-import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @Component({
   selector: 'ri-filemanager',
-  providers: [NodeService, FilesService, NotificationsService],
+  providers: [NodeService, NotificationsService],
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
@@ -110,7 +107,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
                      private treeActions: TreeActionsService,
                      private nodeDispatcherService: NodeDispatcherService,
                      private treeService: FileManagerApiService,
-                     private filesService: FilesService,
                      private notifications: NotificationsService,
                      private configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService,

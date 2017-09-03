@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {FilesService} from '../filesList/files.service';
 import {FileManagerActionsService, IFileManagerAction} from './fileManagerActions.service';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {Observable} from 'rxjs/Observable';
@@ -13,7 +12,6 @@ import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 export class FileManagerEffectsService {
 
   constructor(private actions$: Actions,
-              private filesService: FilesService,
               private fileManagerActions: FileManagerActionsService,
               private filemanagerNotfication: FilemanagerNotifcations,
               private fileManagerApiService: FileManagerApiService) {

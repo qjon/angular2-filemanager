@@ -3,7 +3,7 @@ import {UUID} from 'angular2-uuid';
 import {Injectable} from '@angular/core';
 
 export interface IFileDataProperties {
-  id: string;
+  id: string | number;
   folderId: string;
   name: string;
   size: number;

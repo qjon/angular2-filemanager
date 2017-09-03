@@ -3,10 +3,10 @@ import {FileManagerConfiguration} from '../../../src/configuration/fileManagerCo
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  templateUrl: './appWithBackend.component.html',
+  styleUrls: ['./appWithBackend.component.less']
 })
-export class AppComponent {
+export class AppWithBackendComponent {
   public constructor(public fileManagerConfiguration: FileManagerConfiguration) {
 
   }
