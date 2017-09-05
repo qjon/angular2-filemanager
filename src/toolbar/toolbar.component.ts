@@ -1,23 +1,19 @@
-import {Component, EventEmitter, Output, Input, OnChanges} from "@angular/core";
-import {IButton} from "../dropdown/IButton";
-import {Button} from "./models/button.model";
-import {ToolbarEventModel} from "./models/toolbarEvent.model";
-import {IToolbarEvent} from "./interface/IToolbarEvent";
-import {ConfirmOptions, Position} from "angular2-bootstrap-confirm";
-import {Positioning} from "angular2-bootstrap-confirm/position";
-import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
-import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
+import {Component, EventEmitter, Output, Input, OnChanges} from '@angular/core';
+import {IButton} from '../dropdown/IButton';
+import {Button} from './models/button.model';
+import {ToolbarEventModel} from './models/toolbarEvent.model';
+import {IToolbarEvent} from './interface/IToolbarEvent';
+import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {FileManagerUploader} from '../filesList/fileManagerUploader.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
-import {FileItem} from 'ng2-file-upload';
 
 @Component({
   selector: 'toolbar',
   styleUrls: ['./toolbar.less'],
-  providers: [ConfirmOptions, {provide: Position, useClass: Positioning}],
   templateUrl: './toolbar.html'
 })
 
-export class Toolbar implements OnChanges {
+export class ToolbarComponent implements OnChanges {
   @Input() currentFolderId: string;
 
   @Output() onAddFolderClick = new EventEmitter();

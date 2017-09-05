@@ -1,6 +1,7 @@
-import {FileItem, FileLikeObject, FileUploader, FileUploaderOptions} from 'ng2-file-upload';
+import {FileItem, FileUploader, FileUploaderOptions} from 'ng2-file-upload';
 import {IFileDataProperties, ImageDataConverter} from './imageDataConverter.service';
 import {FilemanagerNotifcations, INotification} from './FilemanagerNotifcations';
+import {FileLikeObject} from 'ng2-file-upload/file-upload/file-like-object.class';
 
 export class ExtendedFileUploader extends FileUploader {
 

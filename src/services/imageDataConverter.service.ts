@@ -21,6 +21,11 @@ export interface IImageDimensions {
 
 @Injectable()
 export class ImageDataConverter {
+  /**
+   * @param {File} file
+   * @param {string} folderId
+   * @returns {Observable<IFileDataProperties>}
+   */
   public getProperties(file: File, folderId: string): Observable<IFileDataProperties> {
     let properties: IFileDataProperties = {
       id: UUID.UUID(),

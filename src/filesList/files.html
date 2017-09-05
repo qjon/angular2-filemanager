@@ -8,7 +8,7 @@
          [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
     <span class="file-name">{{file.name}}</span>
     <div class="file-menu">
-      <button mwlConfirm [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
+      <button mwlConfirmationPopover [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
               [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
               class="btn btn-danger btn-icon">
         <i class="fa fa-trash"></i>

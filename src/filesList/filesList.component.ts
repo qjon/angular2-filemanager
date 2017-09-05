@@ -2,8 +2,6 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FileModel} from './file.model';
 import {IFileEvent} from './interface/IFileEvent';
 import {IFileModel} from './interface/IFileModel';
-import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
-import {Positioning} from 'angular2-bootstrap-confirm/position';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
 import {IFileManagerAction} from '../store/fileManagerActions.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
@@ -13,7 +11,6 @@ import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
 @Component({
   selector: 'ri-files-list',
   templateUrl: './files.html',
-  providers: [ConfirmOptions, {provide: Position, useClass: Positioning}],
   styleUrls: ['./files-list.less']
 })
 

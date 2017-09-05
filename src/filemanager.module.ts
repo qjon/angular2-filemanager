@@ -2,11 +2,10 @@ import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Inject} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TreeModule, treeReducer, TreeEffectsService} from '@rign/angular2-tree';
+import {TreeModule, treeReducer} from '@rign/angular2-tree';
 import {NotificationsService, SimpleNotificationsModule} from 'angular2-notifications';
-import {ConfirmModule} from 'angular2-bootstrap-confirm';
 import {FileManagerComponent} from './filemanager.component';
-import {Toolbar} from './toolbar/toolbar.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
 import {FilesListComponent} from './filesList/filesList.component';
 import {ImageCropperComponent} from 'ng2-img-cropper';
 import {CropComponent} from './crop/crop.component';
@@ -31,12 +30,13 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
 import {ImageDataConverter} from './services/imageDataConverter.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ConfirmModule,
+    ConfirmationPopoverModule.forRoot(),
     EffectsModule.run(FileManagerEffectsService),
     FormsModule,
     FileUploadModule,
@@ -50,7 +50,7 @@ import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
   declarations: [
     FileManagerComponent,
     FileTypeFilterComponent,
-    Toolbar,
+    ToolbarComponent,
     FilesListComponent,
     DropdownComponent,
     PreviewComponent,
