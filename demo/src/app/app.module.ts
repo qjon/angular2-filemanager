@@ -4,8 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {FileManagerModule} from '../../../main';
-import {IFileManagerConfiguration} from '../../../src/configuration/IFileManagerConfiguration';
+import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -16,7 +15,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   isMultiSelection: true,
   mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
   maxFileSize: 50 * 1024
-}
+};
 
 @NgModule({
   declarations: [

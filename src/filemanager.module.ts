@@ -31,6 +31,7 @@ import {ImageDataConverter} from './services/imageDataConverter.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
 import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import {FileManagerBackendApiService} from './store/fileManagerBackendApi.service';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
   providers: [
     FileManagerActionsService,
     FileManagerApiService,
+    FileManagerBackendApiService,
     FileManagerConfiguration,
     FileManagerDispatcherService,
     FileManagerEffectsService,

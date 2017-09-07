@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {IOuterNode} from '@rign/angular2-tree';
 import {Observable} from 'rxjs/Observable';
-import {ICropBounds, IFileManagerApi, IOuterFile, IFileDataProperties} from '../../../main';
+import {ICropBounds, IFileManagerApi, IOuterFile, IFileDataProperties} from '../../main';
 import {Http, Response, URLSearchParams} from '@angular/http';
-import {FileManagerConfiguration} from '../../../src/configuration/fileManagerConfiguration.service';
+import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
 
 @Injectable()
 export class FileManagerBackendApiService implements IFileManagerApi {

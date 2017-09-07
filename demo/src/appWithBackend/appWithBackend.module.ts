@@ -4,9 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppWithBackendComponent} from './appWithBackend.component';
-import {FileManagerModule, FileManagerApiService} from '../../../main';
-import {IFileManagerConfiguration} from '../../../src/configuration/IFileManagerConfiguration';
-import {FileManagerBackendApiService} from './fileManagerBackendApi.service';
+import {FileManagerModule, FileManagerApiService, IFileManagerConfiguration, FileManagerBackendApiService} from '../../../main';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -17,7 +15,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   isMultiSelection: true,
   mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
   maxFileSize: 50 * 1024
-}
+};
 
 @NgModule({
   declarations: [
@@ -30,7 +28,6 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     HttpModule
   ],
   providers: [
-    FileManagerBackendApiService,
     {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration},
     {provide: FileManagerApiService, useClass: FileManagerBackendApiService}
   ],
