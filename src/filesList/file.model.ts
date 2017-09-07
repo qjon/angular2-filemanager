@@ -1,17 +1,17 @@
-import {IOuterFile} from "./interface/IOuterFile";
-import {IFileModel} from "./interface/IFileModel";
-import {ISelectFile} from "./interface/ISelectFile";
+import {IOuterFile} from './interface/IOuterFile';
+import {IFileModel} from './interface/IFileModel';
+import {ISelectFile} from './interface/ISelectFile';
 
 export class FileModel implements IFileModel {
-  static smallIconsFolder: string = '/icons/128px/';
-  static bigIconsFolder: string = '/icons/512px/';
+  static smallIconsFolder = '/icons/128px/';
+  static bigIconsFolder = '/icons/512px/';
 
   private _orgData: IOuterFile;
   private _name: string;
 
   private _iconsFolder = FileModel.smallIconsFolder;
 
-  public selected: boolean = false;
+  public selected = false;
 
   set name(name: string) {
     this._name = name;
@@ -37,6 +37,11 @@ export class FileModel implements IFileModel {
     this._orgData = data;
 
     this.name = data.name;
+    this.selected = data.selected || false;
+  }
+
+  public toJSON() {
+    return this._orgData;
   }
 
   public getId() {
@@ -52,7 +57,7 @@ export class FileModel implements IFileModel {
   }
 
   public getMime() {
-    return this._orgData.mime;
+    return this._orgData.type;
   }
 
   public getWidth(): number {
@@ -71,6 +76,6 @@ export class FileModel implements IFileModel {
       width: this.getWidth(),
       height: this.getHeight(),
       mime: this.getMime()
-    }
+    };
   }
 }

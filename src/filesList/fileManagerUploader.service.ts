@@ -1,14 +1,22 @@
-import {Injectable, Inject} from "@angular/core";
-import {FileUploader} from "ng2-file-upload";
-import {IUrlConfiguration} from "../configuration/IUrlConfiguration";
+import {Injectable, Inject} from '@angular/core';
+import {ExtendedFileUploader} from '../services/extendedFileUplaoder.service';
+import {IFileManagerConfiguration} from '../configuration/IFileManagerConfiguration';
+import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
+import {FileUploaderOptions} from 'ng2-file-upload';
 
 @Injectable()
 export class FileManagerUploader {
-  public uploader: FileUploader;
+  public uploader: ExtendedFileUploader;
 
+  public constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration,
+                     filemanagerNotification: FilemanagerNotifcations) {
+    const options: FileUploaderOptions = {
+      allowedMimeType: configuration.mimeTypes,
+      url: configuration.urls.filesUrl,
+      maxFileSize: configuration.maxFileSize
+    };
 
-  public constructor(@Inject('fileManagerUrls') urls: IUrlConfiguration) {
-    this.uploader = new FileUploader({url: urls.filesUrl});
+    this.uploader = new ExtendedFileUploader(options, filemanagerNotification);
   }
 
   public clear() {
@@ -25,14 +33,14 @@ export class FileManagerUploader {
     return options;
   }
 
-  public setAuthorizationToken(token:string) {
+  public setAuthorizationToken(token: string) {
     this.uploader.authToken = token;
   }
 
-  public setDirectoryId(directoryId: string|number): FileManagerUploader {
+  public setDirectoryId(directoryId: string | number): FileManagerUploader {
     let options = this.getDefaultOptions();
 
-    options['headers'] =  [{name: 'folderId', value: directoryId.toString()}];
+    options['headers'] = [{name: 'folderId', value: directoryId.toString()}];
 
     this.uploader.setOptions(options);
 

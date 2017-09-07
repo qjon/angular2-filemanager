@@ -1,6 +1,6 @@
 import {
   Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Output,
-  EventEmitter
+  EventEmitter, OnDestroy
 } from "@angular/core";
 import {FileModel} from "../filesList/file.model";
 import {CropperSettings} from "ng2-img-cropper/src/cropperSettings";
@@ -9,28 +9,31 @@ import {ICropSize} from "./ICropSize";
 import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
 import {Bounds} from "ng2-img-cropper/src/model/bounds";
 import {ICropBounds} from "./ICropBounds";
+import {FileManagerDispatcherService} from "../store/fileManagerDispatcher.service";
 
 @Component({
   selector: 'crop-image',
   styleUrls: ['./crop.less'],
   template: `
-        <div class="crop-image">
-            <div class="crop-workbench">
-                <div #container></div>
-            </div>
-            <div class="btn-toolbar">
-                <div class="btn-group">
-                    <button class="btn btn-primary" *ngFor="let cropSize of cropSizeList" (click)="updateCropSize(cropSize)" [ngClass]="{'active': cropSize == currentCropSize}">{{cropSize.name}}</button>
-                </div>
-                <div class="btn-group pull-right">
-                    <button class="btn btn-success btn-icon" (click)="cropImage()">
-                        <i class="fa fa-check"></i>
-                        <span>Save</span>
-                    </button>
-                </div>
-            </div>
+    <div class="crop-image">
+      <div class="crop-workbench">
+        <div #container></div>
+      </div>
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn btn-primary" *ngFor="let cropSize of cropSizeList" (click)="updateCropSize(cropSize)"
+                  [ngClass]="{'active': cropSize == currentCropSize}">{{cropSize.name}}
+          </button>
         </div>
-        `
+        <div class="btn-group pull-right">
+          <button class="btn btn-success btn-icon" (click)="cropImage()">
+            <i class="fa fa-check"></i>
+            <span>Save</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `
 })
 
 export class CropComponent {
@@ -49,9 +52,9 @@ export class CropComponent {
   public cropSizeList: ICropSize[];
   public currentCropSize: ICropSize;
 
-  private scale: number = 1;
-
-  constructor(private resolver: ComponentFactoryResolver, private configuration: FileManagerConfiguration) {
+  constructor(private resolver: ComponentFactoryResolver,
+              private configuration: FileManagerConfiguration,
+              private fileManagerDispatcher: FileManagerDispatcherService) {
     this.cropSizeList = configuration.allowedCropSize;
   }
 
@@ -78,7 +81,7 @@ export class CropComponent {
 
   ngAfterContentInit() {
     this.updateCropSize(this.cropSizeList[0]);
-  }
+  };
 
   public cropImage() {
     let bounds: ICropBounds = {
@@ -88,7 +91,7 @@ export class CropComponent {
       height: this.bounds.height
     };
 
-    this.onCrop.emit({file: this.file, bounds: bounds});
+    this.fileManagerDispatcher.cropFile(this.file, bounds);
   }
 
 
@@ -97,8 +100,6 @@ export class CropComponent {
     let scale = this.calculateScale();
     let width = scale * this.file.getWidth();
     let height = scale * this.file.getHeight();
-
-    console.log(this.file, scale);
 
     cropperSettings.noFileInput = true;
     cropperSettings.width = this.currentCropSize.width;

@@ -1,39 +1,38 @@
-import {Component, Input, OnChanges, HostListener} from "@angular/core";
-import {IFileModel} from "../filesList/interface/IFileModel";
+import {Component, Input, OnChanges, HostListener} from '@angular/core';
+import {IFileModel} from '../filesList/interface/IFileModel';
+import {FileModel} from '../filesList/file.model';
 
 @Component({
-  selector: 'file-preview',
-  template: `
-        <div class="filemanager-preview">
-            <div class="carousel slide">
-                <div class="carousel-inner" role="listbox">
-                    <div class="item" *ngFor="let file of files; let i = index;" [ngClass]="{'active': i == currentIndex}">
-                        <img class="img-rounded" src="{{file.url}}" alt="{{file.name}}" style="margin: 0 auto;">
-                        <div class="carousel-caption">{{file.name}}</div>
-                    </div>
-                </div>
-                <a class="left carousel-control" role="button" (click)="prev()" *ngIf="currentIndex != 0">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                </a>
-                <a class="right carousel-control"role="button" (click)="next()" *ngIf="currentIndex + 1 < length">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </a>
-            </div>  
-        </div>
-    `
+  selector: 'ri-file-preview',
+  templateUrl: './preview.html'
 })
 
 export class PreviewComponent implements OnChanges {
+  /**
+   * Collection of files
+   */
   @Input() files: IFileModel[];
+
+  /**
+   * Current viewed file
+   */
   @Input() file: IFileModel;
 
-  public currentIndex: number = 0;
+  /**
+   * Current index
+   * @type {number}
+   */
+  public currentIndex = 0;
 
-  private length: number = 0;
+  private length = 0;
 
   ngOnChanges() {
     this.length = this.files.length;
-    this.currentIndex = this.files.indexOf(this.file);
+
+    const selectedFiles = this.files
+      .filter((file: FileModel) => file.getId() === this.file.getId());
+
+    this.currentIndex = selectedFiles.length === 1 ? this.files.indexOf(selectedFiles[0]) : -1;
   }
 
   public next() {

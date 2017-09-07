@@ -1,11 +1,13 @@
 <div class="files-list">
-  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}" (click)="clickImage(file)">
-    <input *ngIf="configuration.isMultiSelection" class="file-selection-input" type="checkbox" [(ngModel)]="file.selected">
+  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}" >
+    <div *ngIf="configuration.isMultiSelection" class="file-selection-input">
+      <i class="fa fa-2x" [ngClass]="{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}" (click)="toggleSelection(file)"></i>
+    </div>
     <div class="img-rounded file-img" [ngClass]="{'file-img-symbol': !file.isImage()}"
          [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
     <span class="file-name">{{file.name}}</span>
     <div class="file-menu">
-      <button mwlConfirm [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
+      <button mwlConfirmationPopover [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
               [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
               class="btn btn-danger btn-icon">
         <i class="fa fa-trash"></i>

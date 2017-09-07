@@ -1,21 +1,22 @@
 import {Component} from '@angular/core';
-import {ISelectFile} from "../../../main";
+import {FileManagerConfiguration, FileManagerDispatcherService} from '../../../main';
+
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-    title = 'app works!';
+  public constructor(public fileManagerConfiguration: FileManagerConfiguration,
+                     private fileManagerDispatcher: FileManagerDispatcherService) {
+  }
 
-    public isMultiSelection = false;
+  public toggleMultiSelection() {
+    this.fileManagerConfiguration.isMultiSelection = !this.fileManagerConfiguration.isMultiSelection;
 
-    public toggleMultiSelection() {
-        this.isMultiSelection = !this.isMultiSelection;
+    if (!this.fileManagerConfiguration.isMultiSelection) {
+      this.fileManagerDispatcher.unSelectAllFiles();
     }
-
-    public selectFile(data: ISelectFile) {
-        console.log(data);
-    }
+  }
 }

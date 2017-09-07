@@ -4,8 +4,18 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {FileManagerModule} from "../../../src/filemanager.module";
+import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
 
+const fileManagerConfiguration: IFileManagerConfiguration = {
+  urls: {
+    foldersUrl: '/api/folder',
+    filesUrl: null,
+    folderMoveUrl: '/api/folder/move'
+  },
+  isMultiSelection: true,
+  mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
+  maxFileSize: 50 * 1024
+};
 
 @NgModule({
   declarations: [
@@ -18,7 +28,7 @@ import {FileManagerModule} from "../../../src/filemanager.module";
     HttpModule
   ],
   providers: [
-    {provide: 'fileManagerUrls', useValue: {foldersUrl: '/api/folder', filesUrl: '/api/files'}}
+    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
   ],
   bootstrap: [AppComponent]
 })

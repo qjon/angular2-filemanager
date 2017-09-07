@@ -1,36 +1,78 @@
-import {Component, OnInit, ViewChild, HostListener, Input, OnChanges, EventEmitter, Output} from '@angular/core';
-import {TreeComponent, NodeService, IContextMenu, IOuterNode, ITreeItemEvent} from '@rign/angular2-tree/main';
-import {FilesService} from "./filesList/files.service";
-import {IOuterFile} from "./filesList/interface/IOuterFile";
-import {FileModel} from "./filesList/file.model";
-import {log} from "./decorators/logFunction.decorator";
-import {IUploadItemEvent} from "./toolbar/interface/IUploadItemEvent";
-import {NotificationsService} from "angular2-notifications";
-import {IFileEvent} from "./filesList/interface/IFileEvent";
-import {Button} from "./toolbar/models/button.model";
-import {FilesList} from "./filesList/filesList.component";
-import {IToolbarEvent} from "./toolbar/interface/IToolbarEvent";
-import {IFileModel} from "./filesList/interface/IFileModel";
-import {FileManagerConfiguration} from "./configuration/fileManagerConfiguration.service";
-import {IFileTypeFilter} from "./toolbar/interface/IFileTypeFilter";
-import {ICropBounds} from "./crop/ICropBounds";
-import {TreeService} from "./configuration/tree.service";
+import {
+  Component, OnInit, ViewChild, HostListener, EventEmitter, Output
+} from '@angular/core';
+import {
+  TreeComponent,
+  NodeService,
+  IContextMenu,
+  IOuterNode,
+  ITreeData,
+  ITreeState,
+  IConfiguration,
+  TreeModel,
+  TreeActionsService,
+  NodeDispatcherService
+} from '@rign/angular2-tree';
+import {IOuterFile} from './filesList/interface/IOuterFile';
+import {FileModel} from './filesList/file.model';
+import {log} from './decorators/logFunction.decorator';
+import {NotificationsService} from 'angular2-notifications';
+import {IFileEvent} from './filesList/interface/IFileEvent';
+import {Button} from './toolbar/models/button.model';
+import {FilesListComponent} from './filesList/filesList.component';
+import {IToolbarEvent} from './toolbar/interface/IToolbarEvent';
+import {IFileModel} from './filesList/interface/IFileModel';
+import {FileManagerConfiguration} from './configuration/fileManagerConfiguration.service';
+import {IFileTypeFilter} from './toolbar/interface/IFileTypeFilter';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+import {IFileManagerState} from './store/fileManagerReducer';
+import {FileTypeFilterService} from './services/fileTypeFilter.service';
+import {SearchFilterService} from './services/searchFilter.service';
+import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
+import {FileManagerEffectsService} from './store/fileManagerEffects.service';
+import {FileManagerApiService} from './store/fileManagerApi.service';
+import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 
 @Component({
-  selector: 'filemanager',
-  providers: [NodeService, FilesService, NotificationsService],
+  selector: 'ri-filemanager',
+  providers: [NodeService, NotificationsService],
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit, OnChanges {
-  @Input() multiSelection: boolean = false;
+export class FileManagerComponent implements OnInit {
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
   public treeComponent: TreeComponent;
 
-  @ViewChild(FilesList)
-  public filesList: FilesList;
+  @ViewChild(FilesListComponent)
+  public filesList: FilesListComponent;
+
+  /**
+   * List of files for current selected directory
+   * @typeObserv {Array}
+   */
+  private files$: Observable<FileModel[]>;
+
+  public filteredFiles$: Observable<FileModel[]>;
+
+  public folders: Observable<ITreeData>;
+
+
+  public treeConfiguration: IConfiguration = {
+    showAddButton: false,
+    disableMoveNodes: false,
+    treeId: 'tree',
+    dragZone: 'tree',
+    dropZone: ['tree']
+  };
+
+  public treeModel: TreeModel;
+
+  /** UNSED **/
+  public contextMenu: IContextMenu[] = [];
+
 
   /**
    * Current folder all files
@@ -38,37 +80,18 @@ export class FileManagerComponent implements OnInit, OnChanges {
    */
   private currentFolderFilesList: IFileModel[] = [];
 
-  private searchFieldValue: string = '';
-  private fileType: IFileTypeFilter;
-
-  /**
-   * Folders tree structure
-   * @typeObserv {Array}
-   */
-  public folders: IOuterNode[] = [];
-
-  /**
-   * List of filtered files for current selected directory
-   * @typeObserv {Array}
-   */
-  public files: IFileModel[] = [];
-
-  /**
-   * Current selected folder id
-   */
-  public currentFolderId: string;
 
   public currentSelectedFile: IFileModel;
 
-  public isPreviewMode: boolean = false;
-  public isCropMode: boolean = false;
+  public isPreviewMode = false;
+  public isCropMode = false;
 
   public notificationOptions = {
-    position: ["bottom", "right"],
+    position: ['bottom', 'right'],
     timeOut: 3000,
     lastOnBottom: false,
     preventDuplicates: true,
-    rtl: true,
+    rtl: false,
     showProgressBar: true,
     pauseOnHover: true
   };
@@ -79,143 +102,113 @@ export class FileManagerComponent implements OnInit, OnChanges {
    */
   public menu: IContextMenu[];
 
-  get numberOfSelectedItems() {
-    if (this.files) {
-      return this.files
-        .filter((file) => file.selected)
-        .length;
-    } else {
-      return 0;
-    }
-  }
-
-  constructor(private treeService: TreeService,
-              private filesService: FilesService,
-              private notifications: NotificationsService,
-              private configuration: FileManagerConfiguration) {
+  public constructor(private store: Store<ITreeState>,
+                     private treeActions: TreeActionsService,
+                     private nodeDispatcherService: NodeDispatcherService,
+                     private treeService: FileManagerApiService,
+                     private notifications: NotificationsService,
+                     private configuration: FileManagerConfiguration,
+                     private fileManagerDispatcher: FileManagerDispatcherService,
+                     private fileTypeFilter: FileTypeFilterService,
+                     private searchFilterService: SearchFilterService,
+                     private fileManagerEffects: FileManagerEffectsService,
+                     private filemanagerNotifcations: FilemanagerNotifcations) {
 
     this.menu = configuration.contextMenuItems;
+
+    this.filemanagerNotifcations.getNotificationStream()
+      .subscribe((notification: INotification) => {
+        const {type, title, message} = notification;
+
+        this.notifications[type](title, message);
+      });
   }
 
   ngOnInit() {
-    this.treeService.load()
-      .subscribe((items: IOuterNode[]) => {
-        this.folders = items;
+
+    /*** START - init TREE ***/
+    const treeId = this.treeConfiguration.treeId;
+    this.nodeDispatcherService.register(treeId, this.treeService);
+
+    this.store.dispatch(this.treeActions.registerTree(treeId));
+
+    this.folders = this.store.select('trees')
+      .map((data: ITreeState) => {
+        return data[treeId];
+      })
+      .filter((data: ITreeData) => !!data)
+    ;
+
+    this.treeModel = new TreeModel(this.folders, this.treeConfiguration);
+    /*** END - init TREE ***/
+
+
+    /*** START - init files ***/
+    this.files$ = this.store.select('files')
+      .map((data: IFileManagerState): FileModel[] => {
+        return data.map((file: IOuterFile) => new FileModel(file));
       });
 
+    this.filteredFiles$ = Observable.combineLatest(
+      this.files$,
+      this.fileTypeFilter.filter$,
+      this.searchFilterService.filter$
+    )
+      .map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
+        let files = data[0];
+        const fileTypeFilter = data[1];
+        const search = data[2].toLocaleLowerCase();
 
-    this.loadFiles('');
-  }
-
-  ngOnChanges() {
-    this.configuration.isMultiSelection = this.multiSelection;
-  }
-
-  /***********************************************************************
-   * FOLDER EVENTS
-   **********************************************************************/
-
-  @log
-  public onAddFolder($event: IToolbarEvent) {
-    this.treeComponent.addNode($event.value);
-  }
-
-  @log
-  public onAdd(event: ITreeItemEvent) {
-    let node = event.node;
-    let parentNode = node.parentNode;
-    let parentNodeId = parentNode ? parentNode.id : null;
-
-    this.treeService.save(event.node.data, parentNodeId)
-      .subscribe((folder: IOuterNode) => {
-        node.refresh(folder);
-      });
-  }
-
-  @log
-  public onRemove(event: ITreeItemEvent) {
-    let node = event.node;
-    this.treeService.remove(node.id)
-      .subscribe(() => {
-        if (node.id === this.currentFolderId) {
-          this.currentFolderId = null;
+        if (search !== '') {
+          files = files.filter((file: FileModel) => {
+            return file.name.toLocaleLowerCase().indexOf(search) > -1;
+          });
         }
 
-        node.remove();
-        this.loadFiles(this.currentFolderId);
+
+        if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
+          files = files.filter((file: FileModel) => {
+            return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
+          });
+        }
+
+        return files;
+      });
+
+
+    this.treeModel.currentSelectedNode$
+      .subscribe((node: IOuterNode | null) => {
+        this.loadFiles(node ? node.id : '');
+      });
+
+    /*** END - init files ***/
+
+    this.fileManagerEffects.cropFileSuccess$
+      .subscribe(() => {
+        this.closeModal();
       });
   }
 
-  @log
-  public onChange(event: ITreeItemEvent) {
-    let node = event.node;
+  get currentSelectedFolderId(): string | null {
+    const value = this.treeModel.currentSelectedNode$.getValue();
 
-    this.treeService.update(node.toJSON())
-      .subscribe((folder: IOuterNode) => {
-        node.refresh(folder);
-        node.collapse();
-        node.expand();
-      });
+    return value ? value.id : null;
   }
 
   @log
-  public onToggle(event: ITreeItemEvent) {
-    if (event.status) {
-      this.treeService.load(event.node.id)
-        .subscribe((folders: IOuterNode[]) => {
-          for (let folder of folders) {
-            event.node.addChild(folder);
-          }
-        });
-    } else {
-      event.node.resetChildren();
-    }
+  public onAddFolder() {
+    this.treeComponent.onAdd();
   }
-
-  @log
-  public onSelect(event: ITreeItemEvent) {
-    if (event.status) {
-      this.loadFiles(event.node.id);
-      this.currentFolderId = event.node.id;
-    } else {
-      this.loadFiles('');
-      this.currentFolderId = null;
-    }
-  }
-
 
   /***********************************************************************
    * FILE EVENTS
    **********************************************************************/
-
-
   /**
    * Run when all files are uploaded
    * @param folderId
    */
   public onUpload(folderId: string) {
-    this.loadFiles(folderId);
-
     this.notifications.success('File upload', 'Upload complete');
-  }
-
-  /**
-   * Run when single file is uploaded
-   * @param eventData
-   */
-  public onUploadItem(eventData: IUploadItemEvent) {
-    if (eventData.status === 409) {
-      this.notifications.alert('File upload', `${eventData.name} exists on the server in this directory`);
-    }
-  }
-
-  @log
-  public onRenameFile(fileEventData: IFileEvent) {
-  }
-
-  @log
-  public onDeleteFile(fileEventData: IFileEvent) {
-    this.removeSingleFile(fileEventData.file);
   }
 
   @log
@@ -231,25 +224,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
   }
 
   @log
-  public onCropFile(event: any) {
-    let file: IFileModel = event.file;
-    let bounds: ICropBounds = event.bounds;
-
-    this.filesService.crop(file, bounds)
-      .subscribe(
-        (data: any) => {
-          file.fromJSON(data);
-          this.closeModal();
-          this.reloadFiles();
-          this.notifications.success('Crop Image', 'Image has been cropped');
-        },
-        () => {
-          this.notifications.error('Crop Image', 'Image has not been cropped');
-        }
-      );
-  }
-
-  @log
   public onSelectFile(event: FileModel) {
     this.onSingleFileSelect.next(event.getSelectData());
   }
@@ -262,37 +236,25 @@ export class FileManagerComponent implements OnInit, OnChanges {
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
       case Button.DELETE_SELECTION:
-        this.files.forEach((file: IFileModel) => {
-          if (file.selected) {
-            this.removeSingleFile(file);
-          }
-        });
+        // this.files.forEach((file: IFileModel) => {
+        //   if (file.selected) {
+        //     this.removeSingleFile(file);
+        //   }
+        // });
         break;
       case Button.SELECT_ALL:
-        this.filesList.allFilesSelection(true);
+        this.fileManagerDispatcher.selectAllFiles();
         break;
       case Button.UNSELECT_ALL:
-        this.filesList.allFilesSelection(false);
+        this.fileManagerDispatcher.unSelectAllFiles();
         break;
       case Button.INVERSE_SELECTION:
-        this.filesList.selectInversion();
+        this.fileManagerDispatcher.inverseSelection();
         break;
       case Button.REFRESH_FILES_LIST:
         this.reloadFiles();
         break;
     }
-  }
-
-  @log
-  public onSearchChange(filterValue: string = '') {
-    this.searchFieldValue = filterValue;
-    this.filterFilesList(this.searchFieldValue, this.fileType);
-  }
-
-  @log
-  public onFilterTypeChange(type: IFileTypeFilter) {
-    this.fileType = type;
-    this.filterFilesList(this.searchFieldValue, this.fileType);
   }
 
   /***********************************************************************
@@ -314,61 +276,13 @@ export class FileManagerComponent implements OnInit, OnChanges {
 
 
   private loadFiles(folderId: string) {
-    this.filesService.load(folderId)
-      .subscribe((files: IOuterFile[]) => {
-        this.files = [];
-        this.currentFolderFilesList = [];
-
-        files.forEach((file: IOuterFile) => {
-          let fileModel = new FileModel(file);
-          this.currentFolderFilesList.push(fileModel);
-        });
-
-        this.filterFilesList(this.searchFieldValue, this.fileType);
-      });
+    this.fileManagerDispatcher.loadFiles(folderId || '');
   }
 
   private reloadFiles() {
-    this.loadFiles(this.currentFolderId || '');
-  }
+    const node = this.treeModel.currentSelectedNode$.getValue();
+    const id = node ? node.id : '';
 
-  private removeSingleFile(file: IFileModel) {
-    this.filesService.remove(file)
-      .subscribe(
-        () => {
-          this.reloadFiles();
-          this.notifications.success('File delete', `${file.name} has been deleted`);
-        },
-        (error: any) => {
-          this.notifications.error('File delete', `${file.name} has not been deleted`);
-        }
-      )
-  }
-
-  /**
-   * Filter current folder files list
-   * @param search
-   * @param type
-   */
-  private filterFilesList(search: string, type: IFileTypeFilter = null) {
-    let files: IFileModel[] = this.currentFolderFilesList.copyWithin(0, 0);
-
-    search = search.toLocaleLowerCase() || '';
-
-    if (search) {
-      search.toLocaleLowerCase();
-      files = files.filter((fileModel) => {
-        return fileModel.name.toLocaleLowerCase().indexOf(search) > -1;
-      });
-    }
-
-    if (type && type.mimes.length > 0) {
-
-      files = files.filter((fileModel) => {
-        return type.mimes.indexOf(fileModel.getMime()) > -1;
-      });
-    }
-
-    this.files = files;
+    this.loadFiles(id);
   }
 }

@@ -1,4 +1,5 @@
 export class IUrlConfiguration {
-  filesUrl: string;
+  filesUrl: string | null;
   foldersUrl: string;
+  folderMoveUrl: string;
 }

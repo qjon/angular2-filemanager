@@ -37,15 +37,16 @@ app.use(express.static(basePath));
 
 app.get('/folders', function (req, res) {
   var paths = [];
-  var subdir = req.query.nodeId || '';
-  var items = fs.readdirSync(basePath + subdir);
+  var subNode = req.query.nodeId || '';
+  var items = fs.readdirSync(basePath + subNode);
 
   for (var i = 0; i < items.length; i++) {
     var name = items[i];
-    var stat = fs.statSync(basePath + subdir + '/' + name);
+    var stat = fs.statSync(basePath + subNode + '/' + name);
     if (stat && stat.isDirectory()) {
       var dir = {
-        id: subdir + '/' + name,
+        id: subNode + '/' + name,
+        parentId: subNode || null,
         name: name,
         children: []
       };
@@ -59,79 +60,105 @@ app.get('/folders', function (req, res) {
 });
 
 app.put('/folders', function (req, res) {
-  var folder = req.body;
+  var node = req.body;
 
-  if (isDirectory(folder.id)) {
-    var subdirs = folder.id.split('/');
-    subdirs[subdirs.length - 1] = folder.name;
-    var newDirName = subdirs.join('/');
+  if (isDirectory(node.id)) {
+    var subNodes = node.id.split('/');
+    subNodes[subNodes.length - 1] = node.name;
+    var newNodeName = subNodes.join('/');
 
-    if (isDirectory(newDirName)) {
+    if (isDirectory(newNodeName)) {
       res.sendStatus(403);
       res.json({msg: 'Directory already exists'});
     }
     else {
-      fs.renameSync(basePath + folder.id, basePath + newDirName);
+      fs.renameSync(basePath + node.id, basePath + newNodeName);
 
-      if (isDirectory(newDirName)) {
-        folder.id = newDirName;
-        res.json(folder);
+      if (isDirectory(newNodeName)) {
+        node.id = newNodeName;
+        res.json(node);
       } else {
         res.sendStatus(403);
-        res.json({msg: 'Could not change directory name'});
+        res.json({msg: 'Could not change node name'});
       }
     }
 
   } else {
     res.sendStatus(403);
-    res.json({msg: 'Directory does not exist'});
+    res.json({msg: 'Node does not exist'});
+  }
+});
+
+app.put('/folders/move', function (req, res) {
+  var data = req.body;
+  console.log(data);
+
+  if (data.target === null) {
+    data.target = '';
+  }
+
+  if (isDirectory(data.source) && isDirectory(data.target)) {
+    var subNodes = data.source.split('/');
+    var dirName = subNodes[subNodes.length - 1];
+    var newNodeName = data.target + '/' + dirName;
+
+    fs.renameSync(basePath + data.source, basePath + newNodeName);
+    var dir = {
+      id: newNodeName,
+      name: dirName,
+      parentId: data.target,
+      children: []
+    };
+
+    res.json(dir);
+  } else {
+    res.sendStatus(403);
+    res.json({msg: 'Node does not exist'});
   }
 
 });
 
-
 app.post('/folders', function (req, res) {
   var data = req.body;
-  var folder = data.node;
+  var node = data.node;
   var parentFolderId = data.parentNodeId || '';
-  var newDirId = parentFolderId + '/' + folder.name;
+  var newNodeId = parentFolderId + '/' + node.name;
 
-  if (!isDirectory(newDirId)) {
-    fs.mkdirSync(basePath + newDirId);
+  if (!isDirectory(newNodeId)) {
+    fs.mkdirSync(basePath + newNodeId);
 
-    if (isDirectory(newDirId)) {
+    if (isDirectory(newNodeId)) {
       res.json({
-        id: newDirId,
-        name: folder.name,
+        id: newNodeId,
+        name: node.name,
+        parentId: parentFolderId || null,
         children: []
       });
     } else {
       res.sendStatus(403);
-      res.json({msg: 'Directory has not been added'});
+      res.json({msg: 'Node has not been added'});
     }
 
   } else {
     res.sendStatus(403);
-    res.json({msg: 'Directory exists'});
+    res.json({msg: 'Node exists'});
   }
-
 });
 
 
 app.delete('/folders', function (req, res) {
   var data = req.body;
-  var folderId = data.nodeId || null;
+  var nodeId = data.nodeId || null;
 
-  if (isDirectory(folderId)) {
-    fs.rmdirSync(basePath + folderId);
+  if (isDirectory(nodeId)) {
+    fs.rmdirSync(basePath + nodeId);
     res.json({
-      success: !isDirectory(folderId)
+      success: !isDirectory(nodeId)
     });
   } else {
     res.sendStatus(403);
     res.json({msg: 'Directory exists'});
   }
-
 });
 
 
@@ -155,7 +182,7 @@ function prepareFile(filePath) {
     name: name,
     thumbnailUrl: src,
     url: src,
-    mime: mimeType,
+    type: mimeType,
     width: isImage ? dimensions.width : 0,
     height: isImage ? dimensions.height : 0
   };
@@ -182,6 +209,7 @@ app.get('/files', function (req, res) {
 
 app.post('/files', function (req, res) {
   var fileExist = false;
+  var newPath;
   var form = new formidable.IncomingForm();
 
   form.multiples = true;
@@ -190,7 +218,6 @@ app.post('/files', function (req, res) {
 
   form.on('file', function (field, file) {
     var folder = req.header('folderId');
-    var newPath;
 
     file.name = file.name.replace(/[^A-Za-z0-9\-\._]/g, '');
 
@@ -217,7 +244,7 @@ app.post('/files', function (req, res) {
       res.statusCode = 409;
       res.end('error');
     } else {
-      res.end('success');
+      res.json(prepareFile(newPath));
     }
   });
 
