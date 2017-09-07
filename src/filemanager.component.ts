@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, HostListener, Input, OnChanges, EventEmitter, Output
+  Component, OnInit, ViewChild, HostListener, EventEmitter, Output
 } from '@angular/core';
 import {
   TreeComponent,
@@ -40,8 +40,7 @@ import {FilemanagerNotifcations, INotification} from './services/FilemanagerNoti
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit, OnChanges {
-  @Input() multiSelection = false;
+export class FileManagerComponent implements OnInit {
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
@@ -84,8 +83,8 @@ export class FileManagerComponent implements OnInit, OnChanges {
 
   public currentSelectedFile: IFileModel;
 
-  public isPreviewMode: boolean = false;
-  public isCropMode: boolean = false;
+  public isPreviewMode = false;
+  public isCropMode = false;
 
   public notificationOptions = {
     position: ['bottom', 'right'],
@@ -122,7 +121,7 @@ export class FileManagerComponent implements OnInit, OnChanges {
         const {type, title, message} = notification;
 
         this.notifications[type](title, message);
-      })
+      });
   }
 
   ngOnInit() {
@@ -189,11 +188,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
         this.closeModal();
       });
   }
-
-  ngOnChanges() {
-    this.configuration.isMultiSelection = this.multiSelection;
-  }
-
 
   get currentSelectedFolderId(): string | null {
     const value = this.treeModel.currentSelectedNode$.getValue();

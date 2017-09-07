@@ -22,7 +22,7 @@
         <i class="fa fa-2x fa-times" (click)="closeModal()"></i>
       </div>
       <ri-file-preview *ngIf="isPreviewMode" [files]="filteredFiles$ | async" [file]="currentSelectedFile"></ri-file-preview>
-      <crop-image *ngIf="isCropMode" [file]="currentSelectedFile" (onCrop)="onCropFile($event)"></crop-image>
+      <crop-image *ngIf="isCropMode" [file]="currentSelectedFile"></crop-image>
     </div>
   </div>
   <simple-notifications [options]="notificationOptions"></simple-notifications>
