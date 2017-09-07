@@ -43,7 +43,7 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__("../../../../../main.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -57,11 +57,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var AppComponent = (function () {
-    function AppComponent(fileManagerConfiguration) {
+    function AppComponent(fileManagerConfiguration, fileManagerDispatcher) {
         this.fileManagerConfiguration = fileManagerConfiguration;
+        this.fileManagerDispatcher = fileManagerDispatcher;
     }
     AppComponent.prototype.toggleMultiSelection = function () {
         this.fileManagerConfiguration.isMultiSelection = !this.fileManagerConfiguration.isMultiSelection;
+        if (!this.fileManagerConfiguration.isMultiSelection) {
+            this.fileManagerDispatcher.unSelectAllFiles();
+        }
     };
     return AppComponent;
 }());
@@ -71,10 +75,10 @@ AppComponent = __decorate([
         template: __webpack_require__("../../../../../demo/src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../demo/src/app/app.component.less")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__src_configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__src_configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__main__["b" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__main__["b" /* FileManagerConfiguration */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__main__["c" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__main__["c" /* FileManagerDispatcherService */]) === "function" && _b || Object])
 ], AppComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/app.component.js.map
 
 /***/ }),
@@ -186,25 +190,27 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_store_fileManagerBackendApi_service__ = __webpack_require__("../../../../../src/store/fileManagerBackendApi.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_filemanager_component__ = __webpack_require__("../../../../../src/filemanager.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_filemanager_module__ = __webpack_require__("../../../../../src/filemanager.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_filesList_fileManagerUploader_service__ = __webpack_require__("../../../../../src/filesList/fileManagerUploader.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_filesList_interface_ISelectFile__ = __webpack_require__("../../../../../src/filesList/interface/ISelectFile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_filesList_interface_ISelectFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__src_filesList_interface_ISelectFile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_IOuterFile__ = __webpack_require__("../../../../../src/filesList/interface/IOuterFile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_IOuterFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_IOuterFile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_services_imageDataConverter_service__ = __webpack_require__("../../../../../src/services/imageDataConverter.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_store_IFileManagerApi__ = __webpack_require__("../../../../../src/store/IFileManagerApi.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_store_IFileManagerApi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__src_store_IFileManagerApi__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_configuration_IFileManagerConfiguration__ = __webpack_require__("../../../../../src/configuration/IFileManagerConfiguration.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_configuration_IFileManagerConfiguration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__src_configuration_IFileManagerConfiguration__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_crop_ICropBounds__ = __webpack_require__("../../../../../src/crop/ICropBounds.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_crop_ICropBounds___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__src_crop_ICropBounds__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_filemanager_module__ = __webpack_require__("../../../../../src/filemanager.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_filesList_fileManagerUploader_service__ = __webpack_require__("../../../../../src/filesList/fileManagerUploader.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile__ = __webpack_require__("../../../../../src/filesList/interface/ISelectFile.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile__ = __webpack_require__("../../../../../src/filesList/interface/IOuterFile.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_services_imageDataConverter_service__ = __webpack_require__("../../../../../src/services/imageDataConverter.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi__ = __webpack_require__("../../../../../src/store/IFileManagerApi.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration__ = __webpack_require__("../../../../../src/configuration/IFileManagerConfiguration.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds__ = __webpack_require__("../../../../../src/crop/ICropBounds.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds__);
 /* unused harmony reexport FileManagerActionsService */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_5__src_filemanager_module__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_6__src_filemanager_module__["a"]; });
 /* unused harmony reexport FileManagerBackendApiService */
 /* unused harmony reexport FileManagerComponent */
-/* unused harmony reexport FileManagerConfiguration */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__src_configuration_fileManagerConfiguration_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_5__src_store_fileManagerDispatcher_service__["a"]; });
 /* unused harmony reexport FileManagerUploader */
 /* unused harmony reexport FilemanagerNotifcations */
 /* unused harmony reexport FileManagerApiService */
@@ -214,6 +220,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* unused harmony reexport IFileManagerConfiguration */
 /* unused harmony reexport IOuterFile */
 /* unused harmony reexport ISelectFile */
+
 
 
 
@@ -733,7 +740,6 @@ var FileManagerComponent = (function () {
         this.searchFilterService = searchFilterService;
         this.fileManagerEffects = fileManagerEffects;
         this.filemanagerNotifcations = filemanagerNotifcations;
-        this.multiSelection = false;
         this.onSingleFileSelect = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.treeConfiguration = {
             showAddButton: false,
@@ -811,9 +817,6 @@ var FileManagerComponent = (function () {
             .subscribe(function () {
             _this.closeModal();
         });
-    };
-    FileManagerComponent.prototype.ngOnChanges = function () {
-        this.configuration.isMultiSelection = this.multiSelection;
     };
     Object.defineProperty(FileManagerComponent.prototype, "currentSelectedFolderId", {
         get: function () {
@@ -898,10 +901,6 @@ var FileManagerComponent = (function () {
     return FileManagerComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Object)
-], FileManagerComponent.prototype, "multiSelection", void 0);
-__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", Object)
 ], FileManagerComponent.prototype, "onSingleFileSelect", void 0);
@@ -967,7 +966,7 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
 /***/ "../../../../../src/filemanager.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"filemanager-container\">\r\n  <div class=\"fm-header\">\r\n    <toolbar\r\n      #toolbar\r\n      [currentFolderId]=\"currentSelectedFolderId\"\r\n      (onAddFolderClick)=\"onAddFolder($event)\"\r\n      (onUpload)=\"onUpload($event)\"\r\n      (onMenuButtonClick)=\"onMenuButtonClick($event)\"\r\n    ></toolbar>\r\n  </div>\r\n  <div class=\"fm-main-box\">\r\n    <rign-tree class=\"folders-box\" [treeModel]=\"treeModel\"></rign-tree>\r\n    <ri-files-list class=\"files-box\" [files]=\"filteredFiles$ | async\"\r\n                (onPreviewFile)=\"onPreviewFile($event)\"\r\n                (onCropFile)=\"onOpenCropFileEditor($event)\"\r\n                (onSelectFile)=\"onSelectFile($event)\"\r\n    ></ri-files-list>\r\n  </div>\r\n  <div *ngIf=\"isPreviewMode || isCropMode\" class=\"backdrop\">\r\n    <div class=\"modal-view\">\r\n      <div class=\"modal-close\">\r\n        <i class=\"fa fa-2x fa-times\" (click)=\"closeModal()\"></i>\r\n      </div>\r\n      <ri-file-preview *ngIf=\"isPreviewMode\" [files]=\"filteredFiles$ | async\" [file]=\"currentSelectedFile\"></ri-file-preview>\r\n      <crop-image *ngIf=\"isCropMode\" [file]=\"currentSelectedFile\" (onCrop)=\"onCropFile($event)\"></crop-image>\r\n    </div>\r\n  </div>\r\n  <simple-notifications [options]=\"notificationOptions\"></simple-notifications>\r\n</div>\r\n"
+module.exports = "<div class=\"filemanager-container\">\r\n  <div class=\"fm-header\">\r\n    <toolbar\r\n      #toolbar\r\n      [currentFolderId]=\"currentSelectedFolderId\"\r\n      (onAddFolderClick)=\"onAddFolder($event)\"\r\n      (onUpload)=\"onUpload($event)\"\r\n      (onMenuButtonClick)=\"onMenuButtonClick($event)\"\r\n    ></toolbar>\r\n  </div>\r\n  <div class=\"fm-main-box\">\r\n    <rign-tree class=\"folders-box\" [treeModel]=\"treeModel\"></rign-tree>\r\n    <ri-files-list class=\"files-box\" [files]=\"filteredFiles$ | async\"\r\n                (onPreviewFile)=\"onPreviewFile($event)\"\r\n                (onCropFile)=\"onOpenCropFileEditor($event)\"\r\n                (onSelectFile)=\"onSelectFile($event)\"\r\n    ></ri-files-list>\r\n  </div>\r\n  <div *ngIf=\"isPreviewMode || isCropMode\" class=\"backdrop\">\r\n    <div class=\"modal-view\">\r\n      <div class=\"modal-close\">\r\n        <i class=\"fa fa-2x fa-times\" (click)=\"closeModal()\"></i>\r\n      </div>\r\n      <ri-file-preview *ngIf=\"isPreviewMode\" [files]=\"filteredFiles$ | async\" [file]=\"currentSelectedFile\"></ri-file-preview>\r\n      <crop-image *ngIf=\"isCropMode\" [file]=\"currentSelectedFile\"></crop-image>\r\n    </div>\r\n  </div>\r\n  <simple-notifications [options]=\"notificationOptions\"></simple-notifications>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1278,7 +1277,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/filesList/files.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"files-list\">\r\n  <div class=\"file\" *ngFor=\"let file of files\" [ngClass]=\"{'selected': file.selected}\" >\r\n    <!--<input *ngIf=\"configuration.isMultiSelection\" class=\"file-selection-input\" type=\"checkbox\" [ngModel]=\"file.selected\" (click)=\"toggleSelection(file)\">-->\r\n    <div class=\"file-selection-input\">\r\n      <i class=\"fa fa-2x\" [ngClass]=\"{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}\" (click)=\"toggleSelection(file)\"></i>\r\n    </div>\r\n    <div class=\"img-rounded file-img\" [ngClass]=\"{'file-img-symbol': !file.isImage()}\"\r\n         [style.background-image]=\"'url(' + file.thumbnailUrl + ')'\"></div>\r\n    <span class=\"file-name\">{{file.name}}</span>\r\n    <div class=\"file-menu\">\r\n      <button mwlConfirmationPopover [title]=\"removeTitle\" [message]=\"getRemoveMessage(file)\" [appendToBody]=\"true\"\r\n              [confirmText]=\"'Yes'\" [cancelText]=\"'No'\" placement=\"bottom\" (confirm)=\"deleteFile(file)\"\r\n              class=\"btn btn-danger btn-icon\">\r\n        <i class=\"fa fa-trash\"></i>\r\n      </button>\r\n      <button (click)=\"openPreview(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-search\"></i>\r\n      </button>\r\n      <button (click)=\"openCrop(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-crop\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"files-list\">\r\n  <div class=\"file\" *ngFor=\"let file of files\" [ngClass]=\"{'selected': file.selected}\" >\r\n    <div *ngIf=\"configuration.isMultiSelection\" class=\"file-selection-input\">\r\n      <i class=\"fa fa-2x\" [ngClass]=\"{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}\" (click)=\"toggleSelection(file)\"></i>\r\n    </div>\r\n    <div class=\"img-rounded file-img\" [ngClass]=\"{'file-img-symbol': !file.isImage()}\"\r\n         [style.background-image]=\"'url(' + file.thumbnailUrl + ')'\"></div>\r\n    <span class=\"file-name\">{{file.name}}</span>\r\n    <div class=\"file-menu\">\r\n      <button mwlConfirmationPopover [title]=\"removeTitle\" [message]=\"getRemoveMessage(file)\" [appendToBody]=\"true\"\r\n              [confirmText]=\"'Yes'\" [cancelText]=\"'No'\" placement=\"bottom\" (confirm)=\"deleteFile(file)\"\r\n              class=\"btn btn-danger btn-icon\">\r\n        <i class=\"fa fa-trash\"></i>\r\n      </button>\r\n      <button (click)=\"openPreview(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-search\"></i>\r\n      </button>\r\n      <button (click)=\"openCrop(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-crop\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
