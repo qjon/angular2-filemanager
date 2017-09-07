@@ -69,7 +69,7 @@ In your project put this line
   
     <filemanager>Loading...</filemanager>
 
-## Provide configuration
+### Provide configuration
 In your module add following lines with configuration
 
     import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
@@ -112,7 +112,7 @@ Then you have to provide this constant as a configuration service
     export class AppModule {
     }
     
-## Create API service
+### Create API service
     
 Now you should create your own API service to communicate with backend or use existing one _FileManagerBackendApiService_.
 If you create your own API service it should have implemented _IFileManagerApi_ interface
@@ -134,7 +134,7 @@ You can see two examples of that service:
 * [_FileManagerApiService_](src/store/fileManagerApi.service.ts) - works on local storage
 * [_FileManagerBackendApiService_](src/store/fileManagerBackendApi.service.ts) - works on backend (written in node)
 
-## Attach to any Effects
+### Attach to any Effects
 
 Because of using _store_, _actions_ and _effects_ you can attach to any actions by creating your own effects service.
 You are able to connect to actions for doing something special (but this is not obligatory, this is only possibility):
