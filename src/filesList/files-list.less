@@ -55,7 +55,7 @@
     .file-menu {
       display: none;
       position: absolute;
-      top: 20%;
+      top: 30%;
       left: 0;
       right: 0;
       text-align: center;
@@ -89,12 +89,14 @@
         background-color: @backgroundColorSelectedAlpha;
       }
 
-      .file-menu {
+      .file-menu, .file-selection-input {
         display: none;
       }
 
-      .file-selection-input {
-        display: block;
+      &:hover {
+        .file-selection-input {
+          display: block;
+        }
       }
     }
   }

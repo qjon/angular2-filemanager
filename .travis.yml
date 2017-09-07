@@ -1,0 +1,25 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js: "6.11.0"
+
+cache:
+  directories:
+    - node_modules
+
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+    - google-chrome-beta
+
+install:
+  - npm i -g @angular/cli
+  - npm i
+  - npm test
+
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start

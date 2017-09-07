@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
 import {FileManagerConfiguration, FileManagerDispatcherService} from '../../../main';
 
-
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  templateUrl: './appWithBackend.component.html',
+  styleUrls: ['./appWithBackend.component.less']
 })
-export class AppComponent {
+export class AppWithBackendComponent {
   public constructor(public fileManagerConfiguration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService) {
   }

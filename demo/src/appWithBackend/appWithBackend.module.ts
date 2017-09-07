@@ -3,13 +3,13 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
-import {AppComponent} from './app.component';
-import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
+import {AppWithBackendComponent} from './appWithBackend.component';
+import {FileManagerModule, FileManagerApiService, IFileManagerConfiguration, FileManagerBackendApiService} from '../../../main';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
     foldersUrl: '/api/folder',
-    filesUrl: null,
+    filesUrl: '/api/files',
     folderMoveUrl: '/api/folder/move'
   },
   isMultiSelection: true,
@@ -19,7 +19,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppWithBackendComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +28,10 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     HttpModule
   ],
   providers: [
-    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
+    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration},
+    {provide: FileManagerApiService, useClass: FileManagerBackendApiService}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppWithBackendComponent]
 })
-export class AppModule {
+export class AppWithBackendModule {
 }

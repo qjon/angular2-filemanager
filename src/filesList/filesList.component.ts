@@ -2,18 +2,15 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FileModel} from './file.model';
 import {IFileEvent} from './interface/IFileEvent';
 import {IFileModel} from './interface/IFileModel';
-import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
-import {Positioning} from 'angular2-bootstrap-confirm/position';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
-import {FileManagerActionsService, IFileManagerAction} from '../store/fileManagerActions.service';
+import {IFileManagerAction} from '../store/fileManagerActions.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 import {NotificationsService} from 'angular2-notifications';
-import {Actions} from '@ngrx/effects';
+import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
 
 @Component({
   selector: 'ri-files-list',
   templateUrl: './files.html',
-  providers: [ConfirmOptions, {provide: Position, useClass: Positioning}],
   styleUrls: ['./files-list.less']
 })
 
@@ -29,9 +26,9 @@ export class FilesListComponent {
   public constructor(public configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService,
                      notifications: NotificationsService,
-                     actions$: Actions) {
+                     fileManagerEffects: FileManagerEffectsService) {
 
-    actions$.ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS)
+    fileManagerEffects.deleteFileSuccess$
       .subscribe((action: IFileManagerAction) => {
         notifications.success('File delete', `${action.payload.file.name} has been deleted`);
       });
@@ -66,7 +63,7 @@ export class FilesListComponent {
     this.files.map((file) => file.selected = !file.selected);
   }
 
-  public openPreview(file: FileModel) {
+  public openPreview(file: FileModel): void {
     let fileEvent: IFileEvent = {
       eventName: 'onPreviewFile',
       file: file
@@ -74,7 +71,7 @@ export class FilesListComponent {
     this.onPreviewFile.emit(fileEvent);
   }
 
-  public openCrop(file: FileModel) {
+  public openCrop(file: FileModel): void {
     let fileEvent: IFileEvent = {
       eventName: 'onCropFile',
       file: file
@@ -82,7 +79,11 @@ export class FilesListComponent {
     this.onCropFile.emit(fileEvent);
   }
 
-  public clickImage(file: FileModel) {
-    this.onSelectFile.next(file);
+  public toggleSelection(file: IFileModel): void {
+    if (file.selected) {
+      this.fileManagerDispatcher.unSelectFile(file);
+    } else {
+      this.fileManagerDispatcher.selectFile(file);
+    }
   }
 }

@@ -182,7 +182,7 @@ function prepareFile(filePath) {
     name: name,
     thumbnailUrl: src,
     url: src,
-    mime: mimeType,
+    type: mimeType,
     width: isImage ? dimensions.width : 0,
     height: isImage ? dimensions.height : 0
   };

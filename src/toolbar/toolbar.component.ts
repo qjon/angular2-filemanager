@@ -1,22 +1,19 @@
-import {Component, EventEmitter, Output, Input, OnChanges} from "@angular/core";
-import {IButton} from "../dropdown/IButton";
-import {Button} from "./models/button.model";
-import {ToolbarEventModel} from "./models/toolbarEvent.model";
-import {IToolbarEvent} from "./interface/IToolbarEvent";
-import {ConfirmOptions, Position} from "angular2-bootstrap-confirm";
-import {Positioning} from "angular2-bootstrap-confirm/position";
-import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
-import {FileManagerUploader} from "../filesList/fileManagerUploader.service";
+import {Component, EventEmitter, Output, Input, OnChanges} from '@angular/core';
+import {IButton} from '../dropdown/IButton';
+import {Button} from './models/button.model';
+import {ToolbarEventModel} from './models/toolbarEvent.model';
+import {IToolbarEvent} from './interface/IToolbarEvent';
+import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {FileManagerUploader} from '../filesList/fileManagerUploader.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 
 @Component({
   selector: 'toolbar',
   styleUrls: ['./toolbar.less'],
-  providers: [ConfirmOptions, {provide: Position, useClass: Positioning}],
   templateUrl: './toolbar.html'
 })
 
-export class Toolbar implements OnChanges {
+export class ToolbarComponent implements OnChanges {
   @Input() currentFolderId: string;
 
   @Output() onAddFolderClick = new EventEmitter();
@@ -53,9 +50,10 @@ export class Toolbar implements OnChanges {
       this.onUpload.emit(this.currentFolderId || '');
     };
 
+
     this.fileManagerUploader.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
       if (status === 200) {
-        this.fileManagerDispatcher.uploadSuccess(JSON.parse(response));
+        this.fileManagerDispatcher.upload(JSON.parse(response));
       } else {
         this.fileManagerDispatcher.uploadError(JSON.parse(response));
       }

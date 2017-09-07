@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, HostListener, Input, OnChanges, EventEmitter, Output
+  Component, OnInit, ViewChild, HostListener, EventEmitter, Output
 } from '@angular/core';
 import {
   TreeComponent,
@@ -12,8 +12,7 @@ import {
   TreeModel,
   TreeActionsService,
   NodeDispatcherService
-} from '@rign/angular2-tree/main';
-import {FilesService} from './filesList/files.service';
+} from '@rign/angular2-tree';
 import {IOuterFile} from './filesList/interface/IOuterFile';
 import {FileModel} from './filesList/file.model';
 import {log} from './decorators/logFunction.decorator';
@@ -25,7 +24,6 @@ import {IToolbarEvent} from './toolbar/interface/IToolbarEvent';
 import {IFileModel} from './filesList/interface/IFileModel';
 import {FileManagerConfiguration} from './configuration/fileManagerConfiguration.service';
 import {IFileTypeFilter} from './toolbar/interface/IFileTypeFilter';
-import {TreeService} from './configuration/tree.service';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import {IFileManagerState} from './store/fileManagerReducer';
@@ -33,15 +31,16 @@ import {FileTypeFilterService} from './services/fileTypeFilter.service';
 import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
+import {FileManagerApiService} from './store/fileManagerApi.service';
+import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 
 @Component({
   selector: 'ri-filemanager',
-  providers: [NodeService, FilesService, NotificationsService],
+  providers: [NodeService, NotificationsService],
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit, OnChanges {
-  @Input() multiSelection: boolean = false;
+export class FileManagerComponent implements OnInit {
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
@@ -84,15 +83,15 @@ export class FileManagerComponent implements OnInit, OnChanges {
 
   public currentSelectedFile: IFileModel;
 
-  public isPreviewMode: boolean = false;
-  public isCropMode: boolean = false;
+  public isPreviewMode = false;
+  public isCropMode = false;
 
   public notificationOptions = {
-    position: ["bottom", "right"],
+    position: ['bottom', 'right'],
     timeOut: 3000,
     lastOnBottom: false,
     preventDuplicates: true,
-    rtl: true,
+    rtl: false,
     showProgressBar: true,
     pauseOnHover: true
   };
@@ -106,16 +105,23 @@ export class FileManagerComponent implements OnInit, OnChanges {
   public constructor(private store: Store<ITreeState>,
                      private treeActions: TreeActionsService,
                      private nodeDispatcherService: NodeDispatcherService,
-                     private treeService: TreeService,
-                     private filesService: FilesService,
+                     private treeService: FileManagerApiService,
                      private notifications: NotificationsService,
                      private configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService,
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService,
-                     private fileManagerEffects: FileManagerEffectsService) {
+                     private fileManagerEffects: FileManagerEffectsService,
+                     private filemanagerNotifcations: FilemanagerNotifcations) {
 
     this.menu = configuration.contextMenuItems;
+
+    this.filemanagerNotifcations.getNotificationStream()
+      .subscribe((notification: INotification) => {
+        const {type, title, message} = notification;
+
+        this.notifications[type](title, message);
+      });
   }
 
   ngOnInit() {
@@ -183,11 +189,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
       });
   }
 
-  ngOnChanges() {
-    this.configuration.isMultiSelection = this.multiSelection;
-  }
-
-
   get currentSelectedFolderId(): string | null {
     const value = this.treeModel.currentSelectedNode$.getValue();
 
@@ -223,11 +224,6 @@ export class FileManagerComponent implements OnInit, OnChanges {
   }
 
   @log
-  public onCropFile(event: any) {
-    this.fileManagerDispatcher.cropFile(event.file, event.bounds);
-  }
-
-  @log
   public onSelectFile(event: FileModel) {
     this.onSingleFileSelect.next(event.getSelectData());
   }
@@ -247,13 +243,13 @@ export class FileManagerComponent implements OnInit, OnChanges {
         // });
         break;
       case Button.SELECT_ALL:
-        this.filesList.allFilesSelection(true);
+        this.fileManagerDispatcher.selectAllFiles();
         break;
       case Button.UNSELECT_ALL:
-        this.filesList.allFilesSelection(false);
+        this.fileManagerDispatcher.unSelectAllFiles();
         break;
       case Button.INVERSE_SELECTION:
-        this.filesList.selectInversion();
+        this.fileManagerDispatcher.inverseSelection();
         break;
       case Button.REFRESH_FILES_LIST:
         this.reloadFiles();
