@@ -5,7 +5,7 @@ import {FileManagerBackendApiService} from './fileManagerBackendApi.service';
 import {rootNode} from '../_unitTestMocks/folderDataMock';
 import {Observable} from 'rxjs/Observable';
 
-fdescribe('fileManagerApi.service', () => {
+describe('fileManagerApi.service', () => {
   let service: FileManagerBackendApiService;
   let configuration: FileManagerConfiguration;
   let nodesData: IOuterNode[] = [rootNode];
