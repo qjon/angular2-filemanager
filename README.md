@@ -174,3 +174,7 @@ To run local demo you have to serve frontend and backend. To do this run:
         npm run backend
 
 Or you can see online [demo](https://qjon.github.io/angular2-filemanager/) with _local storage_
+
+## License
+
+Licensed under [MIT](https://github.com/qjon/angular2-filemanager/blob/master/LICENSE).
