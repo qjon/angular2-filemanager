@@ -4,15 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {ICropBounds, IFileManagerApi, IOuterFile, IFileDataProperties} from '../../main';
 import {Http, Response, URLSearchParams} from '@angular/http';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
 
 @Injectable()
-export class FileManagerBackendApiService implements IFileManagerApi {
-
-  protected nodes: IOuterNode[] = [];
-  protected files: IFileDataProperties[] = [];
+export class FileManagerBackendApiService extends AbstractFileManagerApiService implements IFileManagerApi {
 
   public constructor(private $http: Http,
                      private configuration: FileManagerConfiguration) {
+    super();
+    this.nodes = [];
+    this.files = [];
   }
 
   /**
@@ -157,10 +158,9 @@ export class FileManagerBackendApiService implements IFileManagerApi {
    * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
+    this.currentNodeId = nodeId;
     const params = new URLSearchParams();
     params.append('dirId', nodeId);
-
-    // return Observable.of([]);
 
     return this.$http.get(this.configuration.fileUrl, {search: params})
       .map((response: Response): IOuterFile[] => {
@@ -192,6 +192,25 @@ export class FileManagerBackendApiService implements IFileManagerApi {
     return this.$http.delete(this.configuration.fileUrl, {search: params})
       .map((res: Response) => {
         this.files.splice(index, 1);
+
+        return true;
+      });
+  }
+
+  public removeSelectedFiles(selectedFiles: IOuterFile[]) {
+    const ids: string[] = selectedFiles.map((file: IOuterFile) => file.id.toString());
+    const params = new URLSearchParams();
+    params.set('id', ids.join('|'));
+
+    return this.$http.delete(this.configuration.fileUrl, {search: params})
+      .map((res: Response) => {
+        selectedFiles.forEach((file: IOuterFile) => {
+          const index = this.findIndexByFileId(file.id.toString());
+
+          if (index > -1) {
+            this.files.splice(index, 1);
+          }
+        });
 
         return true;
       });

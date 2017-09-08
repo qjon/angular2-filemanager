@@ -32,6 +32,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
 import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {FileManagerBackendApiService} from './store/fileManagerBackendApi.service';
+import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
+import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
 
 @NgModule({
   imports: [
@@ -57,10 +59,12 @@ import {FileManagerBackendApiService} from './store/fileManagerBackendApi.servic
     PreviewComponent,
     CropComponent,
     ImageCropperComponent,
-    SearchFileComponent
+    SearchFileComponent,
+    SelectionComponent,
   ],
   entryComponents: [ImageCropperComponent],
   providers: [
+    CurrentDirectoryFilesService,
     FileManagerActionsService,
     FileManagerApiService,
     FileManagerBackendApiService,

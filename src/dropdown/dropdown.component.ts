@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {IButton} from './IButton';
+import {IButtonData} from './IButton';
 
 @Component({
   selector: 'ri-dropdown',
@@ -8,18 +8,19 @@ import {IButton} from './IButton';
 })
 
 export class DropdownComponent {
-  @Input() mainButton: IButton;
-  @Input() buttons: IButton[];
+  @Input() mainButton: IButtonData;
+  @Input() buttons: IButtonData[];
+  @Input() displayMainButtonLabel: boolean;
 
   @Output() onClick = new EventEmitter();
 
   public isOpen = false;
 
-  public hide() {
+  public hide(): void {
     this.isOpen = false;
   }
 
-  public selectButton(button: IButton) {
+  public selectButton(button: IButtonData): void {
     this.hide();
     this.onClick.emit(button);
   }

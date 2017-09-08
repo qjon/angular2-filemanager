@@ -13,8 +13,7 @@
         <input #fileInput type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()" (onCompleteItem)="onUploadItem()" multiple/>
       </span>
     </div>
-    <ri-dropdown *ngIf="configuration.isMultiSelection" [mainButton]="selectAllButton" [buttons]="selectButtonsList"
-              (onClick)="onSelectDropdownClick($event)"></ri-dropdown>
+    <ri-selection-dropdown (onMenuButtonClick)="onMenuButtonClick.next($event)"></ri-selection-dropdown>
     <div class="btn-group">
       <button class="btn btn-default" (click)="onRefreshFilesList()">
         <i class="fa fa-refresh"></i>

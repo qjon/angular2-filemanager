@@ -1,6 +1,8 @@
 import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 import {FileManagerApiService} from './fileManagerApi.service';
 import {IOuterNode} from '@rign/angular2-tree';
+import {IOuterFile} from '../filesList/interface/IOuterFile';
+import {filesData} from '../../_unitTestMocks/fileDataMock';
 
 describe('fileManagerApi.service', () => {
   let service: FileManagerApiService;
@@ -15,9 +17,13 @@ describe('fileManagerApi.service', () => {
   };
   let nodesData: IOuterNode[] = [rootNode];
   let handler: any;
+  let files: IOuterFile[];
 
   beforeEach(() => {
+    files = filesData.map(x => Object.assign({}, x));
+
     localStorage.setItem('fileManagerTree', JSON.stringify(nodesData));
+    localStorage.setItem('fileManagerFiles', JSON.stringify(files));
 
     handler = jasmine.createSpy('handler');
     filemanagerNotifications = <FilemanagerNotifcations>jasmine.createSpyObj('FilemanagerNotifcations', ['sendNotification']);
@@ -27,6 +33,7 @@ describe('fileManagerApi.service', () => {
 
   afterEach(() => {
     localStorage.removeItem('fileManagerTree');
+    localStorage.removeItem('fileManagerFiles');
   });
 
   describe('load', () => {
@@ -44,6 +51,29 @@ describe('fileManagerApi.service', () => {
         .subscribe(handler);
 
       expect(handler).toHaveBeenCalledWith([rootNode]);
+    });
+  });
+
+  describe('removeSelectedFiles', () => {
+    it('should return Observable of TRUE', () => {
+      const selectedFiles: IOuterFile[] = [files[2]];
+      service.loadFiles('');
+
+      service.removeSelectedFiles(selectedFiles)
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(true);
+    });
+
+    it('should return Observable of FALSE if file is not found', () => {
+      const selectedFiles: IOuterFile[] = [files[2]];
+      selectedFiles[0].id = '11242314';
+      service.loadFiles('');
+
+      service.removeSelectedFiles(selectedFiles)
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(false);
     });
   });
 });

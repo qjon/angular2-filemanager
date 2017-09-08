@@ -7,18 +7,13 @@ import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileDataProperties} from '../services/imageDataConverter.service';
 import {ICropBounds} from '../crop/ICropBounds';
 import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
+import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
 
 @Injectable()
-export class FileManagerApiService implements IFileManagerApi {
-
-  protected treeName = 'fileManagerTree';
-  protected fileManagerName = 'fileManagerFiles';
-
-
-  protected nodes: IOuterNode[];
-  protected files: IFileDataProperties[];
+export class FileManagerApiService extends AbstractFileManagerApiService implements IFileManagerApi {
 
   public constructor(private filemanagerNotfication: FilemanagerNotifcations) {
+    super();
   }
 
 
@@ -109,6 +104,8 @@ export class FileManagerApiService implements IFileManagerApi {
    * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
+    this.currentNodeId = nodeId;
+
     if (!this.files) {
       this.files = this.getAllFileDataFromLocalStorage();
     }
@@ -133,6 +130,22 @@ export class FileManagerApiService implements IFileManagerApi {
     this.saveFiles();
 
     return Observable.of(true);
+  }
+
+  public removeSelectedFiles(selectedFiles: IOuterFile[]) {
+    const numberOfFiles = this.files.length;
+
+    selectedFiles.forEach((file: IOuterFile) => {
+      const index = this.findIndexByFileId(file.id.toString());
+
+      if (index > -1) {
+        this.files.splice(index, 1);
+      }
+    });
+
+    this.saveFiles();
+
+    return Observable.of((this.files.length + selectedFiles.length === numberOfFiles));
   }
 
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
@@ -254,7 +267,7 @@ export class FileManagerApiService implements IFileManagerApi {
       height: file.height,
       type: file.type,
       size: file.size
-    }
+    };
   }
 
   /**
@@ -272,6 +285,6 @@ export class FileManagerApiService implements IFileManagerApi {
       size: file.size,
       width: file.width,
       height: file.height
-    }
+    };
   }
 }

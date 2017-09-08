@@ -1,3 +1,4 @@
+import {AbstractFileManagerApiService} from './src/store/fileManagerApiAbstract.class';
 import {FileManagerActionsService} from './src/store/fileManagerActions.service';
 import {FileManagerApiService} from './src/store/fileManagerApi.service';
 import {FileManagerBackendApiService} from './src/store/fileManagerBackendApi.service';
@@ -15,6 +16,7 @@ import {IFileManagerConfiguration} from './src/configuration/IFileManagerConfigu
 import {ICropBounds} from './src/crop/ICropBounds';
 
 export {
+  AbstractFileManagerApiService,
   FileManagerActionsService,
   FileManagerModule,
   FileManagerBackendApiService,

@@ -33,6 +33,7 @@ import {FileManagerDispatcherService} from './store/fileManagerDispatcher.servic
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
+import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 
 @Component({
   selector: 'ri-filemanager',
@@ -109,10 +110,9 @@ export class FileManagerComponent implements OnInit {
                      private notifications: NotificationsService,
                      private configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService,
-                     private fileTypeFilter: FileTypeFilterService,
-                     private searchFilterService: SearchFilterService,
                      private fileManagerEffects: FileManagerEffectsService,
-                     private filemanagerNotifcations: FilemanagerNotifcations) {
+                     private filemanagerNotifcations: FilemanagerNotifcations,
+                     private currentDirectoryFilesService: CurrentDirectoryFilesService) {
 
     this.menu = configuration.contextMenuItems;
 
@@ -144,36 +144,8 @@ export class FileManagerComponent implements OnInit {
 
 
     /*** START - init files ***/
-    this.files$ = this.store.select('files')
-      .map((data: IFileManagerState): FileModel[] => {
-        return data.map((file: IOuterFile) => new FileModel(file));
-      });
-
-    this.filteredFiles$ = Observable.combineLatest(
-      this.files$,
-      this.fileTypeFilter.filter$,
-      this.searchFilterService.filter$
-    )
-      .map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
-        let files = data[0];
-        const fileTypeFilter = data[1];
-        const search = data[2].toLocaleLowerCase();
-
-        if (search !== '') {
-          files = files.filter((file: FileModel) => {
-            return file.name.toLocaleLowerCase().indexOf(search) > -1;
-          });
-        }
-
-
-        if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
-          files = files.filter((file: FileModel) => {
-            return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
-          });
-        }
-
-        return files;
-      });
+    this.files$ = this.currentDirectoryFilesService.files$;
+    this.filteredFiles$ = this.currentDirectoryFilesService.filteredFiles$;
 
 
     this.treeModel.currentSelectedNode$
@@ -236,11 +208,12 @@ export class FileManagerComponent implements OnInit {
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
       case Button.DELETE_SELECTION:
-        // this.files.forEach((file: IFileModel) => {
-        //   if (file.selected) {
-        //     this.removeSingleFile(file);
-        //   }
-        // });
+        const files = this.currentDirectoryFilesService.currentSelection$
+          .getValue()
+          .map((file: FileModel) => {
+            return file.toJSON();
+          });
+        this.fileManagerDispatcher.deleteSelectedFiles(files);
         break;
       case Button.SELECT_ALL:
         this.fileManagerDispatcher.selectAllFiles();

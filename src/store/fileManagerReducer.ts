@@ -20,11 +20,13 @@ function cropFile(state: IFileManagerState, action: IFileManagerAction): IFileMa
 }
 
 function inverseFilesSelection(state: IFileManagerState): IFileManagerState {
-  return state.map((file: IOuterFile) => {
-    file.selected = !file.selected;
+  return [...state.map((file: IOuterFile) => {
+    const newFile = copyOuterFile(file);
 
-    return file;
-  });
+    newFile.selected = !file.selected;
+
+    return newFile;
+  })];
 }
 
 function loadFiles(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
@@ -44,9 +46,11 @@ function removeSelectedFiles(state: IFileManagerState): IFileManagerState {
 function selectFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
   return state.map((file: IOuterFile) => {
     if (file.id === action.payload.file.getId()) {
-      file.selected = true;
+      const newFile = copyOuterFile(file);
 
-      return copyOuterFile(file);
+      newFile.selected = true;
+
+      return newFile;
     }
 
     return file;
@@ -54,11 +58,12 @@ function selectFile(state: IFileManagerState, action: IFileManagerAction): IFile
 }
 
 function selectAllFiles(state: IFileManagerState): IFileManagerState {
-  let newState = [...state];
-  return newState.map((file: IOuterFile) => {
-    file.selected = true;
+  return state.map((file: IOuterFile) => {
+    const newFile = copyOuterFile(file);
 
-    return file;
+    newFile.selected = true;
+
+    return newFile;
   });
 }
 
@@ -68,18 +73,26 @@ function uploadFiles(state: IFileManagerState, action: IFileManagerAction): IFil
 
 function unSelectAllFiles(state: IFileManagerState): IFileManagerState {
   return state.map((file: IOuterFile) => {
-    file.selected = false;
+    const newFile = copyOuterFile(file);
 
-    return file;
+    newFile.selected = false;
+
+    return newFile;
   });
 }
 
 function unSelectFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  const file = getFileById(state, action.payload.file.getId());
+  return state.map((file: IOuterFile) => {
+    if (file.id === action.payload.file.getId()) {
+      const newFile = copyOuterFile(file);
 
-  file.selected = false;
+      newFile.selected = false;
 
-  return [...state];
+      return newFile;
+    }
+
+    return file;
+  });
 }
 
 
@@ -103,7 +116,7 @@ export function fileManagerReducer(state: IFileManagerState = [], action: IFileM
       return cropFile(state, action);
     case FileManagerActionsService.FILEMANAGER_INVERSE_FILE_SELECTION:
       return inverseFilesSelection(state);
-    case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION:
+    case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS:
       return removeSelectedFiles(state);
     case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS:
       return removeFile(state, action);
@@ -119,7 +132,7 @@ export function fileManagerReducer(state: IFileManagerState = [], action: IFileM
       return unSelectFile(state, action);
     case FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_SUCCESS:
       return uploadFiles(state, action);
-    case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS:
+    case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION:
     case FileManagerActionsService.FILEMANAGER_CROP_FILE:
     case FileManagerActionsService.FILEMANAGER_DELETE_FILE:
     case FileManagerActionsService.FILEMANAGER_LOAD_FILES:

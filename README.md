@@ -114,7 +114,7 @@ Then you have to provide this constant as a configuration service
     
 ### Create API service
     
-Now you should create your own API service to communicate with backend or use existing one _FileManagerBackendApiService_.
+Now you should create your own API service to communicate with backend or use existing one _FileManagerBackendApiService_ (remember, it should extend _AbstractFileManagerApi_ and implements _IFileManagerApi_).
 If you create your own API service it should have implemented _IFileManagerApi_ interface
 * _add(node: IOuterNode, parentNodeId: string): Observable<IOuterNode>;_ - create new node of the tree
 * _load(nodeId: string): Observable<IOuterNode[]>;_ - load tree branch (if nodeId is empty string it loads root level)
@@ -124,6 +124,7 @@ If you create your own API service it should have implemented _IFileManagerApi_ 
 * _cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile>;_ - crop file to provided bounds 
 * _loadFiles(nodeId: string): Observable<IOuterFile[]>;_ - load files from given node
 * _removeFile(file: IOuterFile): Observable<boolean>;_ - remove single file
+* _removeSelectedFiles(selectedFiles: IOuterFile[]): Observable<boolean>_ - remove selected files
 * _uploadFile(file: IOuterFile): Observable<IOuterFile>;_ - do actions with uploaded file (real upload is done in ng2-upload-file)
 
 All those actions should manipulate on two protected properties: 

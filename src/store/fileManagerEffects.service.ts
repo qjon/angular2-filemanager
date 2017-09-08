@@ -52,6 +52,16 @@ export class FileManagerEffectsService {
       .catch(() => Observable.of(this.onDeleteFileError(action.payload.file)))
     );
 
+  @Effect()
+  public deleteFilesSelection$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION)
+    .switchMap((action: IFileManagerAction) => this.deleteFilesSelection(action.payload.files)
+      .map((result: boolean): IFileManagerAction => {
+        return this.fileManagerActions.deleteSelectedFilesSuccess(action.payload.files);
+      })
+      .catch(() => Observable.of(this.onDeleteFilesSelectionError(action.payload.files)))
+    );
+
 
   @Effect()
   public uploadFile$ = this.actions$
@@ -97,6 +107,10 @@ export class FileManagerEffectsService {
     return this.fileManagerApiService.removeFile(file.toJSON());
   }
 
+  protected deleteFilesSelection(files: IOuterFile[]): Observable<boolean> {
+    return this.fileManagerApiService.removeSelectedFiles(files);
+  }
+
   protected loadFiles(folderId: string | null): Observable<IOuterFile[]> {
     return this.fileManagerApiService.loadFiles(folderId);
   }
@@ -118,6 +132,14 @@ export class FileManagerEffectsService {
       type: 'error',
       title: 'Delete file',
       message: '[FILEMANAGER] Can not delete file' + file.name
+    });
+  }
+
+  protected onDeleteFilesSelectionError(files: IOuterFile[]): void {
+    this.filemanagerNotfication.sendNotification({
+      type: 'error',
+      title: 'Delete selected files',
+      message: '[FILEMANAGER] Not all files were deleted'
     });
   }
 

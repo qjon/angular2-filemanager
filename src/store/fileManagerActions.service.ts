@@ -81,16 +81,16 @@ export class FileManagerActionsService {
     }
   }
 
-  public deleteSelectedFiles(): IFileManagerAction {
+  public deleteSelectedFiles(files: IOuterFile[]): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
-      payload: {}
+      payload: {files}
     }
   }
 
   public deleteSelectedFilesSuccess(files: IOuterFile[]): IFileManagerAction {
     return {
-      type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
+      type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS,
       payload: {files}
     }
   }

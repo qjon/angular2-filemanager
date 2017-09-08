@@ -279,16 +279,24 @@ app.put('/files', function (req, res) {
 });
 
 app.delete('/files', function (req, res) {
-  var fileId = req.query.id || null;
+  var fileIds = req.query.id.split('|') || null;
+  var allFilesDeleted = true;
 
-  if (isFile(fileId)) {
-    fs.unlinkSync(path.join(basePath, fileId));
+  fileIds.forEach(function (fileId) {
+    if (isFile(fileId)) {
+      fs.unlinkSync(path.join(basePath, fileId));
+    } else {
+      allFilesDeleted = false;
+    }
+  });
+
+  if (allFilesDeleted) {
     res.json({
       success: true
     });
   } else {
     res.status(403);
-    res.json({msg: 'File does not exist'});
+    res.json({msg: 'Not all files were deleted'});
   }
 });
 
