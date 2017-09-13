@@ -4,7 +4,7 @@ import {FileTypeFilterService} from './fileTypeFilter.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FileModel} from '../filesList/file.model';
-import {IFileManagerState} from '../store/fileManagerReducer';
+import {getAll, IFileManagerState, storeEntities} from '../store/fileManagerReducer';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {Injectable} from '@angular/core';
@@ -12,6 +12,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class CurrentDirectoryFilesService {
+
   /**
    * List of all files
    */
@@ -49,10 +50,19 @@ export class CurrentDirectoryFilesService {
    * @returns {Observable<FileModel[]>}
    */
   private getFilesStream(): Observable<FileModel[]> {
+
     return this.store.select('files')
-      .map((data: IFileManagerState): FileModel[] => {
-        return data.map((file: IOuterFile) => new FileModel(file));
-      });
+      .distinctUntilChanged()
+      .map((state: IFileManagerState) => {
+        console.log('list', state.files)
+        return getAll(state)
+          .map((file: IOuterFile) => {
+            file.selected = state.selectedFiles.indexOf(file.id.toString()) > -1;
+
+            return new FileModel(file);
+          });
+      })
+      .distinctUntilChanged();
   }
 
   /**
@@ -66,6 +76,7 @@ export class CurrentDirectoryFilesService {
       this.fileTypeFilter.filter$,
       this.searchFilterService.filter$
     )
+      .distinctUntilChanged()
       .map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
         let files = data[0];
         const fileTypeFilter = data[1];
@@ -92,12 +103,12 @@ export class CurrentDirectoryFilesService {
    * Init current selection listener, each time filtered files are changed, it change selection stream
    */
   private initCurrentSelection(): void {
-    this.filteredFiles$
-      .map((files: FileModel[]) => {
-        return files.filter((file: FileModel) => file.selected);
-      })
-      .subscribe((files: FileModel[]) => {
-        this.currentSelection$.next(files);
-      })
+    // this.filteredFiles$
+    //   .map((files: FileModel[]) => {
+    //     return files.filter((file: FileModel) => file.selected);
+    //   })
+    //   .subscribe((files: FileModel[]) => {
+    //     this.currentSelection$.next(files);
+    //   })
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {FileModel} from './file.model';
 import {IFileEvent} from './interface/IFileEvent';
 import {IFileModel} from './interface/IFileModel';
@@ -11,7 +11,8 @@ import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
 @Component({
   selector: 'ri-files-list',
   templateUrl: './files.html',
-  styleUrls: ['./files-list.less']
+  styleUrls: ['./files-list.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FilesListComponent {
@@ -47,22 +48,6 @@ export class FilesListComponent {
     return 'You are try to delete <b>' + file.name + '</b>. Are you sure?';
   }
 
-  /**
-   * Select or unselect all files
-   *
-   * @param selected
-   */
-  public allFilesSelection(selected = true) {
-    this.files.map((file) => file.selected = selected);
-  }
-
-  /**
-   * Select inversion
-   */
-  public selectInversion() {
-    this.files.map((file) => file.selected = !file.selected);
-  }
-
   public openPreview(file: FileModel): void {
     let fileEvent: IFileEvent = {
       eventName: 'onPreviewFile',
@@ -80,6 +65,7 @@ export class FilesListComponent {
   }
 
   public toggleSelection(file: IFileModel): void {
+    console.log(file);
     if (file.selected) {
       this.fileManagerDispatcher.unSelectFile(file);
     } else {
