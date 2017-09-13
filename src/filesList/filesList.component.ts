@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {FileModel} from './file.model';
 import {IFileEvent} from './interface/IFileEvent';
 import {IFileModel} from './interface/IFileModel';
@@ -12,7 +12,8 @@ import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
   selector: 'ri-files-list',
   templateUrl: './files.html',
   styleUrls: ['./files-list.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 
 export class FilesListComponent {

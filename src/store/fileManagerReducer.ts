@@ -166,5 +166,12 @@ export function fileManagerReducer(state: IFileManagerState = {
 
 export const getAll = (state: IFileManagerState): IOuterFile[] => {
   return state.files.map((id: string) => state.entities[id]);
-}
+};
 
+export const isChangeStateFiles = (newState: IFileManagerState, prevState: IFileManagerState): boolean => {
+  return prevState.files.length !== newState.files.length || prevState.files.filter((i: string) => newState.files.indexOf(i) === -1).length > 0
+};
+
+export const isChangeStateSelectedFiles = (newState: IFileManagerState, prevState: IFileManagerState): boolean => {
+  return prevState.selectedFiles.length !== newState.selectedFiles.length || prevState.selectedFiles.filter((i: string) => newState.selectedFiles.indexOf(i) === -1).length > 0
+};

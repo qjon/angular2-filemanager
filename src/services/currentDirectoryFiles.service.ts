@@ -4,7 +4,10 @@ import {FileTypeFilterService} from './fileTypeFilter.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FileModel} from '../filesList/file.model';
-import {getAll, IFileManagerState, storeEntities} from '../store/fileManagerReducer';
+import {
+  getAll, IFileManagerState, isChangeStateFiles, isChangeStateSelectedFiles,
+  storeEntities
+} from '../store/fileManagerReducer';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {Injectable} from '@angular/core';
@@ -51,8 +54,15 @@ export class CurrentDirectoryFilesService {
    */
   private getFilesStream(): Observable<FileModel[]> {
 
-    return this.store.select('files')
-      .distinctUntilChanged()
+    const observable$ = this.store.select('files')
+      .distinctUntilChanged((prevState: any, newState: any): boolean => {
+        console.log(prevState, newState);
+        console.log(isChangeStateFiles(newState, prevState), isChangeStateSelectedFiles(newState, prevState));
+        return isChangeStateFiles(newState, prevState) || isChangeStateSelectedFiles(newState, prevState);
+      })
+      .share();
+
+    return observable$
       .map((state: IFileManagerState) => {
         console.log('list', state.files)
         return getAll(state)
@@ -62,7 +72,7 @@ export class CurrentDirectoryFilesService {
             return new FileModel(file);
           });
       })
-      .distinctUntilChanged();
+;
   }
 
   /**
@@ -76,7 +86,6 @@ export class CurrentDirectoryFilesService {
       this.fileTypeFilter.filter$,
       this.searchFilterService.filter$
     )
-      .distinctUntilChanged()
       .map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
         let files = data[0];
         const fileTypeFilter = data[1];

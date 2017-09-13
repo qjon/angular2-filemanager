@@ -34,6 +34,7 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {FileManagerBackendApiService} from './store/fileManagerBackendApi.service';
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
+import {FileComponent} from './filesList/file/file.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import {SelectionComponent} from './toolbar/selectionDropDown/selection.componen
   ],
   declarations: [
     FileManagerComponent,
+    FileComponent,
     FileTypeFilterComponent,
     ToolbarComponent,
     FilesListComponent,
