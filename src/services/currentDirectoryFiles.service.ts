@@ -12,6 +12,7 @@ import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {distinctUntilChanged} from 'rxjs/operator/distinctUntilChanged';
 
 @Injectable()
 export class CurrentDirectoryFilesService {
@@ -33,12 +34,14 @@ export class CurrentDirectoryFilesService {
    */
   public currentSelection$: BehaviorSubject<FileModel[]> = new BehaviorSubject([]);
 
+  public observableSelectedFiles$: Observable<string[]>;
+
   /**
    * @param {Store<ITreeState>} store
    * @param {FileTypeFilterService} fileTypeFilter
    * @param {SearchFilterService} searchFilterService
    */
-  public constructor(private store: Store<ITreeState>,
+  public constructor(private store: Store<IFileManagerState>,
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService) {
 
@@ -54,25 +57,34 @@ export class CurrentDirectoryFilesService {
    */
   private getFilesStream(): Observable<FileModel[]> {
 
-    const observable$ = this.store.select('files')
-      .distinctUntilChanged((prevState: any, newState: any): boolean => {
-        console.log(prevState, newState);
-        console.log(isChangeStateFiles(newState, prevState), isChangeStateSelectedFiles(newState, prevState));
-        return isChangeStateFiles(newState, prevState) || isChangeStateSelectedFiles(newState, prevState);
-      })
-      .share();
-
-    return observable$
+    const observable$ = this.store.select('files');
+    const observableEntities$ = this.store.select('files')
+      .map((state: IFileManagerState) => state.entities)
+      .distinctUntilChanged();
+    const observableFiles$ = this.store.select('files')
       .map((state: IFileManagerState) => {
-        console.log('list', state.files)
+        return state.files;
+      })
+      .distinctUntilChanged();
+    this.observableSelectedFiles$ = this.store.select('files').map((state: IFileManagerState) => state.selectedFiles);
+
+    return Observable.combineLatest(observableEntities$, observableFiles$)
+      .map((ar: any) => {
+        return {
+          entities: ar[0],
+          files: ar[1]
+        };
+      })
+      .map((state: any) => {
+        console.log('list', state.files);
         return getAll(state)
           .map((file: IOuterFile) => {
-            file.selected = state.selectedFiles.indexOf(file.id.toString()) > -1;
+            // file.selected = state.selectedFiles.indexOf(file.id.toString()) > -1;
 
             return new FileModel(file);
           });
       })
-;
+      ;
   }
 
   /**

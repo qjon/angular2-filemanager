@@ -1,5 +1,5 @@
 <div class="files-list">
-  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}" >
+  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': isSelected(file)}" >
     <ri-file-component [file]="file"></ri-file-component>
   </div>
 </div>

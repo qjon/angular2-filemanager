@@ -12,12 +12,13 @@ import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
   selector: 'ri-files-list',
   templateUrl: './files.html',
   styleUrls: ['./files-list.less'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 
 export class FilesListComponent {
   @Input() files: FileModel[];
+  @Input() selectedFiles: string[];
 
   @Output() onPreviewFile = new EventEmitter();
   @Output() onCropFile = new EventEmitter();
@@ -72,5 +73,9 @@ export class FilesListComponent {
     } else {
       this.fileManagerDispatcher.selectFile(file);
     }
+  }
+
+  public isSelected(file: FileModel): boolean {
+    return this.selectedFiles.indexOf(file.getId().toString()) > -1;
   }
 }

@@ -1,5 +1,6 @@
 <div *ngIf="configuration.isMultiSelection" class="file-selection-input">
-  <i class="fa fa-2x" [ngClass]="{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}" (click)="toggleSelection(file)"></i>
+  <i class="fa fa-2x checked fa-check-square-o" (click)="unSelectFile()"></i>
+  <i class="fa fa-2x unchecked fa-square-o" (click)="selectFile()"></i>
 </div>
 <div class="img-rounded file-img" [ngClass]="{'file-img-symbol': !file.isImage()}"
      [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>

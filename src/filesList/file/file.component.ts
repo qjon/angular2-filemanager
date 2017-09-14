@@ -11,7 +11,7 @@ import {FileManagerDispatcherService} from '../../store/fileManagerDispatcher.se
 @Component({
   selector: 'ri-file-component',
   templateUrl: './file.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class FileComponent implements OnChanges {
@@ -26,7 +26,7 @@ export class FileComponent implements OnChanges {
 
   }
 
-  public ngOnChanges () {
+  public ngOnChanges() {
     console.log('change', this.file);
   }
 
@@ -59,12 +59,11 @@ export class FileComponent implements OnChanges {
     this.onCropFile.emit(fileEvent);
   }
 
-  public toggleSelection(file: IFileModel): void {
-    console.log(file);
-    if (file.selected) {
-      this.fileManagerDispatcher.unSelectFile(file);
-    } else {
-      this.fileManagerDispatcher.selectFile(file);
-    }
+  public selectFile(): void {
+    this.fileManagerDispatcher.selectFile(this.file);
+  }
+
+  public unSelectFile(): void {
+    this.fileManagerDispatcher.unSelectFile(this.file);
   }
 }

@@ -57,6 +57,7 @@ export class FileManagerComponent implements OnInit {
   private files$: Observable<FileModel[]>;
 
   public filteredFiles$: Observable<FileModel[]>;
+  public selectedFiles$: Observable<string[]>;
 
   public folders: Observable<ITreeData>;
 
@@ -146,6 +147,7 @@ export class FileManagerComponent implements OnInit {
     /*** START - init files ***/
     this.files$ = this.currentDirectoryFilesService.files$;
     this.filteredFiles$ = this.currentDirectoryFilesService.filteredFiles$;
+    this.selectedFiles$ = this.currentDirectoryFilesService.observableSelectedFiles$;
 
 
     this.treeModel.currentSelectedNode$
