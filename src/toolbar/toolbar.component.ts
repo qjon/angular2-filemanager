@@ -16,6 +16,7 @@ import {Actions} from '@ngrx/effects';
 
 export class ToolbarComponent implements OnChanges {
   @Input() currentFolderId: string;
+  @Input() selectedFiles: string[];
 
   @Output() onAddFolderClick = new EventEmitter();
   @Output() onUpload = new EventEmitter();

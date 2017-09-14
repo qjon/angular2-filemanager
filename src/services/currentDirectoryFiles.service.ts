@@ -58,14 +58,13 @@ export class CurrentDirectoryFilesService {
   private getFilesStream(): Observable<FileModel[]> {
 
     const observable$ = this.store.select('files');
-    const observableEntities$ = this.store.select('files')
+    const observableEntities$ = observable$
       .map((state: IFileManagerState) => state.entities)
       .distinctUntilChanged();
-    const observableFiles$ = this.store.select('files')
-      .map((state: IFileManagerState) => {
-        return state.files;
-      })
+    const observableFiles$ = observable$
+      .map((state: IFileManagerState) => state.files)
       .distinctUntilChanged();
+
     this.observableSelectedFiles$ = this.store.select('files').map((state: IFileManagerState) => state.selectedFiles);
 
     return Observable.combineLatest(observableEntities$, observableFiles$)
@@ -79,12 +78,9 @@ export class CurrentDirectoryFilesService {
         console.log('list', state.files);
         return getAll(state)
           .map((file: IOuterFile) => {
-            // file.selected = state.selectedFiles.indexOf(file.id.toString()) > -1;
-
             return new FileModel(file);
           });
-      })
-      ;
+      });
   }
 
   /**

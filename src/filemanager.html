@@ -3,6 +3,7 @@
     <toolbar
       #toolbar
       [currentFolderId]="currentSelectedFolderId"
+      [selectedFiles]="selectedFiles$ | async"
       (onAddFolderClick)="onAddFolder($event)"
       (onUpload)="onUpload($event)"
       (onMenuButtonClick)="onMenuButtonClick($event)"

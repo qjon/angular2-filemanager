@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {IButton, IButtonData} from '../../dropdown/IButton';
 import {ButtonClass} from '../../dropdown/Button.class';
 import {Button} from '../models/button.model';
@@ -17,6 +17,7 @@ import {ToolbarEventModel} from '../models/toolbarEvent.model';
   templateUrl: './selection.dropdown.html'
 })
 export class SelectionComponent implements OnDestroy {
+  @Input() selectedFiles: string[];
   @Output() onMenuButtonClick = new EventEmitter();
 
   public selectButtonsList: IButton[];
