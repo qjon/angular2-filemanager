@@ -4,6 +4,11 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v1.1.0
+* change store structure
+* add option "remove selected files"
+* add LICENCE section
+
 ### v1.0.0
 * update angular2-tree to verison 2.x.x
 * update angular to version 4.x.x
@@ -124,7 +129,7 @@ If you create your own API service it should have implemented _IFileManagerApi_ 
 * _cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile>;_ - crop file to provided bounds 
 * _loadFiles(nodeId: string): Observable<IOuterFile[]>;_ - load files from given node
 * _removeFile(file: IOuterFile): Observable<boolean>;_ - remove single file
-* _removeSelectedFiles(selectedFiles: IOuterFile[]): Observable<boolean>_ - remove selected files
+* _removeSelectedFiles(selectedFiles: string[]): Observable<boolean>_ - remove selected files
 * _uploadFile(file: IOuterFile): Observable<IOuterFile>;_ - do actions with uploaded file (real upload is done in ng2-upload-file)
 
 All those actions should manipulate on two protected properties: 

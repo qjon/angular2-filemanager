@@ -68,10 +68,10 @@ describe('fileManagerBackendApi.service', () => {
   describe('removeSelectedFiles', () => {
     let ids: string;
     let searchParams: URLSearchParams;
-    let selectedFiles: IOuterFile[];
+    let selectedFiles: string[];
 
     beforeEach(() => {
-      selectedFiles = [files[1], files[2]];
+      selectedFiles = [files[1].id.toString(), files[2].id.toString()];
       ids = files[1].id + '|' + files[2].id;
       searchParams = new URLSearchParams();
       searchParams.set('id', ids);

@@ -76,11 +76,12 @@ describe('FileManagerDispatcherService', () => {
 
   describe('deleteSelectedFiles', () => {
     it('should dispatch deleteSelectedFiles action', () => {
+      const selectedFiles: string[] = [files[0].id.toString()];
       fileManagerActionsMock.deleteSelectedFiles.and.returnValue(action);
 
-      service.deleteSelectedFiles(files);
+      service.deleteSelectedFiles(selectedFiles);
 
-      expect(fileManagerActionsMock.deleteSelectedFiles).toHaveBeenCalledWith(files);
+      expect(fileManagerActionsMock.deleteSelectedFiles).toHaveBeenCalledWith(selectedFiles);
       expect(storeMock.dispatch).toHaveBeenCalledWith(action);
     });
   });

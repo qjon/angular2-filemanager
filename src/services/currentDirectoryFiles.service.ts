@@ -4,14 +4,19 @@ import {FileTypeFilterService} from './fileTypeFilter.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FileModel} from '../filesList/file.model';
-import {IFileManagerState} from '../store/fileManagerReducer';
+import {
+  getAll, IFileManagerState, isChangeStateFiles, isChangeStateSelectedFiles,
+  storeEntities
+} from '../store/fileManagerReducer';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {distinctUntilChanged} from 'rxjs/operator/distinctUntilChanged';
 
 @Injectable()
 export class CurrentDirectoryFilesService {
+
   /**
    * List of all files
    */
@@ -23,24 +28,42 @@ export class CurrentDirectoryFilesService {
   public filteredFiles$: Observable<FileModel[]>;
 
   /**
-   * List of all files from current directory which are marked as selected
-   *
-   * @type {BehaviorSubject<Array>}
+   * List of all files as JSON data
    */
-  public currentSelection$: BehaviorSubject<FileModel[]> = new BehaviorSubject([]);
+  public entities$: Observable<storeEntities>;
+
+  /**
+   * List of selected file ids
+   */
+  public selectedFiles$: Observable<string[]>;
+
+  /**
+   * List of all files in current directory
+   */
+  public currentDirectoryFileIds$: Observable<string[]>;
 
   /**
    * @param {Store<ITreeState>} store
    * @param {FileTypeFilterService} fileTypeFilter
    * @param {SearchFilterService} searchFilterService
    */
-  public constructor(private store: Store<ITreeState>,
+  public constructor(private store: Store<IFileManagerState>,
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService) {
 
+    const observable$ = this.store.select('files');
+    this.entities$ = observable$
+      .map((state: IFileManagerState) => state.entities)
+      .distinctUntilChanged();
+
+    this.currentDirectoryFileIds$ = observable$
+      .map((state: IFileManagerState) => state.files)
+      .distinctUntilChanged();
+
+    this.selectedFiles$ = this.store.select('files').map((state: IFileManagerState) => state.selectedFiles);
+
     this.files$ = this.getFilesStream();
     this.filteredFiles$ = this.getCurrentDirectoryFilesStream();
-    this.initCurrentSelection();
   }
 
   /**
@@ -49,9 +72,19 @@ export class CurrentDirectoryFilesService {
    * @returns {Observable<FileModel[]>}
    */
   private getFilesStream(): Observable<FileModel[]> {
-    return this.store.select('files')
-      .map((data: IFileManagerState): FileModel[] => {
-        return data.map((file: IOuterFile) => new FileModel(file));
+    return this.currentDirectoryFileIds$
+      .withLatestFrom(this.entities$)
+      .map((ar: any) => {
+        return {
+          entities: ar[1],
+          files: ar[0]
+        };
+      })
+      .map((state: any) => {
+        return getAll(state)
+          .map((file: IOuterFile) => {
+            return new FileModel(file);
+          });
       });
   }
 
@@ -86,18 +119,5 @@ export class CurrentDirectoryFilesService {
 
         return files;
       });
-  }
-
-  /**
-   * Init current selection listener, each time filtered files are changed, it change selection stream
-   */
-  private initCurrentSelection(): void {
-    this.filteredFiles$
-      .map((files: FileModel[]) => {
-        return files.filter((file: FileModel) => file.selected);
-      })
-      .subscribe((files: FileModel[]) => {
-        this.currentSelection$.next(files);
-      })
   }
 }

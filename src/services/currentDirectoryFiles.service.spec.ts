@@ -4,8 +4,9 @@ import {FileTypeFilterService} from './fileTypeFilter.service';
 import {SearchFilterService} from './searchFilter.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
-import {filesData, filesDataModels} from '../../_unitTestMocks/fileDataMock';
+import {filesData, filesDataModels, state} from '../../_unitTestMocks/fileDataMock';
 import {Observable} from 'rxjs/Observable';
+import {IFileManagerState} from '../store/fileManagerReducer';
 
 describe('CurrentDirectoryFilesService', () => {
   let service: CurrentDirectoryFilesService;
@@ -13,15 +14,15 @@ describe('CurrentDirectoryFilesService', () => {
   let fileTypeFilterMock: FileTypeFilterService;
   let searchFilterMock: SearchFilterService;
   let handler: any;
-  let files: IOuterFile[];
+  let appState: IFileManagerState;
 
   beforeEach(() => {
     handler = jasmine.createSpy('handler');
-    files = [...filesData];
+    appState = Object.assign({}, state);
 
     storeMock = new MockStore([]);
     storeMock = jasmine.createSpyObj('store', ['select']);
-    storeMock.select.and.returnValue(Observable.of(files));
+    storeMock.select.and.returnValue(Observable.of(appState));
 
     fileTypeFilterMock = <FileTypeFilterService>jasmine.createSpyObj('FileTypeFilterService', ['getValue']);
     fileTypeFilterMock.filter$ = new BehaviorSubject(null);
@@ -30,6 +31,33 @@ describe('CurrentDirectoryFilesService', () => {
     searchFilterMock.filter$ = new BehaviorSubject('');
 
     service = new CurrentDirectoryFilesService(storeMock, fileTypeFilterMock, searchFilterMock);
+  });
+
+  describe('$entities', () => {
+    it('should return object with entities', () => {
+      service.entities$
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(appState.entities);
+    });
+  });
+
+  describe('currentDirectoryFileIds$', () => {
+    it('should return object with files ids', () => {
+      service.currentDirectoryFileIds$
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(appState.files);
+    });
+  });
+
+  describe('selectedFiles$', () => {
+    it('should return object with files ids', () => {
+      service.selectedFiles$
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(['RK1409_7D_2544-Edit960px.jpg']);
+    });
   });
 
   describe('files$', () => {
@@ -59,17 +87,6 @@ describe('CurrentDirectoryFilesService', () => {
       fileTypeFilterMock.filter$.next({name: '', mimes: ['image/png'], iconCls: '', defaultSelected: false});
 
       service.filteredFiles$
-        .subscribe(handler);
-
-      expect(handler).toHaveBeenCalledWith(expectedValue);
-    });
-  });
-
-  describe('currentSelection$', () => {
-    it('should return last image', () => {
-      const expectedValue = [filesDataModels[2]];
-
-      service.currentSelection$
         .subscribe(handler);
 
       expect(handler).toHaveBeenCalledWith(expectedValue);

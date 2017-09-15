@@ -132,11 +132,11 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     return Observable.of(true);
   }
 
-  public removeSelectedFiles(selectedFiles: IOuterFile[]) {
+  public removeSelectedFiles(selectedFiles: string[]) {
     const numberOfFiles = this.files.length;
 
-    selectedFiles.forEach((file: IOuterFile) => {
-      const index = this.findIndexByFileId(file.id.toString());
+    selectedFiles.forEach((fileId: string) => {
+      const index = this.findIndexByFileId(fileId);
 
       if (index > -1) {
         this.files.splice(index, 1);

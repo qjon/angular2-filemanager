@@ -1,116 +1,141 @@
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {FileManagerActionsService, IFileManagerAction} from './fileManagerActions.service';
-import {State} from '@ngrx/store';
-import {IFileModel} from '../filesList/interface/IFileModel';
-import {FileModel} from '../filesList/file.model';
 
-export interface IFileManagerState extends Array<IOuterFile> {
+export type storeEntities = { [key: string]: IOuterFile };
+
+export interface IFileManagerState {
+  entities: storeEntities,
+  files: string[],
+  selectedFiles: string[]
 }
 
 
 function cropFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  let newState = [...state];
+  const file = action.payload.file;
+  const id = file.getId().toString();
 
-  for (let i in state) {
-    if (newState[i].id === action.payload.file.getId()) {
-      newState[i] = action.payload.file.toJSON();
-    }
+  state.entities[id] = <IOuterFile>Object.assign({}, file.toJSON());
+
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: state.selectedFiles
   }
-  return newState;
 }
 
 function inverseFilesSelection(state: IFileManagerState): IFileManagerState {
-  return [...state.map((file: IOuterFile) => {
-    const newFile = copyOuterFile(file);
-
-    newFile.selected = !file.selected;
-
-    return newFile;
-  })];
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: state.files.filter((i: string) => state.selectedFiles.indexOf(i) === -1)
+  };
 }
 
 function loadFiles(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  return [...action.payload.files];
+  const entities: storeEntities = {};
+  const files: string[] = [];
+
+  action.payload.files.map((file: IOuterFile) => {
+    const id = file.id.toString();
+
+    entities[id] = file;
+    files.push(id);
+  });
+
+
+  return {
+    entities: entities,
+    files: files,
+    selectedFiles: []
+  };
 }
+
 
 function removeFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
   let id = action.payload.file.getId();
 
-  return [...state.filter((file: IOuterFile) => file.id !== id)]
+  delete state.entities[id];
+
+  return {
+    entities: state.entities,
+    files: state.files.filter((i: string) => i !== id),
+    selectedFiles: state.selectedFiles
+  }
 }
 
 function removeSelectedFiles(state: IFileManagerState): IFileManagerState {
-  return [...state.filter((file: IOuterFile) => !file.selected)]
+  const files: string[] = state.files.filter((i: string) => state.selectedFiles.indexOf(i) === -1);
+  const entities: storeEntities = {};
+
+  files.forEach((fileId: string) => {
+    entities[fileId] = state.entities[fileId];
+  });
+
+  return {
+    entities: entities,
+    files: files,
+    selectedFiles: []
+  };
 }
 
 function selectFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  return state.map((file: IOuterFile) => {
-    if (file.id === action.payload.file.getId()) {
-      const newFile = copyOuterFile(file);
-
-      newFile.selected = true;
-
-      return newFile;
-    }
-
-    return file;
-  });
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: [...state.selectedFiles, action.payload.file.getId().toString()]
+  };
 }
 
 function selectAllFiles(state: IFileManagerState): IFileManagerState {
-  return state.map((file: IOuterFile) => {
-    const newFile = copyOuterFile(file);
-
-    newFile.selected = true;
-
-    return newFile;
-  });
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: [...state.files]
+  };
 }
 
 function uploadFiles(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  return [...state, ...action.payload.files];
+  const newState = {
+    entities: Object.assign({}, state.entities),
+    files: [...state.files],
+    selectedFiles: []
+  };
+
+  action.payload.files.forEach((file: IOuterFile) => {
+    const id = file.id.toString();
+
+    newState.entities[id] = file;
+    newState.files.push(id);
+  });
+
+
+  return newState;
 }
 
+
 function unSelectAllFiles(state: IFileManagerState): IFileManagerState {
-  return state.map((file: IOuterFile) => {
-    const newFile = copyOuterFile(file);
-
-    newFile.selected = false;
-
-    return newFile;
-  });
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: []
+  };
 }
 
 function unSelectFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
-  return state.map((file: IOuterFile) => {
-    if (file.id === action.payload.file.getId()) {
-      const newFile = copyOuterFile(file);
+  const fileId = action.payload.file.getId().toString();
 
-      newFile.selected = false;
-
-      return newFile;
-    }
-
-    return file;
-  });
+  return {
+    entities: state.entities,
+    files: state.files,
+    selectedFiles: state.selectedFiles.filter((id: string) => id !== fileId)
+  };
 }
 
-
-function getFileById(state: IFileManagerState, id: string | number): IOuterFile {
-  const files = state.filter((file: IOuterFile) => file.id === id);
-
-  return files.length > 0 ? files[0] : null;
-}
-
-
-function copyOuterFile(inputFile: IOuterFile): IOuterFile {
-  let {id, folderId, name,  thumbnailUrl,  url,  width,  height,  type,  data, size,  selected} = inputFile;
-
-  return <IOuterFile>{id, folderId, name,  thumbnailUrl,  url,  width,  height,  type,  data, size,  selected};
-}
-
-
-export function fileManagerReducer(state: IFileManagerState = [], action: IFileManagerAction): IFileManagerState {
+export function fileManagerReducer(state: IFileManagerState = {
+  entities: {},
+  files: [],
+  selectedFiles: []
+}, action: IFileManagerAction): IFileManagerState {
   switch (action.type) {
     case FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS:
       return cropFile(state, action);
@@ -142,3 +167,14 @@ export function fileManagerReducer(state: IFileManagerState = [], action: IFileM
   }
 }
 
+export const getAll = (state: IFileManagerState): IOuterFile[] => {
+  return state.files.map((id: string) => state.entities[id]);
+};
+
+export const isChangeStateFiles = (newState: IFileManagerState, prevState: IFileManagerState): boolean => {
+  return prevState.files.length !== newState.files.length || prevState.files.filter((i: string) => newState.files.indexOf(i) === -1).length > 0
+};
+
+export const isChangeStateSelectedFiles = (newState: IFileManagerState, prevState: IFileManagerState): boolean => {
+  return prevState.selectedFiles.length !== newState.selectedFiles.length || prevState.selectedFiles.filter((i: string) => newState.selectedFiles.indexOf(i) === -1).length > 0
+};

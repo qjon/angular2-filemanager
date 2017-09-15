@@ -20,7 +20,7 @@ export class FileManagerDispatcherService {
     this.store.dispatch(this.fileManagerActions.deleteFile(file));
   }
 
-  public deleteSelectedFiles(files: IOuterFile[]): void {
+  public deleteSelectedFiles(files: string[]): void {
     this.store.dispatch(this.fileManagerActions.deleteSelectedFiles(files));
   }
 

@@ -8,6 +8,7 @@ export interface IFileManagerPayloadData {
   folderId?: string;
   files?: IOuterFile[];
   file?: IFileModel;
+  fileIds?: string[];
   bounds?: ICropBounds;
 }
 
@@ -81,10 +82,10 @@ export class FileManagerActionsService {
     }
   }
 
-  public deleteSelectedFiles(files: IOuterFile[]): IFileManagerAction {
+  public deleteSelectedFiles(fileIds: string[]): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
-      payload: {files}
+      payload: {fileIds}
     }
   }
 

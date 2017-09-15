@@ -24,7 +24,10 @@ export class FileManagerEffectsService {
       .map((files: IOuterFile[]): IFileManagerAction => {
         return this.fileManagerActions.loadFilesSuccess(action.payload.folderId, files);
       })
-      .catch(() => Observable.of(this.onLoadFilesError(action.payload.folderId)))
+      .catch((e) => {
+    console.log(e);
+    return Observable.of(this.onLoadFilesError(action.payload.folderId));
+      })
     );
 
   @Effect()
@@ -55,7 +58,7 @@ export class FileManagerEffectsService {
   @Effect()
   public deleteFilesSelection$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION)
-    .switchMap((action: IFileManagerAction) => this.deleteFilesSelection(action.payload.files)
+    .switchMap((action: IFileManagerAction) => this.deleteFilesSelection(action.payload.fileIds)
       .map((result: boolean): IFileManagerAction => {
         return this.fileManagerActions.deleteSelectedFilesSuccess(action.payload.files);
       })
@@ -107,7 +110,7 @@ export class FileManagerEffectsService {
     return this.fileManagerApiService.removeFile(file.toJSON());
   }
 
-  protected deleteFilesSelection(files: IOuterFile[]): Observable<boolean> {
+  protected deleteFilesSelection(files: string[]): Observable<boolean> {
     return this.fileManagerApiService.removeSelectedFiles(files);
   }
 

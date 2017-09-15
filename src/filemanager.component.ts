@@ -13,7 +13,6 @@ import {
   TreeActionsService,
   NodeDispatcherService
 } from '@rign/angular2-tree';
-import {IOuterFile} from './filesList/interface/IOuterFile';
 import {FileModel} from './filesList/file.model';
 import {log} from './decorators/logFunction.decorator';
 import {NotificationsService} from 'angular2-notifications';
@@ -23,12 +22,8 @@ import {FilesListComponent} from './filesList/filesList.component';
 import {IToolbarEvent} from './toolbar/interface/IToolbarEvent';
 import {IFileModel} from './filesList/interface/IFileModel';
 import {FileManagerConfiguration} from './configuration/fileManagerConfiguration.service';
-import {IFileTypeFilter} from './toolbar/interface/IFileTypeFilter';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {IFileManagerState} from './store/fileManagerReducer';
-import {FileTypeFilterService} from './services/fileTypeFilter.service';
-import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
 import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {FileManagerApiService} from './store/fileManagerApi.service';
@@ -57,6 +52,7 @@ export class FileManagerComponent implements OnInit {
   private files$: Observable<FileModel[]>;
 
   public filteredFiles$: Observable<FileModel[]>;
+  public selectedFiles$: Observable<string[]>;
 
   public folders: Observable<ITreeData>;
 
@@ -74,15 +70,8 @@ export class FileManagerComponent implements OnInit {
   /** UNSED **/
   public contextMenu: IContextMenu[] = [];
 
-
-  /**
-   * Current folder all files
-   * @typeObserv {Array}
-   */
-  private currentFolderFilesList: IFileModel[] = [];
-
-
   public currentSelectedFile: IFileModel;
+  public currentSelectedFiles: string[] = [];
 
   public isPreviewMode = false;
   public isCropMode = false;
@@ -122,6 +111,11 @@ export class FileManagerComponent implements OnInit {
 
         this.notifications[type](title, message);
       });
+
+    this.currentDirectoryFilesService.selectedFiles$
+      .subscribe((data: string[]) => {
+        this.currentSelectedFiles = data;
+      });
   }
 
   ngOnInit() {
@@ -146,6 +140,7 @@ export class FileManagerComponent implements OnInit {
     /*** START - init files ***/
     this.files$ = this.currentDirectoryFilesService.files$;
     this.filteredFiles$ = this.currentDirectoryFilesService.filteredFiles$;
+    this.selectedFiles$ = this.currentDirectoryFilesService.selectedFiles$;
 
 
     this.treeModel.currentSelectedNode$
@@ -208,12 +203,7 @@ export class FileManagerComponent implements OnInit {
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
       case Button.DELETE_SELECTION:
-        const files = this.currentDirectoryFilesService.currentSelection$
-          .getValue()
-          .map((file: FileModel) => {
-            return file.toJSON();
-          });
-        this.fileManagerDispatcher.deleteSelectedFiles(files);
+        this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFiles);
         break;
       case Button.SELECT_ALL:
         this.fileManagerDispatcher.selectAllFiles();

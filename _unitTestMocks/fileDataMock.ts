@@ -1,6 +1,7 @@
 import {IOuterFile} from '../src/filesList/interface/IOuterFile';
 import {IFileModel} from '../src/filesList/interface/IFileModel';
 import {FileModel} from '../src/filesList/file.model';
+import {IFileManagerState} from '../src/store/fileManagerReducer';
 
 export const fileData: IOuterFile = {
   id: '39097132-ed56-3c72-bfd7-898e1cc00299',
@@ -52,3 +53,13 @@ export const filesData: IOuterFile[] = [
 ];
 
 export const filesDataModels: IFileModel[] = filesData.map((file: IOuterFile) => new FileModel(file));
+
+export const state: IFileManagerState = {
+  entities: {
+    'BANER2.png': filesData[0],
+    'RK1409_w7D_2500960px.jpg': filesData[1],
+    'RK1409_7D_2544-Edit960px.jpg': filesData[2]
+  },
+  files: ['BANER2.png', 'RK1409_w7D_2500960px.jpg', 'RK1409_7D_2544-Edit960px.jpg'],
+  selectedFiles: ['RK1409_7D_2544-Edit960px.jpg']
+};

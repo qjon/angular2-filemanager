@@ -14,7 +14,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   },
   isMultiSelection: true,
   mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
-  maxFileSize: 50 * 1024
+  maxFileSize: 5 * 1024 * 1024
 };
 
 @NgModule({

@@ -197,15 +197,14 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
       });
   }
 
-  public removeSelectedFiles(selectedFiles: IOuterFile[]) {
-    const ids: string[] = selectedFiles.map((file: IOuterFile) => file.id.toString());
+  public removeSelectedFiles(selectedFiles: string[]) {
     const params = new URLSearchParams();
-    params.set('id', ids.join('|'));
+    params.set('id', selectedFiles.join('|'));
 
     return this.$http.delete(this.configuration.fileUrl, {search: params})
       .map((res: Response) => {
-        selectedFiles.forEach((file: IOuterFile) => {
-          const index = this.findIndexByFileId(file.id.toString());
+        selectedFiles.forEach((fileId: string) => {
+          const index = this.findIndexByFileId(fileId);
 
           if (index > -1) {
             this.files.splice(index, 1);

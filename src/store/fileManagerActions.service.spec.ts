@@ -164,12 +164,13 @@ describe('fileManagerActions.service', () => {
 
   describe('deleteSelectedFiles', () => {
     it('should return proper object', () => {
+      const fileIds = ['some-id'];
       const expected: IFileManagerAction = {
         type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
-        payload: {files}
+        payload: {fileIds}
       };
 
-      expect(service.deleteSelectedFiles(files)).toEqual(expected);
+      expect(service.deleteSelectedFiles(fileIds)).toEqual(expected);
     });
   });
 

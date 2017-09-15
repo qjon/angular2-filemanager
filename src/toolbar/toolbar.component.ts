@@ -1,12 +1,10 @@
 import {Component, EventEmitter, Output, Input, OnChanges} from '@angular/core';
-import {IButtonData} from '../dropdown/IButton';
 import {Button} from './models/button.model';
 import {ToolbarEventModel} from './models/toolbarEvent.model';
 import {IToolbarEvent} from './interface/IToolbarEvent';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
 import {FileManagerUploader} from '../filesList/fileManagerUploader.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
-import {Actions} from '@ngrx/effects';
 
 @Component({
   selector: 'toolbar',

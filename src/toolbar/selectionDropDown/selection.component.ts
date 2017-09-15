@@ -3,14 +3,12 @@ import {IButton, IButtonData} from '../../dropdown/IButton';
 import {ButtonClass} from '../../dropdown/Button.class';
 import {Button} from '../models/button.model';
 import {ButtonDividerClass} from '../../dropdown/ButtonDivider.class';
-import {FileManagerActionsService} from '../../store/fileManagerActions.service';
-import {FileModel} from '../../filesList/file.model';
 import {CurrentDirectoryFilesService} from '../../services/currentDirectoryFiles.service';
 import {Subscription} from 'rxjs/Subscription';
-import {Actions} from '@ngrx/effects';
 import {FileManagerConfiguration} from '../../configuration/fileManagerConfiguration.service';
 import {IToolbarEvent} from '../interface/IToolbarEvent';
 import {ToolbarEventModel} from '../models/toolbarEvent.model';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'ri-selection-dropdown',
@@ -56,7 +54,6 @@ export class SelectionComponent implements OnDestroy {
   private onLoadFilesSubscriber: Subscription;
 
   public constructor(public configuration: FileManagerConfiguration,
-                     private actions$: Actions,
                      private currentDirectoryFilesService: CurrentDirectoryFilesService) {
 
     this.selectButtonsList = this.createBasicButtons();
@@ -72,26 +69,19 @@ export class SelectionComponent implements OnDestroy {
    * Initialize listener on load files
    */
   public initListenOnLoadFiles() {
-    this.onLoadFilesSubscriber = this.actions$
-      .ofType(
-        FileManagerActionsService.FILEMANAGER_LOAD_FILES_SUCCESS,
-        FileManagerActionsService.FILEMANAGER_INVERSE_FILE_SELECTION,
-        FileManagerActionsService.FILEMANAGER_SELECT_ALL,
-        FileManagerActionsService.FILEMANAGER_SELECT_FILE,
-        FileManagerActionsService.FILEMANAGER_UNSELECT_ALL,
-        FileManagerActionsService.FILEMANAGER_UNSELECT_FILE,
-        FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
-      )
-      .switchMap((data: any) => this.currentDirectoryFilesService.filteredFiles$)
+    this.onLoadFilesSubscriber = Observable.combineLatest(
+      this.currentDirectoryFilesService.currentDirectoryFileIds$,
+      this.currentDirectoryFilesService.selectedFiles$
+    )
       .distinctUntilChanged()
-      .subscribe((files: FileModel[]) => {
-        // todo: figure out, why this subscriber is called two times
-        const selectedFiles = files.filter((file: FileModel) => file.selected);
+      .subscribe((data: string[][]) => {
+        const numberOfFiles = data[0].length;
+        const numberOfSelectedFiles = data[1].length;
 
         this.disableAllButtons();
 
-        if (files.length > 0) {
-          if (selectedFiles.length > 0) {
+        if (numberOfFiles > 0) {
+          if (numberOfSelectedFiles > 0) {
             this.enableAllButtons();
           } else {
             this.enableSelectAllButton();

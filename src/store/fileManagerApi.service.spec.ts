@@ -56,7 +56,7 @@ describe('fileManagerApi.service', () => {
 
   describe('removeSelectedFiles', () => {
     it('should return Observable of TRUE', () => {
-      const selectedFiles: IOuterFile[] = [files[2]];
+      const selectedFiles: string[] = [files[2].id.toString()];
       service.loadFiles('');
 
       service.removeSelectedFiles(selectedFiles)
@@ -66,8 +66,8 @@ describe('fileManagerApi.service', () => {
     });
 
     it('should return Observable of FALSE if file is not found', () => {
-      const selectedFiles: IOuterFile[] = [files[2]];
-      selectedFiles[0].id = '11242314';
+      const selectedFiles: string[] = [files[2].id.toString()];
+      selectedFiles[0] = '11242314';
       service.loadFiles('');
 
       service.removeSelectedFiles(selectedFiles)
