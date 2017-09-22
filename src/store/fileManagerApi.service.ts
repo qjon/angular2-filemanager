@@ -159,6 +159,27 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     }
   }
 
+  /**
+   * @param {IOuterFile[]} files
+   * @param {IOuterNode} node
+   * @returns {Observable<IOuterFile[]>}
+   */
+  public moveFile(files: IOuterFile[], node: IOuterNode = null): Observable<IOuterFile[]> {
+    const ids: string[] = files.map(file => file.id.toString());
+    const folderId = node ? node.id.toString() : '';
+
+    const movedFiles = this.files.filter(file => ids.indexOf(file.id.toString()) > -1);
+
+    movedFiles.forEach((file) => {
+      file.folderId = folderId;
+    });
+
+    if (this.saveFiles()) {
+      return Observable.of(movedFiles.map(file => this.convertLocalData2IOuterFile(file)));
+    } else {
+      return Observable.throw('Move files error');
+    }
+  }
 
   private findIndexByNodeId(nodeId: string): number {
     return this.nodes.findIndex((node) => {

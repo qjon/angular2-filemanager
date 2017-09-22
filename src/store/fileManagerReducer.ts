@@ -51,6 +51,27 @@ function loadFiles(state: IFileManagerState, action: IFileManagerAction): IFileM
 }
 
 
+function moveFiles(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
+  const files = action.payload.files;
+  const ids: string[] = files.map(file => file.id.toString());
+  const folderId = action.payload.folderId ? action.payload.folderId.toString() : '';
+
+  const entities = Object.assign({}, state.entities);
+
+  ids.forEach((id: string) => {
+    const oldEntity = Object.assign({}, entities[id])
+    oldEntity.folderId = folderId;
+
+    entities[id] = oldEntity;
+  });
+
+  return {
+    entities: entities,
+    files: state.files.filter((i: string) => ids.indexOf(i) === -1),
+    selectedFiles: state.selectedFiles.filter((i: string) => ids.indexOf(i) === -1)
+  }
+}
+
 function removeFile(state: IFileManagerState, action: IFileManagerAction): IFileManagerState {
   let id = action.payload.file.getId();
 
@@ -145,6 +166,8 @@ export function fileManagerReducer(state: IFileManagerState = {
       return removeSelectedFiles(state);
     case FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS:
       return removeFile(state, action);
+    case FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS:
+      return moveFiles(state, action);
     case FileManagerActionsService.FILEMANAGER_LOAD_FILES_SUCCESS:
       return loadFiles(state, action);
     case FileManagerActionsService.FILEMANAGER_SELECT_ALL:
@@ -161,6 +184,7 @@ export function fileManagerReducer(state: IFileManagerState = {
     case FileManagerActionsService.FILEMANAGER_CROP_FILE:
     case FileManagerActionsService.FILEMANAGER_DELETE_FILE:
     case FileManagerActionsService.FILEMANAGER_LOAD_FILES:
+    case FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR:
       return state;
     default:
       return state;

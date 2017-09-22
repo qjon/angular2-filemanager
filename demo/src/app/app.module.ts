@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -25,7 +26,8 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     BrowserModule,
     FileManagerModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
     {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
@@ -33,4 +35,8 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+  public constructor(translate: TranslateService) {
+    translate.use('en');
+  }
 }

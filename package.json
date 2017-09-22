@@ -36,7 +36,7 @@
     "@ngrx/core": "1.2.0",
     "@ngrx/effects": "2.0.3",
     "@ngrx/store": "2.2.2",
-    "@rign/angular2-tree": "2.0.1",
+    "@rign/angular2-tree": "https://github.com/qjon/angular2-tree.git#feature/v2.1.0",
     "@types/jasmine": "2.5.54",
     "angular-confirmation-popover": "3.2.0",
     "angular2-contextmenu": "0.7.7",

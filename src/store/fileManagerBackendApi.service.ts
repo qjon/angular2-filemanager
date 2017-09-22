@@ -228,6 +228,20 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
   }
 
   /**
+   * @param {IOuterFile[]} files
+   * @param {IOuterNode} node
+   * @returns {Observable<IOuterFile[]>}
+   */
+  public moveFile(files: IOuterFile[], node: IOuterNode): Observable<IOuterFile[]> {
+    const ids: string[] = files.map(file => file.id.toString());
+
+    return this.$http.put(this.configuration.fileUrl, {files: ids, folderId: node.id})
+      .map((res: Response) => {
+        return res.json();
+      });
+  }
+
+  /**
    * @param {string} nodeId
    * @returns {number}
    */
