@@ -87,13 +87,10 @@ export class FileManagerEffectsService {
     })
     .switchMap((action: ITreeAction) => this.moveFiles([<IOuterFile>action.payload.oldNode], action.payload.node)
       .map((result: IOuterFile[]): IFileManagerAction => {
-    console.log('map')
         const folder = action.payload.node;
         return this.fileManagerActions.moveFileSuccess(result, folder ? folder.id.toString() : null);
       })
       .catch(() => {
-    console.log('here');
-        const folder = action.payload.node;
         return Observable.of(this.fileManagerActions.moveFileError([<IOuterFile>action.payload.oldNode]));
       })
     );

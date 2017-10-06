@@ -169,10 +169,28 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     const folderId = node ? node.id.toString() : '';
 
     const movedFiles = this.files.filter(file => ids.indexOf(file.id.toString()) > -1);
+    const errorMsg = 'Can not move file to the same folder';
+
+    let isMovedToSameFolder = false;
 
     movedFiles.forEach((file) => {
+      if (node) {
+        if (node.id === file.folderId) {
+          isMovedToSameFolder = true;
+        }
+      } else {
+        if (file.folderId === '' || file.folderId === null) {
+          isMovedToSameFolder = true;
+        }
+      }
+
+
       file.folderId = folderId;
     });
+
+    if (isMovedToSameFolder) {
+      return Observable.throw(errorMsg);
+    }
 
     if (this.saveFiles()) {
       return Observable.of(movedFiles.map(file => this.convertLocalData2IOuterFile(file)));
