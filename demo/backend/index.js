@@ -167,7 +167,8 @@ function prepareFile(filePath) {
   var mimeType = mime.lookup(filePath);
   var isImage = false;
   var dimensions;
-  var name = filePath.split('/').pop();
+  var dirs = filePath.split('/');
+  var name = dirs.pop();
 
   if (mimeType) {
     isImage = mimeType.indexOf('image') === 0;
@@ -177,8 +178,10 @@ function prepareFile(filePath) {
     dimensions = sizeOf(path.join(basePath, filePath))
   }
 
+
   return {
     id: filePath,
+    folderId: dirs.join('/'),
     name: name,
     thumbnailUrl: src,
     url: src,
@@ -187,9 +190,9 @@ function prepareFile(filePath) {
     height: isImage ? dimensions.height : 0
   };
 }
-app.get('/files', function (req, res) {
+
+var getFilesFromDirectory = function (subdir) {
   var files = [];
-  var subdir = req.query.dirId || '';
   var items = fs.readdirSync(basePath + subdir);
 
   for (var i = 0; i < items.length; i++) {
@@ -202,7 +205,12 @@ app.get('/files', function (req, res) {
     }
   }
 
-  res.json(files);
+  return files;
+};
+app.get('/files', function (req, res) {
+  var subdir = req.query.dirId || '';
+
+  res.json(getFilesFromDirectory(subdir));
 
 });
 
@@ -256,8 +264,22 @@ app.put('/files', function (req, res) {
   var body = req.body;
   var fileId = body.id || null;
   var bounds = body.bounds || null;
+  var files = body.files || null;
+  var folderId = body.folderId || '';
 
 
+  // move file
+  if (folderId !== null && files !== null) {
+    files.forEach(function (fileId) {
+      const fileName = fileId.split('/').pop();
+      fs.renameSync(basePath + fileId, basePath + folderId + '/' + fileName);
+    });
+
+    res.json(getFilesFromDirectory(folderId));
+    return;
+  }
+
+  // crop file
   if (isFile(fileId)) {
     if (bounds) {
       var src = path.join(basePath, fileId);

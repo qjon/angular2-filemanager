@@ -8,6 +8,7 @@ This project is a very simple __Angular2 file manager__.
 * change store structure
 * add option "remove selected files"
 * add LICENCE section
+* move file between folders (in the future, I would like to add possibilities to move selection of files and copy files)
 
 ### v1.0.0
 * update angular2-tree to verison 2.x.x
@@ -128,6 +129,7 @@ If you create your own API service it should have implemented _IFileManagerApi_ 
 * _remove(nodeId: string): Observable<IOuterNode>;_ - remove node
 * _cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile>;_ - crop file to provided bounds 
 * _loadFiles(nodeId: string): Observable<IOuterFile[]>;_ - load files from given node
+* _moveFile(files: IOuterFile[], node: IOuterNode = null): Observable<IOuterFile[]>_ - move single file to new node 
 * _removeFile(file: IOuterFile): Observable<boolean>;_ - remove single file
 * _removeSelectedFiles(selectedFiles: string[]): Observable<boolean>_ - remove selected files
 * _uploadFile(file: IOuterFile): Observable<IOuterFile>;_ - do actions with uploaded file (real upload is done in ng2-upload-file)

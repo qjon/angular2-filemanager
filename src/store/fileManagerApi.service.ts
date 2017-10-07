@@ -43,7 +43,7 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
 
   public move(srcNode: IOuterNode, targetNode: IOuterNode | null): Observable<IOuterNode> {
     const srcId = srcNode.id;
-    const targetId = targetNode ? targetNode.id : null;
+    const targetId = targetNode ? targetNode.id : '';
 
     const index = this.findIndexByNodeId(srcId);
 
@@ -174,13 +174,13 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     let isMovedToSameFolder = false;
 
     movedFiles.forEach((file) => {
+      console.log('the same', file.folderId, node)
       if (node) {
         if (node.id === file.folderId) {
-          isMovedToSameFolder = true;
         }
       } else {
         if (file.folderId === '' || file.folderId === null) {
-          isMovedToSameFolder = true;
+          return Observable.throw(errorMsg);
         }
       }
 
@@ -189,7 +189,7 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     });
 
     if (isMovedToSameFolder) {
-      return Observable.throw(errorMsg);
+        return Observable.throw(errorMsg);
     }
 
     if (this.saveFiles()) {

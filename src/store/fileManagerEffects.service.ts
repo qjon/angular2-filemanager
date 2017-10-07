@@ -87,13 +87,22 @@ export class FileManagerEffectsService {
     })
     .switchMap((action: ITreeAction) => this.moveFiles([<IOuterFile>action.payload.oldNode], action.payload.node)
       .map((result: IOuterFile[]): IFileManagerAction => {
-        const folder = action.payload.node;
-        return this.fileManagerActions.moveFileSuccess(result, folder ? folder.id.toString() : null);
+        const folderId = (<IOuterFile>action.payload.oldNode).folderId;
+        return this.fileManagerActions.moveFileSuccess(result, folderId);
       })
       .catch(() => {
         return Observable.of(this.fileManagerActions.moveFileError([<IOuterFile>action.payload.oldNode]));
       })
     );
+
+  @Effect()
+  public filesMoveSuccess$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS)
+    .map((action: IFileManagerAction) => {
+      this.onMoveFilesSuccess();
+
+      return this.fileManagerActions.loadFiles(action.payload.folderId);
+    });
 
   public uploadError$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_ERROR)
@@ -117,12 +126,6 @@ export class FileManagerEffectsService {
 
   public deleteFileSuccess$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
-
-  public filesMoveSuccess$ = this.actions$
-    .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS)
-    .subscribe((action: IFileManagerAction) => {
-      this.onMoveFilesSuccess();
-    });
 
   public filesMoveError$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR)
