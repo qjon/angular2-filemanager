@@ -203,10 +203,10 @@ export class FileManagerBackendApiService implements IFileManagerApi {
    * @returns {Observable<IOuterFile>}
    */
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
-    const fileData = this.convertIOuterFile2LocalData(file);
+    const fileData = <IFileDataProperties>file;
     this.files.push(fileData);
 
-    return Observable.of(this.convertLocalData2IOuterFile(fileData));
+    return Observable.of(file);
   }
 
   /**

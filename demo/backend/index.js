@@ -229,9 +229,9 @@ app.post('/files', function (req, res) {
 
     if (isFile(newPath)) {
       fileExist = true;
-      fs.unlink(file.path);
+      fs.unlinkSync(file.path);
     } else {
-      fs.rename(file.path, basePath + newPath);
+      fs.renameSync(file.path, basePath + newPath);
     }
   });
 

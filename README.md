@@ -4,6 +4,9 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v1.0.1
+* fix bugs
+
 ### v1.0.0
 * update angular2-tree to verison 2.x.x
 * update angular to version 4.x.x
