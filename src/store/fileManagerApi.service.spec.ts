@@ -5,6 +5,7 @@ import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {filesData} from '../../_unitTestMocks/fileDataMock';
 import {UUID} from 'angular2-uuid';
 import {rootNode} from '../../_unitTestMocks/folderDataMock';
+import {root} from 'rxjs/util/root';
 
 describe('fileManagerApi.service', () => {
   let service: FileManagerApiService;
@@ -213,16 +214,46 @@ describe('fileManagerApi.service', () => {
         x.url = '/uploads/' + x.id;
         x.thumbnailUrl = '/uploads/' + x.id;
         return x;
-      })
+      });
+
+      delete expectedData[2].selected;
+
       service.loadFiles('dd9b20d8-260b-54c1-7eca-c22eae257edc')
         .subscribe(handler);
 
 
-      // expect(handler).toHaveBeenCalledWith(filesData);
+      expect(handler).toHaveBeenCalledWith(expectedData);
 
     });
   });
 
+  describe('removeFile', () => {
+    beforeEach(() => {
+      service.loadFiles('dd9b20d8-260b-54c1-7eca-c22eae257edc');
+
+      service.removeFile(filesData[2])
+        .subscribe(handler);
+    });
+
+    it('should return "true"', () => {
+      expect(handler).toHaveBeenCalledWith(true);
+    });
+
+    it('should remove file from list', () => {
+      const expectedData = filesData.map((x) => {
+        x.url = '/uploads/' + x.id;
+        x.thumbnailUrl = '/uploads/' + x.id;
+        return x;
+      });
+
+      const removedFile = expectedData.pop();
+
+      service.loadFiles('dd9b20d8-260b-54c1-7eca-c22eae257edc')
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(expectedData);
+    });
+  });
 
   describe('removeSelectedFiles', () => {
     it('should return Observable of TRUE', () => {
@@ -246,4 +277,57 @@ describe('fileManagerApi.service', () => {
       expect(handler).toHaveBeenCalledWith(false);
     });
   });
+
+  describe('uploadFile', () => {
+    it('should return proper data', () => {
+      const fileData = {
+        id: 'BANER3.png',
+        folderId: 'dd9b20d8-260b-54c1-7eca-c22eae257edc',
+        name: 'BANER3.png',
+        thumbnailUrl: '/uploads/BANER3.png',
+        url: '/uploads/BANER3.png',
+        type: 'image/png',
+        size: 6076,
+        width: 1100,
+        height: 300
+      };
+
+      const expectedValue = {
+        folderId: 'dd9b20d8-260b-54c1-7eca-c22eae257edc',
+        height: 300,
+        id: 'BANER3.png',
+        name: 'BANER3.png',
+        size: 6076,
+        thumbnailUrl: undefined,
+        type: 'image/png',
+        url: undefined,
+        width: 1100
+      };
+
+      service.loadFiles('');
+
+      service.uploadFile(fileData)
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith(expectedValue);
+    });
+  });
+
+  describe('moveFiles', () => {
+    it('should move file', () => {
+      const file = filesData[2];
+      service.load();
+      service.loadFiles('');
+      service.add(newNode, rootNode.id);
+
+      const newAddedNode = Object.assign({}, newNode, {id: newNodeId});
+      const movedFile = Object.assign({}, file, {folderId: newNodeId});
+
+      service.moveFile([file], newAddedNode)
+        .subscribe(handler);
+
+      expect(handler).toHaveBeenCalledWith([movedFile]);
+    });
+  });
+
 });

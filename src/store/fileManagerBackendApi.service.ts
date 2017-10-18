@@ -237,13 +237,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
     return this.$http.put(this.configuration.fileUrl, {files: ids, folderId: node ? node.id : ''})
       .map((res: Response) => {
-        // ids.forEach((fileId) => {
-        //   const index = this.files.findIndex((file) => {
-        //     return file.id === fileId;
-        //   });
-        //   console.log(index);
-        //   this.files.splice(index, 1);
-        // });
         return res.json();
       });
   }

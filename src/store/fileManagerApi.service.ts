@@ -174,7 +174,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     let isMovedToSameFolder = false;
 
     movedFiles.forEach((file) => {
-      console.log('the same', file.folderId, node)
       if (node) {
         if (node.id === file.folderId) {
         }

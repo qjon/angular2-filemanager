@@ -8,7 +8,7 @@
     "build": "ng build --app withoutBackend",
     "start": "ng serve --app withoutBackend",
     "startWithBackend": "ng serve --proxy-config demo/proxy.config.example.json --app withBackend ",
-    "test": "ng test",
+    "test": "ng test --code-coverage",
     "test-coverage": "ng test --code-coverage",
     "gh-pages": "ng build --app withoutBackend --env=prod --base-href \"https://qjon.github.io/angular2-filemanager/\" &&  ./node_modules/.bin/angular-cli-ghpages -b gh-pages  --name=\"Rafał Ignaszewski\" --email=\"rafal@ignaszewski.pl\" --no-silent"
   },
@@ -73,6 +73,7 @@
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
+    "karma-jasmine-diff-reporter": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-remap-istanbul": "^0.2.1",
     "mime-types": "^2.1.14",
