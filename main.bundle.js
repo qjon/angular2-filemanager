@@ -16,7 +16,7 @@ webpackEmptyContext.id = "../../../../../demo/src async recursive";
 /***/ "../../../../../demo/src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <h1>Filemanager</h1>\r\n    <div class=\"configuration-bar\">\r\n        <button class=\"btn btn-primary\" (click)=\"toggleMultiSelection()\">\r\n            <i class=\"fa\" [ngClass]=\"{'fa-check-square': this.fileManagerConfiguration.isMultiSelection, 'fa-square': !this.fileManagerConfiguration.isMultiSelection}\"></i>\r\n            <span>Use multiselection</span>\r\n        </button>\r\n    </div>\r\n    <ri-filemanager>Loading...</ri-filemanager>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\n    <h1>Filemanager</h1>\n    <div class=\"configuration-bar\">\n        <button class=\"btn btn-primary\" (click)=\"toggleMultiSelection()\">\n            <i class=\"fa\" [ngClass]=\"{'fa-check-square': this.fileManagerConfiguration.isMultiSelection, 'fa-square': !this.fileManagerConfiguration.isMultiSelection}\"></i>\n            <span>Use multiselection</span>\n        </button>\n    </div>\n    <ri-filemanager>Loading...</ri-filemanager>\n</div>\n"
 
 /***/ }),
 
@@ -79,7 +79,7 @@ AppComponent = __decorate([
 ], AppComponent);
 
 var _a, _b;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/app.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/app.component.js.map
 
 /***/ }),
 
@@ -93,6 +93,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../demo/src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__main__ = __webpack_require__("../../../../../main.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__("../../../../@ngx-translate/core/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -100,6 +101,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 
 
@@ -117,7 +122,8 @@ var fileManagerConfiguration = {
     maxFileSize: 50 * 1024
 };
 var AppModule = (function () {
-    function AppModule() {
+    function AppModule(translate) {
+        translate.use('en');
     }
     return AppModule;
 }());
@@ -130,16 +136,19 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
             __WEBPACK_IMPORTED_MODULE_5__main__["a" /* FileManagerModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */]
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["a" /* TranslateModule */].forRoot(),
         ],
         providers: [
             { provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration }
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["b" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["b" /* TranslateService */]) === "function" && _a || Object])
 ], AppModule);
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/app.module.js.map
+var _a;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/app.module.js.map
 
 /***/ }),
 
@@ -156,7 +165,7 @@ AppModule = __decorate([
 var environment = {
     production: false
 };
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/environment.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/environment.js.map
 
 /***/ }),
 
@@ -177,7 +186,7 @@ if (__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment *
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_3__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/main.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/main.js.map
 
 /***/ }),
 
@@ -185,32 +194,34 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_store_fileManagerActions_service__ = __webpack_require__("../../../../../src/store/fileManagerActions.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_store_fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_store_fileManagerBackendApi_service__ = __webpack_require__("../../../../../src/store/fileManagerBackendApi.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_filemanager_component__ = __webpack_require__("../../../../../src/filemanager.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_filemanager_module__ = __webpack_require__("../../../../../src/filemanager.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_filesList_fileManagerUploader_service__ = __webpack_require__("../../../../../src/filesList/fileManagerUploader.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile__ = __webpack_require__("../../../../../src/filesList/interface/ISelectFile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__src_filesList_interface_ISelectFile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile__ = __webpack_require__("../../../../../src/filesList/interface/IOuterFile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_IOuterFile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_services_imageDataConverter_service__ = __webpack_require__("../../../../../src/services/imageDataConverter.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi__ = __webpack_require__("../../../../../src/store/IFileManagerApi.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__src_store_IFileManagerApi__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration__ = __webpack_require__("../../../../../src/configuration/IFileManagerConfiguration.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__src_configuration_IFileManagerConfiguration__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds__ = __webpack_require__("../../../../../src/crop/ICropBounds.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__src_crop_ICropBounds__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_store_fileManagerApiAbstract_class__ = __webpack_require__("../../../../../src/store/fileManagerApiAbstract.class.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_store_fileManagerActions_service__ = __webpack_require__("../../../../../src/store/fileManagerActions.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_store_fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_store_fileManagerBackendApi_service__ = __webpack_require__("../../../../../src/store/fileManagerBackendApi.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_filemanager_component__ = __webpack_require__("../../../../../src/filemanager.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_filemanager_module__ = __webpack_require__("../../../../../src/filemanager.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__src_filesList_fileManagerUploader_service__ = __webpack_require__("../../../../../src/filesList/fileManagerUploader.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_ISelectFile__ = __webpack_require__("../../../../../src/filesList/interface/ISelectFile.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_ISelectFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__src_filesList_interface_ISelectFile__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_filesList_interface_IOuterFile__ = __webpack_require__("../../../../../src/filesList/interface/IOuterFile.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__src_filesList_interface_IOuterFile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__src_filesList_interface_IOuterFile__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__src_services_imageDataConverter_service__ = __webpack_require__("../../../../../src/services/imageDataConverter.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_store_IFileManagerApi__ = __webpack_require__("../../../../../src/store/IFileManagerApi.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__src_store_IFileManagerApi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__src_store_IFileManagerApi__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_configuration_IFileManagerConfiguration__ = __webpack_require__("../../../../../src/configuration/IFileManagerConfiguration.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__src_configuration_IFileManagerConfiguration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__src_configuration_IFileManagerConfiguration__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__src_crop_ICropBounds__ = __webpack_require__("../../../../../src/crop/ICropBounds.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__src_crop_ICropBounds___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__src_crop_ICropBounds__);
+/* unused harmony reexport AbstractFileManagerApiService */
 /* unused harmony reexport FileManagerActionsService */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_6__src_filemanager_module__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_7__src_filemanager_module__["a"]; });
 /* unused harmony reexport FileManagerBackendApiService */
 /* unused harmony reexport FileManagerComponent */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__src_configuration_fileManagerConfiguration_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_5__src_store_fileManagerDispatcher_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_5__src_configuration_fileManagerConfiguration_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__src_store_fileManagerDispatcher_service__["a"]; });
 /* unused harmony reexport FileManagerUploader */
 /* unused harmony reexport FilemanagerNotifcations */
 /* unused harmony reexport FileManagerApiService */
@@ -236,14 +247,15 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/main.js.map
+
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/main.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/configuration/IFileManagerConfiguration.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IFileManagerConfiguration.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IFileManagerConfiguration.js.map
 
 /***/ }),
 
@@ -273,12 +285,12 @@ var FileManagerConfiguration = (function () {
     function FileManagerConfiguration(configuration) {
         this.allowedCropSize = [
             {
-                name: 'Landscape',
+                name: 'RI_FM_BTN_LANDSCAPE',
                 width: 300,
                 height: 100
             },
             {
-                name: 'Portrait',
+                name: 'RI_FM_BTN_PORTRAIT',
                 width: 200,
                 height: 300
             }
@@ -334,7 +346,7 @@ FileManagerConfiguration = __decorate([
 ], FileManagerConfiguration);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerConfiguration.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerConfiguration.service.js.map
 
 /***/ }),
 
@@ -397,14 +409,14 @@ TreeService = __decorate([
 ], TreeService);
 
 var _a, _b;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/tree.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/tree.service.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/crop/ICropBounds.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/ICropBounds.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/ICropBounds.js.map
 
 /***/ }),
 
@@ -525,13 +537,13 @@ CropComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'crop-image',
         styles: [__webpack_require__("../../../../../src/crop/crop.less")],
-        template: "\n    <div class=\"crop-image\">\n      <div class=\"crop-workbench\">\n        <div #container></div>\n      </div>\n      <div class=\"btn-toolbar\">\n        <div class=\"btn-group\">\n          <button class=\"btn btn-primary\" *ngFor=\"let cropSize of cropSizeList\" (click)=\"updateCropSize(cropSize)\"\n                  [ngClass]=\"{'active': cropSize == currentCropSize}\">{{cropSize.name}}\n          </button>\n        </div>\n        <div class=\"btn-group pull-right\">\n          <button class=\"btn btn-success btn-icon\" (click)=\"cropImage()\">\n            <i class=\"fa fa-check\"></i>\n            <span>Save</span>\n          </button>\n        </div>\n      </div>\n    </div>\n  "
+        template: "\n    <div class=\"crop-image\">\n      <div class=\"crop-workbench\">\n        <div #container></div>\n      </div>\n      <div class=\"btn-toolbar\">\n        <div class=\"btn-group\">\n          <button class=\"btn btn-primary\" *ngFor=\"let cropSize of cropSizeList\" (click)=\"updateCropSize(cropSize)\"\n                  [ngClass]=\"{'active': cropSize == currentCropSize}\">{{cropSize.name | translate}}\n          </button>\n        </div>\n        <div class=\"btn-group pull-right\">\n          <button class=\"btn btn-success btn-icon\" (click)=\"cropImage()\">\n            <i class=\"fa fa-check\"></i>\n            <span>{{'RI_FM_BTN_SAVE' | translate}}</span>\n          </button>\n        </div>\n      </div>\n    </div>\n  "
     }),
     __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */]) === "function" && _f || Object])
 ], CropComponent);
 
 var _a, _b, _c, _d, _e, _f;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/crop.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/crop.component.js.map
 
 /***/ }),
 
@@ -575,14 +587,105 @@ function log(target, propertyKey, descriptor) {
     };
     return descriptor;
 }
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/logFunction.decorator.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/logFunction.decorator.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/dropdown/AbstractButton.class.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbstractButtonClass; });
+var AbstractButtonClass = (function () {
+    function AbstractButtonClass(data) {
+        this.symbol = data.symbol;
+        this.name = data.name;
+        this.label = data.label;
+        this.icon = data.icon;
+        this.iconCssClass = data.iconCssClass;
+        this.disabled = data.disabled;
+    }
+    return AbstractButtonClass;
+}());
+
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/AbstractButton.class.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/dropdown/Button.class.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AbstractButton_class__ = __webpack_require__("../../../../../src/dropdown/AbstractButton.class.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ButtonClass; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var ButtonClass = (function (_super) {
+    __extends(ButtonClass, _super);
+    function ButtonClass() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ButtonClass.prototype.isDivider = function () {
+        return false;
+    };
+    return ButtonClass;
+}(__WEBPACK_IMPORTED_MODULE_0__AbstractButton_class__["a" /* AbstractButtonClass */]));
+
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/Button.class.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/dropdown/ButtonDivider.class.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AbstractButton_class__ = __webpack_require__("../../../../../src/dropdown/AbstractButton.class.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ButtonDividerClass; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var ButtonDividerClass = (function (_super) {
+    __extends(ButtonDividerClass, _super);
+    function ButtonDividerClass() {
+        return _super.call(this, {
+            symbol: '',
+            name: '',
+            label: false,
+            icon: false,
+            iconCssClass: ''
+        }) || this;
+    }
+    ButtonDividerClass.prototype.isDivider = function () {
+        return true;
+    };
+    return ButtonDividerClass;
+}(__WEBPACK_IMPORTED_MODULE_0__AbstractButton_class__["a" /* AbstractButtonClass */]));
+
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/ButtonDivider.class.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/dropdown/IButton.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IButton.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IButton.js.map
 
 /***/ }),
 
@@ -624,12 +727,16 @@ var DropdownComponent = (function () {
 }());
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__IButton__["IButton"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__IButton__["IButton"]) === "function" && _a || Object)
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__IButton__["IButtonData"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__IButton__["IButtonData"]) === "function" && _a || Object)
 ], DropdownComponent.prototype, "mainButton", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Array)
 ], DropdownComponent.prototype, "buttons", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Boolean)
+], DropdownComponent.prototype, "displayMainButtonLabel", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", Object)
@@ -643,14 +750,14 @@ DropdownComponent = __decorate([
 ], DropdownComponent);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/dropdown.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/dropdown.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/dropdown/dropdown.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"btn-group dropdown\" [ngClass]=\"{'open': isOpen}\">\r\n  <button class=\"btn btn-default\" (click)=\"selectButton(mainButton)\">\r\n    <span *ngIf=\"mainButton.label\">{{mainButton.name}}</span>\r\n    <i *ngIf=\"mainButton.icon\" class=\"{{mainButton.iconCssClass}}\"></i>\r\n  </button>\r\n  <button class=\"btn btn-default dropdown-toggle\" (click)=\"toggleOpen()\">\r\n    <span class=\"caret\"></span>\r\n    <span class=\"sr-only\">Split button!</span>\r\n  </button>\r\n  <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"single-button\" (mouseleave)=\"hide()\">\r\n    <!--<li class=\"divider\"></li>-->\r\n    <li role=\"menuitem\" *ngFor=\"let button of buttons\">\r\n      <a (click)=\"selectButton(button)\">\r\n        <span *ngIf=\"button.icon\" class=\"{{button.iconCssClass}}\"></span>\r\n        <span *ngIf=\"button.label\">{{button.name}}</span>\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</div>\r\n"
+module.exports = "<div class=\"btn-group dropdown\" [ngClass]=\"{'open': isOpen}\">\n  <button class=\"btn btn-default\" [ngClass]=\"{disabled: mainButton.disabled}\" (click)=\"selectButton(mainButton)\">\n    <span *ngIf=\"displayMainButtonLabel\">{{mainButton.name}}</span>\n    <i *ngIf=\"mainButton.icon\" class=\"{{mainButton.iconCssClass}}\"></i>\n  </button>\n  <button class=\"btn btn-default dropdown-toggle\" [ngClass]=\"{disabled: mainButton.disabled}\" (click)=\"toggleOpen()\">\n    <span class=\"caret\"></span>\n  </button>\n  <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"single-button\" (mouseleave)=\"hide()\">\n    <li role=\"menuitem\" [ngClass]=\"{divider: button.isDivider(), disabled: button.disabled}\" *ngFor=\"let button of buttons\">\n      <a (click)=\"selectButton(button)\" *ngIf=\"!button.isDivider()\">\n        <span *ngIf=\"button.icon\" class=\"{{button.iconCssClass}}\"></span>\n        <span *ngIf=\"button.label\">{{button.name | translate}}</span>\n      </a>\n    </li>\n  </ul>\n</div>\n"
 
 /***/ }),
 
@@ -689,15 +796,12 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbar_interface_IToolbarEvent__ = __webpack_require__("../../../../../src/toolbar/interface/IToolbarEvent.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbar_interface_IToolbarEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__toolbar_interface_IToolbarEvent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_fileTypeFilter_service__ = __webpack_require__("../../../../../src/services/fileTypeFilter.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_searchFilter_service__ = __webpack_require__("../../../../../src/services/searchFilter.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__store_fileManagerEffects_service__ = __webpack_require__("../../../../../src/store/fileManagerEffects.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__store_fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__store_fileManagerEffects_service__ = __webpack_require__("../../../../../src/store/fileManagerEffects.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__store_fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_currentDirectoryFiles_service__ = __webpack_require__("../../../../../src/services/currentDirectoryFiles.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileManagerComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -724,10 +828,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
 var FileManagerComponent = (function () {
-    function FileManagerComponent(store, treeActions, nodeDispatcherService, treeService, notifications, configuration, fileManagerDispatcher, fileTypeFilter, searchFilterService, fileManagerEffects, filemanagerNotifcations) {
+    function FileManagerComponent(store, treeActions, nodeDispatcherService, treeService, notifications, configuration, fileManagerDispatcher, fileManagerEffects, filemanagerNotifcations, currentDirectoryFilesService) {
         var _this = this;
         this.store = store;
         this.treeActions = treeActions;
@@ -736,10 +838,9 @@ var FileManagerComponent = (function () {
         this.notifications = notifications;
         this.configuration = configuration;
         this.fileManagerDispatcher = fileManagerDispatcher;
-        this.fileTypeFilter = fileTypeFilter;
-        this.searchFilterService = searchFilterService;
         this.fileManagerEffects = fileManagerEffects;
         this.filemanagerNotifcations = filemanagerNotifcations;
+        this.currentDirectoryFilesService = currentDirectoryFilesService;
         this.onSingleFileSelect = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.treeConfiguration = {
             showAddButton: false,
@@ -750,11 +851,7 @@ var FileManagerComponent = (function () {
         };
         /** UNSED **/
         this.contextMenu = [];
-        /**
-         * Current folder all files
-         * @typeObserv {Array}
-         */
-        this.currentFolderFilesList = [];
+        this.currentSelectedFiles = [];
         this.isPreviewMode = false;
         this.isCropMode = false;
         this.notificationOptions = {
@@ -772,6 +869,10 @@ var FileManagerComponent = (function () {
             var type = notification.type, title = notification.title, message = notification.message;
             _this.notifications[type](title, message);
         });
+        this.currentDirectoryFilesService.selectedFiles$
+            .subscribe(function (data) {
+            _this.currentSelectedFiles = data;
+        });
     }
     FileManagerComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -787,27 +888,9 @@ var FileManagerComponent = (function () {
         this.treeModel = new __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["d" /* TreeModel */](this.folders, this.treeConfiguration);
         /*** END - init TREE ***/
         /*** START - init files ***/
-        this.files$ = this.store.select('files')
-            .map(function (data) {
-            return data.map(function (file) { return new __WEBPACK_IMPORTED_MODULE_2__filesList_file_model__["a" /* FileModel */](file); });
-        });
-        this.filteredFiles$ = __WEBPACK_IMPORTED_MODULE_10_rxjs_Observable__["Observable"].combineLatest(this.files$, this.fileTypeFilter.filter$, this.searchFilterService.filter$)
-            .map(function (data) {
-            var files = data[0];
-            var fileTypeFilter = data[1];
-            var search = data[2].toLocaleLowerCase();
-            if (search !== '') {
-                files = files.filter(function (file) {
-                    return file.name.toLocaleLowerCase().indexOf(search) > -1;
-                });
-            }
-            if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
-                files = files.filter(function (file) {
-                    return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
-                });
-            }
-            return files;
-        });
+        this.files$ = this.currentDirectoryFilesService.files$;
+        this.filteredFiles$ = this.currentDirectoryFilesService.filteredFiles$;
+        this.selectedFiles$ = this.currentDirectoryFilesService.selectedFiles$;
         this.treeModel.currentSelectedNode$
             .subscribe(function (node) {
             _this.loadFiles(node ? node.id : '');
@@ -856,11 +939,7 @@ var FileManagerComponent = (function () {
     FileManagerComponent.prototype.onMenuButtonClick = function (event) {
         switch (event.name) {
             case __WEBPACK_IMPORTED_MODULE_6__toolbar_models_button_model__["a" /* Button */].DELETE_SELECTION:
-                // this.files.forEach((file: IFileModel) => {
-                //   if (file.selected) {
-                //     this.removeSingleFile(file);
-                //   }
-                // });
+                this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFiles);
                 break;
             case __WEBPACK_IMPORTED_MODULE_6__toolbar_models_button_model__["a" /* Button */].SELECT_ALL:
                 this.fileManagerDispatcher.selectAllFiles();
@@ -955,18 +1034,18 @@ FileManagerComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/main.less")],
         template: __webpack_require__("../../../../../src/filemanager.html")
     }),
-    __metadata("design:paramtypes", [typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_11__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__ngrx_store__["b" /* Store */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["f" /* TreeActionsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["f" /* TreeActionsService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["g" /* NodeDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["g" /* NodeDispatcherService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_16__store_fileManagerApi_service__["a" /* FileManagerApiService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_16__store_fileManagerApi_service__["a" /* FileManagerApiService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_notifications__["NotificationsService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_notifications__["NotificationsService"]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_9__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_14__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_12__services_fileTypeFilter_service__["a" /* FileTypeFilterService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__services_fileTypeFilter_service__["a" /* FileTypeFilterService */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_13__services_searchFilter_service__["a" /* SearchFilterService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13__services_searchFilter_service__["a" /* SearchFilterService */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_15__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_17__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_17__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */]) === "function" && _s || Object])
+    __metadata("design:paramtypes", [typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__ngrx_store__["b" /* Store */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["f" /* TreeActionsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["f" /* TreeActionsService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["g" /* NodeDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__rign_angular2_tree__["g" /* NodeDispatcherService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_13__store_fileManagerApi_service__["a" /* FileManagerApiService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13__store_fileManagerApi_service__["a" /* FileManagerApiService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_notifications__["NotificationsService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_notifications__["NotificationsService"]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_9__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_11__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_12__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_14__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_15__services_currentDirectoryFiles_service__["a" /* CurrentDirectoryFilesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__services_currentDirectoryFiles_service__["a" /* CurrentDirectoryFilesService */]) === "function" && _r || Object])
 ], FileManagerComponent);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/filemanager.component.js.map
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/filemanager.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/filemanager.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"filemanager-container\">\r\n  <div class=\"fm-header\">\r\n    <toolbar\r\n      #toolbar\r\n      [currentFolderId]=\"currentSelectedFolderId\"\r\n      (onAddFolderClick)=\"onAddFolder($event)\"\r\n      (onUpload)=\"onUpload($event)\"\r\n      (onMenuButtonClick)=\"onMenuButtonClick($event)\"\r\n    ></toolbar>\r\n  </div>\r\n  <div class=\"fm-main-box\">\r\n    <rign-tree class=\"folders-box\" [treeModel]=\"treeModel\"></rign-tree>\r\n    <ri-files-list class=\"files-box\" [files]=\"filteredFiles$ | async\"\r\n                (onPreviewFile)=\"onPreviewFile($event)\"\r\n                (onCropFile)=\"onOpenCropFileEditor($event)\"\r\n                (onSelectFile)=\"onSelectFile($event)\"\r\n    ></ri-files-list>\r\n  </div>\r\n  <div *ngIf=\"isPreviewMode || isCropMode\" class=\"backdrop\">\r\n    <div class=\"modal-view\">\r\n      <div class=\"modal-close\">\r\n        <i class=\"fa fa-2x fa-times\" (click)=\"closeModal()\"></i>\r\n      </div>\r\n      <ri-file-preview *ngIf=\"isPreviewMode\" [files]=\"filteredFiles$ | async\" [file]=\"currentSelectedFile\"></ri-file-preview>\r\n      <crop-image *ngIf=\"isCropMode\" [file]=\"currentSelectedFile\"></crop-image>\r\n    </div>\r\n  </div>\r\n  <simple-notifications [options]=\"notificationOptions\"></simple-notifications>\r\n</div>\r\n"
+module.exports = "<div class=\"filemanager-container\">\n  <div class=\"fm-header\">\n    <ri-toolbar\n      #toolbar\n      [currentFolderId]=\"currentSelectedFolderId\"\n      (onAddFolderClick)=\"onAddFolder($event)\"\n      (onUpload)=\"onUpload($event)\"\n      (onMenuButtonClick)=\"onMenuButtonClick($event)\"\n    ></ri-toolbar>\n  </div>\n  <div class=\"fm-main-box\">\n    <rign-tree class=\"folders-box\" [treeModel]=\"treeModel\"></rign-tree>\n    <ri-files-list class=\"files-box\" [files]=\"filteredFiles$ | async\"\n                   [selectedFiles]=\"selectedFiles$ | async\"\n                (onPreviewFile)=\"onPreviewFile($event)\"\n                (onCropFile)=\"onOpenCropFileEditor($event)\"\n                (onSelectFile)=\"onSelectFile($event)\"\n    ></ri-files-list>\n  </div>\n  <div *ngIf=\"isPreviewMode || isCropMode\" class=\"backdrop\">\n    <div class=\"modal-view\">\n      <div class=\"modal-close\">\n        <i class=\"fa fa-2x fa-times\" (click)=\"closeModal()\"></i>\n      </div>\n      <ri-file-preview *ngIf=\"isPreviewMode\" [files]=\"filteredFiles$ | async\" [file]=\"currentSelectedFile\"></ri-file-preview>\n      <crop-image *ngIf=\"isCropMode\" [file]=\"currentSelectedFile\"></crop-image>\n    </div>\n  </div>\n  <simple-notifications [options]=\"notificationOptions\"></simple-notifications>\n</div>\n"
 
 /***/ }),
 
@@ -1010,12 +1089,19 @@ module.exports = "<div class=\"filemanager-container\">\r\n  <div class=\"fm-hea
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_angular_confirmation_popover__ = __webpack_require__("../../../../angular-confirmation-popover/dist/esm/src/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__store_fileManagerBackendApi_service__ = __webpack_require__("../../../../../src/store/fileManagerBackendApi.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__services_currentDirectoryFiles_service__ = __webpack_require__("../../../../../src/services/currentDirectoryFiles.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__toolbar_selectionDropDown_selection_component__ = __webpack_require__("../../../../../src/toolbar/selectionDropDown/selection.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__filesList_file_file_component__ = __webpack_require__("../../../../../src/filesList/file/file.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ngx_translate_core__ = __webpack_require__("../../../../@ngx-translate/core/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileManagerModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 
@@ -1051,9 +1137,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
 var FileManagerModule = (function () {
-    function FileManagerModule() {
+    function FileManagerModule(translate) {
+        this.translate = translate;
+        this.setTranslationForEN();
+        this.setTranslationForPL();
+        this.translate.use('en');
     }
+    FileManagerModule.prototype.setTranslationForPL = function () {
+        this.translate.setTranslation('pl', {
+            RI_TREE_LBL_ADD_NODE: 'Dodaj',
+            RI_TREE_LBL_EDIT_NODE: 'Edytuj',
+            RI_TREE_LBL_REMOVE_NODE: 'Usuń',
+            RI_TREE_LBL_DROP_ZONE: 'Upuść tutaj',
+            RI_FM_BTN_LANDSCAPE: 'Poziomo',
+            RI_FM_BTN_PORTRAIT: 'Pionowo',
+            RI_FM_BTN_SAVE: 'Zapisz',
+            RI_FM_LBL_DELETE_SELECTION: 'Usuń wybrane pliki',
+            RI_FM_LBL_INVERSE_SELECTION: 'Odróć zaznaczenie',
+            RI_FM_LBL_SEARCH_FOR: 'Szukaj...',
+            RI_FM_LBL_SELECT_ALL: 'Zaznacz wszystkie',
+            RI_FM_LBL_UNSELECT_ALL: 'Odznacz wszystkie',
+        });
+    };
+    FileManagerModule.prototype.setTranslationForEN = function () {
+        this.translate.setTranslation('en', {
+            RI_TREE_LBL_ADD_NODE: 'Add data',
+            RI_TREE_LBL_EDIT_NODE: 'Edit data',
+            RI_TREE_LBL_REMOVE_NODE: 'Delete data',
+            RI_TREE_LBL_DROP_ZONE: 'Drop here to move data to root level',
+            RI_FM_BTN_LANDSCAPE: 'Landscape',
+            RI_FM_BTN_PORTRAIT: 'Portrait',
+            RI_FM_BTN_SAVE: 'Save',
+            RI_FM_LBL_DELETE_SELECTION: 'Delete selection',
+            RI_FM_LBL_INVERSE_SELECTION: 'Inverse selection',
+            RI_FM_LBL_SEARCH_FOR: 'Search for...',
+            RI_FM_LBL_SELECT_ALL: 'Select all',
+            RI_FM_LBL_UNSELECT_ALL: 'Unselect all',
+        });
+    };
     return FileManagerModule;
 }());
 FileManagerModule = __decorate([
@@ -1070,10 +1196,12 @@ FileManagerModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_5_angular2_notifications__["SimpleNotificationsModule"],
             __WEBPACK_IMPORTED_MODULE_19__ngrx_store__["a" /* StoreModule */].provideStore({ files: __WEBPACK_IMPORTED_MODULE_20__store_fileManagerReducer__["a" /* fileManagerReducer */], trees: __WEBPACK_IMPORTED_MODULE_4__rign_angular2_tree__["a" /* treeReducer */] }),
             __WEBPACK_IMPORTED_MODULE_22__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension({}),
+            __WEBPACK_IMPORTED_MODULE_37__ngx_translate_core__["a" /* TranslateModule */],
             __WEBPACK_IMPORTED_MODULE_4__rign_angular2_tree__["b" /* TreeModule */]
         ],
         declarations: [
             __WEBPACK_IMPORTED_MODULE_6__filemanager_component__["a" /* FileManagerComponent */],
+            __WEBPACK_IMPORTED_MODULE_36__filesList_file_file_component__["a" /* FileComponent */],
             __WEBPACK_IMPORTED_MODULE_26__toolbar_fileTypeFilter_fileTypeFilter_component__["a" /* FileTypeFilterComponent */],
             __WEBPACK_IMPORTED_MODULE_7__toolbar_toolbar_component__["a" /* ToolbarComponent */],
             __WEBPACK_IMPORTED_MODULE_8__filesList_filesList_component__["a" /* FilesListComponent */],
@@ -1081,10 +1209,12 @@ FileManagerModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_11__preview_preview_component__["a" /* PreviewComponent */],
             __WEBPACK_IMPORTED_MODULE_10__crop_crop_component__["a" /* CropComponent */],
             __WEBPACK_IMPORTED_MODULE_9_ng2_img_cropper__["a" /* ImageCropperComponent */],
-            __WEBPACK_IMPORTED_MODULE_27__toolbar_searchFile_searchFile_component__["a" /* SearchFileComponent */]
+            __WEBPACK_IMPORTED_MODULE_27__toolbar_searchFile_searchFile_component__["a" /* SearchFileComponent */],
+            __WEBPACK_IMPORTED_MODULE_35__toolbar_selectionDropDown_selection_component__["a" /* SelectionComponent */],
         ],
         entryComponents: [__WEBPACK_IMPORTED_MODULE_9_ng2_img_cropper__["a" /* ImageCropperComponent */]],
         providers: [
+            __WEBPACK_IMPORTED_MODULE_34__services_currentDirectoryFiles_service__["a" /* CurrentDirectoryFilesService */],
             __WEBPACK_IMPORTED_MODULE_21__store_fileManagerActions_service__["a" /* FileManagerActionsService */],
             __WEBPACK_IMPORTED_MODULE_28__store_fileManagerApi_service__["a" /* FileManagerApiService */],
             __WEBPACK_IMPORTED_MODULE_33__store_fileManagerBackendApi_service__["a" /* FileManagerBackendApiService */],
@@ -1101,10 +1231,12 @@ FileManagerModule = __decorate([
         ],
         exports: [__WEBPACK_IMPORTED_MODULE_6__filemanager_component__["a" /* FileManagerComponent */]],
         schemas: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["CUSTOM_ELEMENTS_SCHEMA"]]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_37__ngx_translate_core__["b" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_37__ngx_translate_core__["b" /* TranslateService */]) === "function" && _a || Object])
 ], FileManagerModule);
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/filemanager.module.js.map
+var _a;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/filemanager.module.js.map
 
 /***/ }),
 
@@ -1184,7 +1316,111 @@ var FileModel = (function () {
 
 FileModel.smallIconsFolder = '/icons/128px/';
 FileModel.bigIconsFolder = '/icons/512px/';
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/file.model.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/file.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/filesList/file/file.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"configuration.isMultiSelection\" class=\"file-selection-input\">\n  <i class=\"fa fa-2x checked fa-check-square-o\" (click)=\"unSelectFile()\"></i>\n  <i class=\"fa fa-2x unchecked fa-square-o\" (click)=\"selectFile()\"></i>\n</div>\n<div class=\"img-rounded file-img\" [ngClass]=\"{'file-img-symbol': !file.isImage()}\"\n     [style.background-image]=\"'url(' + file.thumbnailUrl + ')'\"></div>\n<span class=\"file-name\">{{file.name}}</span>\n<div class=\"file-menu\">\n  <button mwlConfirmationPopover [title]=\"removeTitle\" [message]=\"getRemoveMessage(file)\" [appendToBody]=\"true\"\n          [confirmText]=\"'Yes'\" [cancelText]=\"'No'\" placement=\"bottom\" (confirm)=\"deleteFile(file)\"\n          class=\"btn btn-danger btn-icon\">\n    <i class=\"fa fa-trash\"></i>\n  </button>\n  <button (click)=\"openPreview(file)\" class=\"btn btn-default btn-icon\">\n    <i class=\"fa fa-search\"></i>\n  </button>\n  <button (click)=\"openCrop(file)\" class=\"btn btn-default btn-icon\">\n    <i class=\"fa fa-crop\"></i>\n  </button>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/filesList/file/file.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_IFileModel__ = __webpack_require__("../../../../../src/filesList/interface/IFileModel.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_IFileModel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_IFileModel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_fileManagerDispatcher_service__ = __webpack_require__("../../../../../src/store/fileManagerDispatcher.service.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var FileComponent = (function () {
+    function FileComponent(configuration, fileManagerDispatcher) {
+        this.configuration = configuration;
+        this.fileManagerDispatcher = fileManagerDispatcher;
+        this.onPreviewFile = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.onCropFile = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.onSelectFile = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    FileComponent.prototype.ngOnChanges = function () {
+        console.log('change', this.file);
+    };
+    /**
+     * Fired when clicked on button "delete file"
+     *
+     * @param file
+     */
+    FileComponent.prototype.deleteFile = function (file) {
+        this.fileManagerDispatcher.deleteFile(file);
+    };
+    FileComponent.prototype.getRemoveMessage = function (file) {
+        return 'You are try to delete <b>' + file.name + '</b>. Are you sure?';
+    };
+    FileComponent.prototype.openPreview = function () {
+        var fileEvent = {
+            eventName: 'onPreviewFile',
+            file: this.file
+        };
+        this.onPreviewFile.emit(fileEvent);
+    };
+    FileComponent.prototype.openCrop = function () {
+        var fileEvent = {
+            eventName: 'onCropFile',
+            file: this.file
+        };
+        this.onCropFile.emit(fileEvent);
+    };
+    FileComponent.prototype.selectFile = function () {
+        this.fileManagerDispatcher.selectFile(this.file);
+    };
+    FileComponent.prototype.unSelectFile = function () {
+        this.fileManagerDispatcher.unSelectFile(this.file);
+    };
+    return FileComponent;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_IFileModel__["IFileModel"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__interface_IFileModel__["IFileModel"]) === "function" && _a || Object)
+], FileComponent.prototype, "file", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", Object)
+], FileComponent.prototype, "onPreviewFile", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", Object)
+], FileComponent.prototype, "onCropFile", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", Object)
+], FileComponent.prototype, "onSelectFile", void 0);
+FileComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'ri-file-component',
+        template: __webpack_require__("../../../../../src/filesList/file/file.component.html"),
+        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */]) === "function" && _c || Object])
+], FileComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/file.component.js.map
 
 /***/ }),
 
@@ -1252,7 +1488,7 @@ FileManagerUploader = __decorate([
 ], FileManagerUploader);
 
 var _a, _b;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerUploader.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerUploader.service.js.map
 
 /***/ }),
 
@@ -1264,7 +1500,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".files-list .file {\n  display: inline-block;\n  position: relative;\n  cursor: pointer;\n  text-align: center;\n  width: 140px;\n  height: 110px;\n  padding: 5px;\n  border: 1px solid #cccccc;\n  background-color: #eee;\n  border-radius: 10px;\n  margin: 0 0 20px 20px;\n}\n.files-list .file .file-img {\n  width: 128px;\n  height: 98px;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n.files-list .file .file-img.file-img-symbol {\n  background-size: contain;\n  background-position-x: 50%;\n}\n.files-list .file .file-name {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  text-align: center;\n  background-color: rgba(238, 238, 238, 0.5);\n}\n.files-list .file .file-menu {\n  display: none;\n  position: absolute;\n  top: 30%;\n  left: 0;\n  right: 0;\n  text-align: center;\n}\n.files-list .file .file-selection-input {\n  display: none;\n  position: absolute;\n  top: 3px;\n  left: 3px;\n  cursor: pointer;\n  z-index: 10;\n}\n.files-list .file:hover .file-img {\n  opacity: 0.3;\n}\n.files-list .file:hover .file-name,\n.files-list .file:hover .file-menu,\n.files-list .file:hover .file-selection-input {\n  display: block;\n}\n.files-list .file.selected {\n  border-color: #fff33a;\n  background-color: rgba(255, 243, 58, 0.5);\n}\n.files-list .file.selected .file-name {\n  background-color: rgba(255, 243, 58, 0.5);\n}\n.files-list .file.selected .file-menu,\n.files-list .file.selected .file-selection-input {\n  display: none;\n}\n.files-list .file.selected:hover .file-selection-input {\n  display: block;\n}\n", ""]);
+exports.push([module.i, ".files-list .file {\n  display: inline-block;\n  position: relative;\n  cursor: pointer;\n  text-align: center;\n  width: 140px;\n  height: 110px;\n  padding: 5px;\n  border: 1px solid #cccccc;\n  background-color: #eee;\n  border-radius: 10px;\n  margin: 0 0 20px 20px;\n}\n.files-list .file .file-img {\n  width: 128px;\n  height: 98px;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n.files-list .file .file-img.file-img-symbol {\n  background-size: contain;\n  background-position-x: 50%;\n}\n.files-list .file .file-name {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  text-align: center;\n  background-color: rgba(238, 238, 238, 0.5);\n}\n.files-list .file .file-menu {\n  display: none;\n  position: absolute;\n  top: 30%;\n  left: 0;\n  right: 0;\n  text-align: center;\n}\n.files-list .file .file-selection-input {\n  display: none;\n  position: absolute;\n  top: 3px;\n  left: 3px;\n  cursor: pointer;\n  z-index: 10;\n}\n.files-list .file .file-selection-input .checked {\n  display: none;\n}\n.files-list .file .file-selection-input .unchecked {\n  display: block;\n}\n.files-list .file:hover .file-img {\n  opacity: 0.3;\n}\n.files-list .file:hover .file-name,\n.files-list .file:hover .file-menu,\n.files-list .file:hover .file-selection-input {\n  display: block;\n}\n.files-list .file.selected {\n  border-color: #fff33a;\n  background-color: rgba(255, 243, 58, 0.5);\n}\n.files-list .file.selected .file-name {\n  background-color: rgba(255, 243, 58, 0.5);\n}\n.files-list .file.selected .file-menu,\n.files-list .file.selected .file-selection-input {\n  display: none;\n}\n.files-list .file.selected .file-selection-input .checked {\n  display: block;\n}\n.files-list .file.selected .file-selection-input .unchecked {\n  display: none;\n}\n.files-list .file.selected:hover .file-selection-input {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -1277,7 +1513,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/filesList/files.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"files-list\">\r\n  <div class=\"file\" *ngFor=\"let file of files\" [ngClass]=\"{'selected': file.selected}\" >\r\n    <div *ngIf=\"configuration.isMultiSelection\" class=\"file-selection-input\">\r\n      <i class=\"fa fa-2x\" [ngClass]=\"{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}\" (click)=\"toggleSelection(file)\"></i>\r\n    </div>\r\n    <div class=\"img-rounded file-img\" [ngClass]=\"{'file-img-symbol': !file.isImage()}\"\r\n         [style.background-image]=\"'url(' + file.thumbnailUrl + ')'\"></div>\r\n    <span class=\"file-name\">{{file.name}}</span>\r\n    <div class=\"file-menu\">\r\n      <button mwlConfirmationPopover [title]=\"removeTitle\" [message]=\"getRemoveMessage(file)\" [appendToBody]=\"true\"\r\n              [confirmText]=\"'Yes'\" [cancelText]=\"'No'\" placement=\"bottom\" (confirm)=\"deleteFile(file)\"\r\n              class=\"btn btn-danger btn-icon\">\r\n        <i class=\"fa fa-trash\"></i>\r\n      </button>\r\n      <button (click)=\"openPreview(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-search\"></i>\r\n      </button>\r\n      <button (click)=\"openCrop(file)\" class=\"btn btn-default btn-icon\">\r\n        <i class=\"fa fa-crop\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"files-list\">\n  <div class=\"file\" *ngFor=\"let file of files\" [ngClass]=\"{'selected': isSelected(file)}\"  ri-draggable [data]=\"file.toJSON()\" [sourceType]=\"'FILE'\" [dragZone]=\"'tree'\">\n    <ri-file-component [file]=\"file\" (onPreviewFile)=\"openPreview($event)\" (onCropFile)=\"openCrop($event)\"></ri-file-component>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1330,36 +1566,14 @@ var FilesListComponent = (function () {
     FilesListComponent.prototype.getRemoveMessage = function (file) {
         return 'You are try to delete <b>' + file.name + '</b>. Are you sure?';
     };
-    /**
-     * Select or unselect all files
-     *
-     * @param selected
-     */
-    FilesListComponent.prototype.allFilesSelection = function (selected) {
-        if (selected === void 0) { selected = true; }
-        this.files.map(function (file) { return file.selected = selected; });
-    };
-    /**
-     * Select inversion
-     */
-    FilesListComponent.prototype.selectInversion = function () {
-        this.files.map(function (file) { return file.selected = !file.selected; });
-    };
-    FilesListComponent.prototype.openPreview = function (file) {
-        var fileEvent = {
-            eventName: 'onPreviewFile',
-            file: file
-        };
+    FilesListComponent.prototype.openPreview = function (fileEvent) {
         this.onPreviewFile.emit(fileEvent);
     };
-    FilesListComponent.prototype.openCrop = function (file) {
-        var fileEvent = {
-            eventName: 'onCropFile',
-            file: file
-        };
+    FilesListComponent.prototype.openCrop = function (fileEvent) {
         this.onCropFile.emit(fileEvent);
     };
     FilesListComponent.prototype.toggleSelection = function (file) {
+        console.log(file);
         if (file.selected) {
             this.fileManagerDispatcher.unSelectFile(file);
         }
@@ -1367,12 +1581,19 @@ var FilesListComponent = (function () {
             this.fileManagerDispatcher.selectFile(file);
         }
     };
+    FilesListComponent.prototype.isSelected = function (file) {
+        return this.selectedFiles.indexOf(file.getId().toString()) > -1;
+    };
     return FilesListComponent;
 }());
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Array)
 ], FilesListComponent.prototype, "files", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Array)
+], FilesListComponent.prototype, "selectedFiles", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", Object)
@@ -1389,41 +1610,43 @@ FilesListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ri-files-list',
         template: __webpack_require__("../../../../../src/filesList/files.html"),
-        styles: [__webpack_require__("../../../../../src/filesList/files-list.less")]
+        styles: [__webpack_require__("../../../../../src/filesList/files-list.less")],
+        changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
+        encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__store_fileManagerDispatcher_service__["a" /* FileManagerDispatcherService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_notifications__["NotificationsService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_notifications__["NotificationsService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__store_fileManagerEffects_service__["a" /* FileManagerEffectsService */]) === "function" && _d || Object])
 ], FilesListComponent);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/filesList.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/filesList.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/filesList/interface/IFileEvent.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IFileEvent.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IFileEvent.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/filesList/interface/IFileModel.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IFileModel.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IFileModel.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/filesList/interface/IOuterFile.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IOuterFile.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IOuterFile.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/filesList/interface/ISelectFile.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/ISelectFile.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/ISelectFile.js.map
 
 /***/ }),
 
@@ -1522,14 +1745,14 @@ PreviewComponent = __decorate([
 ], PreviewComponent);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/preview.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/preview.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/preview/preview.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"filemanager-preview\">\r\n  <div class=\"carousel slide\">\r\n    <div class=\"carousel-inner\" role=\"listbox\">\r\n      <div class=\"item\" *ngFor=\"let file of files; let i = index;\" [ngClass]=\"{'active': i == currentIndex}\">\r\n        <img class=\"img-rounded\" src=\"{{file.url}}\" alt=\"{{file.name}}\" style=\"margin: 0 auto;\">\r\n        <div class=\"carousel-caption\">{{file.name}}</div>\r\n      </div>\r\n    </div>\r\n    <a class=\"left carousel-control\" role=\"button\" (click)=\"prev()\" *ngIf=\"currentIndex != 0\">\r\n      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r\n    </a>\r\n    <a class=\"right carousel-control\"role=\"button\" (click)=\"next()\" *ngIf=\"currentIndex + 1 < length\">\r\n      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r\n    </a>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"filemanager-preview\">\n  <div class=\"carousel slide\">\n    <div class=\"carousel-inner\" role=\"listbox\">\n      <div class=\"item\" *ngFor=\"let file of files; let i = index;\" [ngClass]=\"{'active': i == currentIndex}\">\n        <img class=\"img-rounded\" src=\"{{file.url}}\" alt=\"{{file.name}}\" style=\"margin: 0 auto;\">\n        <div class=\"carousel-caption\">{{file.name}}</div>\n      </div>\n    </div>\n    <a class=\"left carousel-control\" role=\"button\" (click)=\"prev()\" *ngIf=\"currentIndex != 0\">\n      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\n    </a>\n    <a class=\"right carousel-control\"role=\"button\" (click)=\"next()\" *ngIf=\"currentIndex + 1 < length\">\n      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\n    </a>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1554,7 +1777,114 @@ var FilemanagerNotifcations = (function () {
     return FilemanagerNotifcations;
 }());
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/FilemanagerNotifcations.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/FilemanagerNotifcations.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/services/currentDirectoryFiles.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__searchFilter_service__ = __webpack_require__("../../../../../src/services/searchFilter.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fileTypeFilter_service__ = __webpack_require__("../../../../../src/services/fileTypeFilter.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filesList_file_model__ = __webpack_require__("../../../../../src/filesList/file.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_fileManagerReducer__ = __webpack_require__("../../../../../src/store/fileManagerReducer.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CurrentDirectoryFilesService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var CurrentDirectoryFilesService = (function () {
+    /**
+     * @param {Store<ITreeState>} store
+     * @param {FileTypeFilterService} fileTypeFilter
+     * @param {SearchFilterService} searchFilterService
+     */
+    function CurrentDirectoryFilesService(store, fileTypeFilter, searchFilterService) {
+        this.store = store;
+        this.fileTypeFilter = fileTypeFilter;
+        this.searchFilterService = searchFilterService;
+        var observable$ = this.store.select('files');
+        this.entities$ = observable$
+            .map(function (state) { return state.entities; })
+            .distinctUntilChanged();
+        this.currentDirectoryFileIds$ = observable$
+            .map(function (state) { return state.files; })
+            .distinctUntilChanged();
+        this.selectedFiles$ = this.store.select('files').map(function (state) { return state.selectedFiles; });
+        this.files$ = this.getFilesStream();
+        this.filteredFiles$ = this.getCurrentDirectoryFilesStream();
+    }
+    /**
+     * Return stream of files
+     *
+     * @returns {Observable<FileModel[]>}
+     */
+    CurrentDirectoryFilesService.prototype.getFilesStream = function () {
+        return this.currentDirectoryFileIds$
+            .withLatestFrom(this.entities$)
+            .map(function (ar) {
+            return {
+                entities: ar[1],
+                files: ar[0]
+            };
+        })
+            .map(function (state) {
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__store_fileManagerReducer__["b" /* getAll */])(state)
+                .map(function (file) {
+                return new __WEBPACK_IMPORTED_MODULE_4__filesList_file_model__["a" /* FileModel */](file);
+            });
+        });
+    };
+    /**
+     * Return stream of current directory filtered files
+     *
+     * @returns {Observable<FileModel[]>}
+     */
+    CurrentDirectoryFilesService.prototype.getCurrentDirectoryFilesStream = function () {
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].combineLatest(this.files$, this.fileTypeFilter.filter$, this.searchFilterService.filter$)
+            .map(function (data) {
+            var files = data[0];
+            var fileTypeFilter = data[1];
+            var search = data[2].toLocaleLowerCase();
+            if (search !== '') {
+                files = files.filter(function (file) {
+                    return file.name.toLocaleLowerCase().indexOf(search) > -1;
+                });
+            }
+            if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
+                files = files.filter(function (file) {
+                    return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
+                });
+            }
+            return files;
+        });
+    };
+    return CurrentDirectoryFilesService;
+}());
+CurrentDirectoryFilesService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__fileTypeFilter_service__["a" /* FileTypeFilterService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__fileTypeFilter_service__["a" /* FileTypeFilterService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__searchFilter_service__["a" /* SearchFilterService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__searchFilter_service__["a" /* SearchFilterService */]) === "function" && _c || Object])
+], CurrentDirectoryFilesService);
+
+var _a, _b, _c;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/currentDirectoryFiles.service.js.map
 
 /***/ }),
 
@@ -1624,7 +1954,7 @@ var ExtendedFileUploader = (function (_super) {
     return ExtendedFileUploader;
 }(__WEBPACK_IMPORTED_MODULE_0_ng2_file_upload__["FileUploader"]));
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/extendedFileUplaoder.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/extendedFileUplaoder.service.js.map
 
 /***/ }),
 
@@ -1664,7 +1994,7 @@ FileTypeFilterService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
 ], FileTypeFilterService);
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileTypeFilter.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileTypeFilter.service.js.map
 
 /***/ }),
 
@@ -1763,7 +2093,7 @@ ImageDataConverter = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Injectable"])()
 ], ImageDataConverter);
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/imageDataConverter.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/imageDataConverter.service.js.map
 
 /***/ }),
 
@@ -1803,14 +2133,14 @@ SearchFilterService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
 ], SearchFilterService);
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/searchFilter.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/searchFilter.service.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/store/IFileManagerApi.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IFileManagerApi.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IFileManagerApi.js.map
 
 /***/ }),
 
@@ -1871,15 +2201,15 @@ var FileManagerActionsService = FileManagerActionsService_1 = (function () {
             }
         };
     };
-    FileManagerActionsService.prototype.deleteSelectedFiles = function () {
+    FileManagerActionsService.prototype.deleteSelectedFiles = function (fileIds) {
         return {
             type: FileManagerActionsService_1.FILEMANAGER_DELETE_FILE_SELECTION,
-            payload: {}
+            payload: { fileIds: fileIds }
         };
     };
     FileManagerActionsService.prototype.deleteSelectedFilesSuccess = function (files) {
         return {
-            type: FileManagerActionsService_1.FILEMANAGER_DELETE_FILE_SELECTION,
+            type: FileManagerActionsService_1.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS,
             payload: { files: files }
         };
     };
@@ -1904,6 +2234,18 @@ var FileManagerActionsService = FileManagerActionsService_1 = (function () {
                 folderId: folderId,
                 files: files
             }
+        };
+    };
+    FileManagerActionsService.prototype.moveFileSuccess = function (files, folderId) {
+        return {
+            type: FileManagerActionsService_1.FILEMANAGER_MOVE_FILES_SUCCESS,
+            payload: { folderId: folderId, files: files }
+        };
+    };
+    FileManagerActionsService.prototype.moveFileError = function (files) {
+        return {
+            type: FileManagerActionsService_1.FILEMANAGER_MOVE_FILES_ERROR,
+            payload: { files: files }
         };
     };
     FileManagerActionsService.prototype.selectAllFiles = function () {
@@ -1970,6 +2312,8 @@ FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS = 'FILEMANAG
 FileManagerActionsService.FILEMANAGER_INVERSE_FILE_SELECTION = 'FILEMANAGER_INVERSE_FILE_SELECTION';
 FileManagerActionsService.FILEMANAGER_LOAD_FILES = 'FILEMANAGER_LOAD_FILES';
 FileManagerActionsService.FILEMANAGER_LOAD_FILES_SUCCESS = 'FILEMANAGER_LOAD_FILES_SUCCESS';
+FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS = 'FILEMANAGER_MOVE_FILES_SUCCESS';
+FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR = 'FILEMANAGER_MOVE_FILES_ERROR';
 FileManagerActionsService.FILEMANAGER_SELECT_ALL = 'FILEMANAGER_SELECT_ALL';
 FileManagerActionsService.FILEMANAGER_SELECT_FILE = 'FILEMANAGER_SELECT_FILE';
 FileManagerActionsService.FILEMANAGER_UNSELECT_FILE = 'FILEMANAGER_UNSELECT_FILE';
@@ -1982,7 +2326,7 @@ FileManagerActionsService = FileManagerActionsService_1 = __decorate([
 ], FileManagerActionsService);
 
 var FileManagerActionsService_1;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerActions.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerActions.service.js.map
 
 /***/ }),
 
@@ -1996,7 +2340,18 @@ var FileManagerActionsService_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_uuid__ = __webpack_require__("../../../../angular2-uuid/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_uuid__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fileManagerApiAbstract_class__ = __webpack_require__("../../../../../src/store/fileManagerApiAbstract.class.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileManagerApiService; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2010,11 +2365,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var FileManagerApiService = (function () {
+
+var FileManagerApiService = (function (_super) {
+    __extends(FileManagerApiService, _super);
     function FileManagerApiService(filemanagerNotfication) {
-        this.filemanagerNotfication = filemanagerNotfication;
-        this.treeName = 'fileManagerTree';
-        this.fileManagerName = 'fileManagerFiles';
+        var _this = _super.call(this) || this;
+        _this.filemanagerNotfication = filemanagerNotfication;
+        return _this;
     }
     FileManagerApiService.prototype.load = function (nodeId) {
         if (nodeId === void 0) { nodeId = ''; }
@@ -2038,7 +2395,7 @@ var FileManagerApiService = (function () {
     };
     FileManagerApiService.prototype.move = function (srcNode, targetNode) {
         var srcId = srcNode.id;
-        var targetId = targetNode ? targetNode.id : null;
+        var targetId = targetNode ? targetNode.id : '';
         var index = this.findIndexByNodeId(srcId);
         this.nodes[index].parentId = targetId;
         if (this.saveNodes()) {
@@ -2090,6 +2447,7 @@ var FileManagerApiService = (function () {
     FileManagerApiService.prototype.loadFiles = function (nodeId) {
         var _this = this;
         if (nodeId === void 0) { nodeId = ''; }
+        this.currentNodeId = nodeId;
         if (!this.files) {
             this.files = this.getAllFileDataFromLocalStorage();
         }
@@ -2108,6 +2466,18 @@ var FileManagerApiService = (function () {
         this.saveFiles();
         return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(true);
     };
+    FileManagerApiService.prototype.removeSelectedFiles = function (selectedFiles) {
+        var _this = this;
+        var numberOfFiles = this.files.length;
+        selectedFiles.forEach(function (fileId) {
+            var index = _this.findIndexByFileId(fileId);
+            if (index > -1) {
+                _this.files.splice(index, 1);
+            }
+        });
+        this.saveFiles();
+        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of((this.files.length + selectedFiles.length === numberOfFiles));
+    };
     FileManagerApiService.prototype.uploadFile = function (file) {
         var fileData = this.convertIOuterFile2LocalData(file);
         this.files.push(fileData);
@@ -2116,6 +2486,41 @@ var FileManagerApiService = (function () {
         }
         else {
             return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].throw('Upload error');
+        }
+    };
+    /**
+     * @param {IOuterFile[]} files
+     * @param {IOuterNode} node
+     * @returns {Observable<IOuterFile[]>}
+     */
+    FileManagerApiService.prototype.moveFile = function (files, node) {
+        var _this = this;
+        if (node === void 0) { node = null; }
+        var ids = files.map(function (file) { return file.id.toString(); });
+        var folderId = node ? node.id.toString() : '';
+        var movedFiles = this.files.filter(function (file) { return ids.indexOf(file.id.toString()) > -1; });
+        var errorMsg = 'Can not move file to the same folder';
+        var isMovedToSameFolder = false;
+        movedFiles.forEach(function (file) {
+            if (node) {
+                if (node.id === file.folderId) {
+                }
+            }
+            else {
+                if (file.folderId === '' || file.folderId === null) {
+                    return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].throw(errorMsg);
+                }
+            }
+            file.folderId = folderId;
+        });
+        if (isMovedToSameFolder) {
+            return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].throw(errorMsg);
+        }
+        if (this.saveFiles()) {
+            return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(movedFiles.map(function (file) { return _this.convertLocalData2IOuterFile(file); }));
+        }
+        else {
+            return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].throw('Move files error');
         }
     };
     FileManagerApiService.prototype.findIndexByNodeId = function (nodeId) {
@@ -2226,14 +2631,32 @@ var FileManagerApiService = (function () {
         };
     };
     return FileManagerApiService;
-}());
+}(__WEBPACK_IMPORTED_MODULE_4__fileManagerApiAbstract_class__["a" /* AbstractFileManagerApiService */]));
 FileManagerApiService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */]) === "function" && _a || Object])
 ], FileManagerApiService);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerApi.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerApi.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/store/fileManagerApiAbstract.class.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbstractFileManagerApiService; });
+var AbstractFileManagerApiService = (function () {
+    function AbstractFileManagerApiService() {
+        this.treeName = 'fileManagerTree';
+        this.fileManagerName = 'fileManagerFiles';
+        this.currentNodeId = '';
+    }
+    return AbstractFileManagerApiService;
+}());
+
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerApiAbstract.class.js.map
 
 /***/ }),
 
@@ -2246,7 +2669,18 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fileManagerApiAbstract_class__ = __webpack_require__("../../../../../src/store/fileManagerApiAbstract.class.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileManagerBackendApiService; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2260,12 +2694,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var FileManagerBackendApiService = (function () {
+
+var FileManagerBackendApiService = (function (_super) {
+    __extends(FileManagerBackendApiService, _super);
     function FileManagerBackendApiService($http, configuration) {
-        this.$http = $http;
-        this.configuration = configuration;
-        this.nodes = [];
-        this.files = [];
+        var _this = _super.call(this) || this;
+        _this.$http = $http;
+        _this.configuration = configuration;
+        _this.nodes = [];
+        _this.files = [];
+        return _this;
     }
     /**
      * Load folder chidls for given folder id
@@ -2400,9 +2838,9 @@ var FileManagerBackendApiService = (function () {
     FileManagerBackendApiService.prototype.loadFiles = function (nodeId) {
         var _this = this;
         if (nodeId === void 0) { nodeId = ''; }
+        this.currentNodeId = nodeId;
         var params = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* URLSearchParams */]();
         params.append('dirId', nodeId);
-        // return Observable.of([]);
         return this.$http.get(this.configuration.fileUrl, { search: params })
             .map(function (response) {
             return response.json();
@@ -2432,15 +2870,42 @@ var FileManagerBackendApiService = (function () {
             return true;
         });
     };
+    FileManagerBackendApiService.prototype.removeSelectedFiles = function (selectedFiles) {
+        var _this = this;
+        var params = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* URLSearchParams */]();
+        params.set('id', selectedFiles.join('|'));
+        return this.$http.delete(this.configuration.fileUrl, { search: params })
+            .map(function (res) {
+            selectedFiles.forEach(function (fileId) {
+                var index = _this.findIndexByFileId(fileId);
+                if (index > -1) {
+                    _this.files.splice(index, 1);
+                }
+            });
+            return true;
+        });
+    };
     /**
      * This method is success method, real upload is done in ExtendedFileUploader
      * @param {IOuterFile} file
      * @returns {Observable<IOuterFile>}
      */
     FileManagerBackendApiService.prototype.uploadFile = function (file) {
-        var fileData = this.convertIOuterFile2LocalData(file);
+        var fileData = file;
         this.files.push(fileData);
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(this.convertLocalData2IOuterFile(fileData));
+        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(file);
+    };
+    /**
+     * @param {IOuterFile[]} files
+     * @param {IOuterNode} node
+     * @returns {Observable<IOuterFile[]>}
+     */
+    FileManagerBackendApiService.prototype.moveFile = function (files, node) {
+        var ids = files.map(function (file) { return file.id.toString(); });
+        return this.$http.put(this.configuration.fileUrl, { files: ids, folderId: node ? node.id : '' })
+            .map(function (res) {
+            return res.json();
+        });
     };
     /**
      * @param {string} nodeId
@@ -2499,14 +2964,14 @@ var FileManagerBackendApiService = (function () {
         };
     };
     return FileManagerBackendApiService;
-}());
+}(__WEBPACK_IMPORTED_MODULE_4__fileManagerApiAbstract_class__["a" /* AbstractFileManagerApiService */]));
 FileManagerBackendApiService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _b || Object])
 ], FileManagerBackendApiService);
 
 var _a, _b;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerBackendApi.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerBackendApi.service.js.map
 
 /***/ }),
 
@@ -2541,8 +3006,8 @@ var FileManagerDispatcherService = (function () {
     FileManagerDispatcherService.prototype.deleteFile = function (file) {
         this.store.dispatch(this.fileManagerActions.deleteFile(file));
     };
-    FileManagerDispatcherService.prototype.deleteSelectedFiles = function () {
-        this.store.dispatch(this.fileManagerActions.deleteSelectedFiles());
+    FileManagerDispatcherService.prototype.deleteSelectedFiles = function (files) {
+        this.store.dispatch(this.fileManagerActions.deleteSelectedFiles(files));
     };
     FileManagerDispatcherService.prototype.inverseSelection = function () {
         this.store.dispatch(this.fileManagerActions.inverseFileSelection());
@@ -2579,7 +3044,7 @@ FileManagerDispatcherService = __decorate([
 ], FileManagerDispatcherService);
 
 var _a, _b;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerDispatcher.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerDispatcher.service.js.map
 
 /***/ }),
 
@@ -2589,11 +3054,12 @@ var _a, _b;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__ = __webpack_require__("../../../../@ngrx/effects/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__ = __webpack_require__("../../../../../src/store/fileManagerActions.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rign_angular2_tree__ = __webpack_require__("../../../../@rign/angular2-tree/main.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__ = __webpack_require__("../../../../../src/store/fileManagerActions.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fileManagerApi_service__ = __webpack_require__("../../../../../src/store/fileManagerApi.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_FilemanagerNotifcations__ = __webpack_require__("../../../../../src/services/FilemanagerNotifcations.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileManagerEffectsService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2610,6 +3076,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FileManagerEffectsService = (function () {
     function FileManagerEffectsService(actions$, fileManagerActions, filemanagerNotfication, fileManagerApiService) {
         var _this = this;
@@ -2618,14 +3085,17 @@ var FileManagerEffectsService = (function () {
         this.filemanagerNotfication = filemanagerNotfication;
         this.fileManagerApiService = fileManagerApiService;
         this.loadFiles$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_LOAD_FILES)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_LOAD_FILES)
             .switchMap(function (action) { return _this.loadFiles(action.payload.folderId)
             .map(function (files) {
             return _this.fileManagerActions.loadFilesSuccess(action.payload.folderId, files);
         })
-            .catch(function () { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].of(_this.onLoadFilesError(action.payload.folderId)); }); });
+            .catch(function (e) {
+            console.log(e);
+            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(_this.onLoadFilesError(action.payload.folderId));
+        }); });
         this.cropFile$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE)
             .switchMap(function (action) { return _this.cropFile(action.payload.file, action.payload.bounds)
             .map(function (result) {
             _this.filemanagerNotfication.sendNotification({
@@ -2635,25 +3105,51 @@ var FileManagerEffectsService = (function () {
             });
             return _this.fileManagerActions.cropFileSuccess(action.payload.file);
         })
-            .catch(function () { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].of(_this.fileManagerActions.cropFileError(action.payload.file)); }); });
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(_this.fileManagerActions.cropFileError(action.payload.file)); }); });
         this.deleteFile$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE)
             .switchMap(function (action) { return _this.deleteFile(action.payload.file)
             .map(function (result) {
             return _this.fileManagerActions.deleteFileSuccess(action.payload.file);
         })
-            .catch(function () { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].of(_this.onDeleteFileError(action.payload.file)); }); });
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(_this.onDeleteFileError(action.payload.file)); }); });
+        this.deleteFilesSelection$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SELECTION)
+            .switchMap(function (action) { return _this.deleteFilesSelection(action.payload.fileIds)
+            .map(function (result) {
+            return _this.fileManagerActions.deleteSelectedFilesSuccess(action.payload.files);
+        })
+            .catch(function () { return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(_this.onDeleteFilesSelectionError(action.payload.files)); }); });
         this.uploadFile$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_UPLOAD_FILE)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_UPLOAD_FILE)
             .switchMap(function (action) { return _this.uploadFile(action.payload.files[0])
             .map(function (result) {
             return _this.fileManagerActions.uploadSuccess(result);
         })
             .catch(function () {
-            return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].empty();
+            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].empty();
         }); });
+        this.moveFile$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_2__rign_angular2_tree__["f" /* TreeActionsService */].TREE_MOVE_NODE)
+            .filter(function (action) {
+            return action.payload.sourceOfDroppedData === 'FILE';
+        })
+            .switchMap(function (action) { return _this.moveFiles([action.payload.oldNode], action.payload.node)
+            .map(function (result) {
+            var folderId = action.payload.oldNode.folderId;
+            return _this.fileManagerActions.moveFileSuccess(result, folderId);
+        })
+            .catch(function () {
+            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(_this.fileManagerActions.moveFileError([action.payload.oldNode]));
+        }); });
+        this.filesMoveSuccess$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_MOVE_FILES_SUCCESS)
+            .map(function (action) {
+            _this.onMoveFilesSuccess();
+            return _this.fileManagerActions.loadFiles(action.payload.folderId);
+        });
         this.uploadError$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_UPLOAD_FILE_ERROR)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_UPLOAD_FILE_ERROR)
             .map(function (action) {
             _this.filemanagerNotfication.sendNotification({
                 type: 'alert',
@@ -2662,14 +3158,19 @@ var FileManagerEffectsService = (function () {
             });
         });
         this.cropFileSuccess$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE_SUCCESS);
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE_SUCCESS);
         this.cropFileError$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE_ERROR)
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE_ERROR)
             .subscribe(function (action) {
             _this.onCropFileError(action.payload.file);
         });
         this.deleteFileSuccess$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SUCCESS);
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SUCCESS);
+        this.filesMoveError$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_MOVE_FILES_ERROR)
+            .subscribe(function (action) {
+            _this.onMoveFilesError();
+        });
     }
     FileManagerEffectsService.prototype.cropFile = function (file, bounds) {
         return this.fileManagerApiService.cropFile(file.toJSON(), bounds);
@@ -2677,11 +3178,18 @@ var FileManagerEffectsService = (function () {
     FileManagerEffectsService.prototype.deleteFile = function (file) {
         return this.fileManagerApiService.removeFile(file.toJSON());
     };
+    FileManagerEffectsService.prototype.deleteFilesSelection = function (files) {
+        return this.fileManagerApiService.removeSelectedFiles(files);
+    };
     FileManagerEffectsService.prototype.loadFiles = function (folderId) {
         return this.fileManagerApiService.loadFiles(folderId);
     };
     FileManagerEffectsService.prototype.uploadFile = function (file) {
         return this.fileManagerApiService.uploadFile(file);
+    };
+    FileManagerEffectsService.prototype.moveFiles = function (files, folder) {
+        if (folder === void 0) { folder = null; }
+        return this.fileManagerApiService.moveFile(files, folder);
     };
     FileManagerEffectsService.prototype.onCropFileError = function (file) {
         this.filemanagerNotfication.sendNotification({
@@ -2697,11 +3205,32 @@ var FileManagerEffectsService = (function () {
             message: '[FILEMANAGER] Can not delete file' + file.name
         });
     };
+    FileManagerEffectsService.prototype.onDeleteFilesSelectionError = function (files) {
+        this.filemanagerNotfication.sendNotification({
+            type: 'error',
+            title: 'Delete selected files',
+            message: '[FILEMANAGER] Not all files were deleted'
+        });
+    };
     FileManagerEffectsService.prototype.onLoadFilesError = function (folderId) {
         this.filemanagerNotfication.sendNotification({
             type: 'error',
             title: 'Load files',
             message: '[FILEMANAGER] Can not load files for folder ' + folderId
+        });
+    };
+    FileManagerEffectsService.prototype.onMoveFilesSuccess = function () {
+        this.filemanagerNotfication.sendNotification({
+            type: 'success',
+            title: 'Move files',
+            message: 'File was successfully moved to folder'
+        });
+    };
+    FileManagerEffectsService.prototype.onMoveFilesError = function () {
+        this.filemanagerNotfication.sendNotification({
+            type: 'error',
+            title: 'Move files',
+            message: 'File was not successfully moved to new folder'
         });
     };
     return FileManagerEffectsService;
@@ -2721,14 +3250,26 @@ __decorate([
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Effect */])(),
     __metadata("design:type", Object)
+], FileManagerEffectsService.prototype, "deleteFilesSelection$", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Effect */])(),
+    __metadata("design:type", Object)
 ], FileManagerEffectsService.prototype, "uploadFile$", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Effect */])(),
+    __metadata("design:type", Object)
+], FileManagerEffectsService.prototype, "moveFile$", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Effect */])(),
+    __metadata("design:type", Object)
+], FileManagerEffectsService.prototype, "filesMoveSuccess$", void 0);
 FileManagerEffectsService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["b" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["b" /* Actions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__fileManagerActions_service__["a" /* FileManagerActionsService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__fileManagerApi_service__["a" /* FileManagerApiService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__fileManagerApi_service__["a" /* FileManagerApiService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["b" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["b" /* Actions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__fileManagerActions_service__["a" /* FileManagerActionsService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_FilemanagerNotifcations__["a" /* FilemanagerNotifcations */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__fileManagerApi_service__["a" /* FileManagerApiService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__fileManagerApi_service__["a" /* FileManagerApiService */]) === "function" && _d || Object])
 ], FileManagerEffectsService);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerEffects.service.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerEffects.service.js.map
 
 /***/ }),
 
@@ -2738,81 +3279,137 @@ var _a, _b, _c, _d;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__ = __webpack_require__("../../../../../src/store/fileManagerActions.service.ts");
 /* harmony export (immutable) */ __webpack_exports__["a"] = fileManagerReducer;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAll; });
+/* unused harmony export isChangeStateFiles */
+/* unused harmony export isChangeStateSelectedFiles */
 
 function cropFile(state, action) {
-    var newState = state.slice();
-    for (var i in state) {
-        if (newState[i].id === action.payload.file.getId()) {
-            newState[i] = action.payload.file.toJSON();
-        }
-    }
-    return newState;
+    var file = action.payload.file;
+    var id = file.getId().toString();
+    state.entities[id] = Object.assign({}, file.toJSON());
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: state.selectedFiles
+    };
 }
 function inverseFilesSelection(state) {
-    return state.map(function (file) {
-        file.selected = !file.selected;
-        return file;
-    });
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: state.files.filter(function (i) { return state.selectedFiles.indexOf(i) === -1; })
+    };
 }
 function loadFiles(state, action) {
-    return action.payload.files.slice();
+    var entities = {};
+    var files = [];
+    action.payload.files.map(function (file) {
+        var id = file.id.toString();
+        entities[id] = file;
+        files.push(id);
+    });
+    return {
+        entities: entities,
+        files: files,
+        selectedFiles: []
+    };
+}
+function moveFiles(state, action) {
+    var files = action.payload.files;
+    var ids = files.map(function (file) { return file.id.toString(); });
+    var folderId = action.payload.folderId ? action.payload.folderId.toString() : '';
+    var entities = Object.assign({}, state.entities);
+    ids.forEach(function (id) {
+        var oldEntity = Object.assign({}, entities[id]);
+        oldEntity.folderId = folderId;
+        entities[id] = oldEntity;
+    });
+    return {
+        entities: entities,
+        files: state.files.filter(function (i) { return ids.indexOf(i) === -1; }),
+        selectedFiles: state.selectedFiles.filter(function (i) { return ids.indexOf(i) === -1; })
+    };
 }
 function removeFile(state, action) {
     var id = action.payload.file.getId();
-    return state.filter(function (file) { return file.id !== id; }).slice();
+    delete state.entities[id];
+    return {
+        entities: state.entities,
+        files: state.files.filter(function (i) { return i !== id; }),
+        selectedFiles: state.selectedFiles
+    };
 }
 function removeSelectedFiles(state) {
-    return state.filter(function (file) { return !file.selected; }).slice();
+    var files = state.files.filter(function (i) { return state.selectedFiles.indexOf(i) === -1; });
+    var entities = {};
+    files.forEach(function (fileId) {
+        entities[fileId] = state.entities[fileId];
+    });
+    return {
+        entities: entities,
+        files: files,
+        selectedFiles: []
+    };
 }
 function selectFile(state, action) {
-    return state.map(function (file) {
-        if (file.id === action.payload.file.getId()) {
-            file.selected = true;
-            return copyOuterFile(file);
-        }
-        return file;
-    });
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: state.selectedFiles.concat([action.payload.file.getId().toString()])
+    };
 }
 function selectAllFiles(state) {
-    var newState = state.slice();
-    return newState.map(function (file) {
-        file.selected = true;
-        return file;
-    });
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: state.files.slice()
+    };
 }
 function uploadFiles(state, action) {
-    return state.concat(action.payload.files);
+    var newState = {
+        entities: Object.assign({}, state.entities),
+        files: state.files.slice(),
+        selectedFiles: []
+    };
+    action.payload.files.forEach(function (file) {
+        var id = file.id.toString();
+        newState.entities[id] = file;
+        newState.files.push(id);
+    });
+    return newState;
 }
 function unSelectAllFiles(state) {
-    return state.map(function (file) {
-        file.selected = false;
-        return file;
-    });
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: []
+    };
 }
 function unSelectFile(state, action) {
-    var file = getFileById(state, action.payload.file.getId());
-    file.selected = false;
-    return state.slice();
-}
-function getFileById(state, id) {
-    var files = state.filter(function (file) { return file.id === id; });
-    return files.length > 0 ? files[0] : null;
-}
-function copyOuterFile(inputFile) {
-    var id = inputFile.id, folderId = inputFile.folderId, name = inputFile.name, thumbnailUrl = inputFile.thumbnailUrl, url = inputFile.url, width = inputFile.width, height = inputFile.height, type = inputFile.type, data = inputFile.data, size = inputFile.size, selected = inputFile.selected;
-    return { id: id, folderId: folderId, name: name, thumbnailUrl: thumbnailUrl, url: url, width: width, height: height, type: type, data: data, size: size, selected: selected };
+    var fileId = action.payload.file.getId().toString();
+    return {
+        entities: state.entities,
+        files: state.files,
+        selectedFiles: state.selectedFiles.filter(function (id) { return id !== fileId; })
+    };
 }
 function fileManagerReducer(state, action) {
-    if (state === void 0) { state = []; }
+    if (state === void 0) { state = {
+        entities: {},
+        files: [],
+        selectedFiles: []
+    }; }
     switch (action.type) {
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE_SUCCESS:
             return cropFile(state, action);
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_INVERSE_FILE_SELECTION:
             return inverseFilesSelection(state);
-        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SELECTION:
+        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS:
             return removeSelectedFiles(state);
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SUCCESS:
             return removeFile(state, action);
+        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_MOVE_FILES_SUCCESS:
+            return moveFiles(state, action);
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_LOAD_FILES_SUCCESS:
             return loadFiles(state, action);
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_SELECT_ALL:
@@ -2825,23 +3422,33 @@ function fileManagerReducer(state, action) {
             return unSelectFile(state, action);
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_UPLOAD_FILE_SUCCESS:
             return uploadFiles(state, action);
-        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS:
+        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE_SELECTION:
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_CROP_FILE:
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_DELETE_FILE:
         case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_LOAD_FILES:
+        case __WEBPACK_IMPORTED_MODULE_0__fileManagerActions_service__["a" /* FileManagerActionsService */].FILEMANAGER_MOVE_FILES_ERROR:
             return state;
         default:
             return state;
     }
 }
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileManagerReducer.js.map
+var getAll = function (state) {
+    return state.files.map(function (id) { return state.entities[id]; });
+};
+var isChangeStateFiles = function (newState, prevState) {
+    return prevState.files.length !== newState.files.length || prevState.files.filter(function (i) { return newState.files.indexOf(i) === -1; }).length > 0;
+};
+var isChangeStateSelectedFiles = function (newState, prevState) {
+    return prevState.selectedFiles.length !== newState.selectedFiles.length || prevState.selectedFiles.filter(function (i) { return newState.selectedFiles.indexOf(i) === -1; }).length > 0;
+};
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileManagerReducer.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/toolbar/fileTypeFilter/fileTypeFilter.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"btn-group\">\r\n  <button *ngFor=\"let type of typeFilterList\" class=\"btn btn-default\" [ngClass]=\"{'active': type === selectedType}\"\r\n          (click)=\"setFilterType(type)\">\r\n    <i class=\"{{type.iconCls}}\"></i>\r\n  </button>\r\n</div>\r\n"
+module.exports = "<div class=\"btn-group\">\n  <button *ngFor=\"let type of typeFilterList\" class=\"btn btn-default\" [ngClass]=\"{'active': type === selectedType}\"\n          (click)=\"setFilterType(type)\">\n    <i class=\"{{type.iconCls}}\"></i>\n  </button>\n</div>\n"
 
 /***/ }),
 
@@ -2907,14 +3514,14 @@ FileTypeFilterComponent = __decorate([
 ], FileTypeFilterComponent);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/fileTypeFilter.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/fileTypeFilter.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/toolbar/interface/IToolbarEvent.ts":
 /***/ (function(module, exports) {
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/IToolbarEvent.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/IToolbarEvent.js.map
 
 /***/ }),
 
@@ -2935,7 +3542,7 @@ Button.INVERSE_SELECTION = 'INVERSE_SELECTION';
 Button.REFRESH_FILES_LIST = 'REFRESH_FILES_LIST';
 Button.SELECT_ALL = 'SELECT_ALL';
 Button.UNSELECT_ALL = 'UNSELECT_ALL';
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/button.model.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/button.model.js.map
 
 /***/ }),
 
@@ -2953,14 +3560,14 @@ var ToolbarEventModel = (function () {
     return ToolbarEventModel;
 }());
 
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/toolbarEvent.model.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/toolbarEvent.model.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/toolbar/searchFile/searchFile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"input-group\">\r\n  <input [formControl]=\"searchField\" type=\"text\" class=\"form-control\" placeholder=\"Search for...\">\r\n  <span class=\"input-group-btn\">\r\n      <button (click)=\"searchField.reset('')\" class=\"btn btn-default\" type=\"button\">\r\n          <i class=\"fa fa-times\"></i>\r\n      </button>\r\n  </span>\r\n</div>\r\n"
+module.exports = "<div class=\"input-group\">\n  <input [formControl]=\"searchField\" type=\"text\" class=\"form-control\" placeholder=\"{{'RI_FM_LBL_SEARCH_FOR' | translate}}\">\n  <span class=\"input-group-btn\">\n      <button (click)=\"searchField.reset('')\" class=\"btn btn-default\" type=\"button\">\n          <i class=\"fa fa-times\"></i>\n      </button>\n  </span>\n</div>\n"
 
 /***/ }),
 
@@ -3006,7 +3613,171 @@ SearchFileComponent = __decorate([
 ], SearchFileComponent);
 
 var _a;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/searchFile.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/searchFile.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/toolbar/selectionDropDown/selection.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dropdown_Button_class__ = __webpack_require__("../../../../../src/dropdown/Button.class.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_button_model__ = __webpack_require__("../../../../../src/toolbar/models/button.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dropdown_ButtonDivider_class__ = __webpack_require__("../../../../../src/dropdown/ButtonDivider.class.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_currentDirectoryFiles_service__ = __webpack_require__("../../../../../src/services/currentDirectoryFiles.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__configuration_fileManagerConfiguration_service__ = __webpack_require__("../../../../../src/configuration/fileManagerConfiguration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_toolbarEvent_model__ = __webpack_require__("../../../../../src/toolbar/models/toolbarEvent.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_Observable__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SelectionComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var SelectionComponent = (function () {
+    function SelectionComponent(configuration, currentDirectoryFilesService) {
+        this.configuration = configuration;
+        this.currentDirectoryFilesService = currentDirectoryFilesService;
+        this.onMenuButtonClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.selectAllButton = new __WEBPACK_IMPORTED_MODULE_1__dropdown_Button_class__["a" /* ButtonClass */]({
+            symbol: __WEBPACK_IMPORTED_MODULE_2__models_button_model__["a" /* Button */].SELECT_ALL,
+            name: 'RI_FM_LBL_SELECT_ALL',
+            label: true,
+            icon: true,
+            iconCssClass: 'fa fa-check-square-o'
+        });
+        this.unselectAllButton = new __WEBPACK_IMPORTED_MODULE_1__dropdown_Button_class__["a" /* ButtonClass */]({
+            symbol: __WEBPACK_IMPORTED_MODULE_2__models_button_model__["a" /* Button */].UNSELECT_ALL,
+            name: 'RI_FM_LBL_UNSELECT_ALL',
+            label: true,
+            icon: true,
+            iconCssClass: 'fa fa-square-o'
+        });
+        this.inverseSelectionButton = new __WEBPACK_IMPORTED_MODULE_1__dropdown_Button_class__["a" /* ButtonClass */]({
+            symbol: __WEBPACK_IMPORTED_MODULE_2__models_button_model__["a" /* Button */].INVERSE_SELECTION,
+            name: 'RI_FM_LBL_INVERSE_SELECTION',
+            label: true,
+            icon: true,
+            iconCssClass: 'fa fa-check-square'
+        });
+        this.deleteSelectionButton = new __WEBPACK_IMPORTED_MODULE_1__dropdown_Button_class__["a" /* ButtonClass */]({
+            symbol: __WEBPACK_IMPORTED_MODULE_2__models_button_model__["a" /* Button */].DELETE_SELECTION,
+            name: 'RI_FM_LBL_DELETE_SELECTION',
+            label: true,
+            icon: true,
+            iconCssClass: 'fa fa-trash'
+        });
+        this.selectButtonsList = this.createBasicButtons();
+        this.initListenOnLoadFiles();
+    }
+    SelectionComponent.prototype.ngOnDestroy = function () {
+        this.onLoadFilesSubscriber.unsubscribe();
+    };
+    /**
+     * Initialize listener on load files
+     */
+    SelectionComponent.prototype.initListenOnLoadFiles = function () {
+        var _this = this;
+        this.onLoadFilesSubscriber = __WEBPACK_IMPORTED_MODULE_7_rxjs_Observable__["Observable"].combineLatest(this.currentDirectoryFilesService.currentDirectoryFileIds$, this.currentDirectoryFilesService.selectedFiles$)
+            .distinctUntilChanged()
+            .subscribe(function (data) {
+            var numberOfFiles = data[0].length;
+            var numberOfSelectedFiles = data[1].length;
+            _this.disableAllButtons();
+            if (numberOfFiles > 0) {
+                if (numberOfSelectedFiles > 0) {
+                    _this.enableAllButtons();
+                }
+                else {
+                    _this.enableSelectAllButton();
+                }
+            }
+        });
+    };
+    SelectionComponent.prototype.onSelectDropdownClick = function (button) {
+        var event = new __WEBPACK_IMPORTED_MODULE_6__models_toolbarEvent_model__["a" /* ToolbarEventModel */](button.symbol);
+        this.onMenuButtonClick.emit(event);
+    };
+    /**
+     * Disable all dropdown buttons and main button
+     */
+    SelectionComponent.prototype.disableAllButtons = function () {
+        this.selectAllButton.disabled = true;
+        this.selectButtonsList
+            .filter(function (button) {
+            return !button.isDivider();
+        })
+            .forEach(function (button) {
+            button.disabled = true;
+        });
+    };
+    /**
+     * Enable all dropdown buttons and main button
+     */
+    SelectionComponent.prototype.enableAllButtons = function () {
+        this.selectAllButton.disabled = false;
+        this.selectButtonsList
+            .forEach(function (button) {
+            button.disabled = false;
+        });
+    };
+    /**
+     * Create list of buttons
+     * @returns {IButton[]}
+     */
+    SelectionComponent.prototype.createBasicButtons = function () {
+        return [
+            this.selectAllButton,
+            this.unselectAllButton,
+            this.inverseSelectionButton,
+            new __WEBPACK_IMPORTED_MODULE_3__dropdown_ButtonDivider_class__["a" /* ButtonDividerClass */](),
+            this.deleteSelectionButton
+        ];
+    };
+    /**
+     * Enable only select button
+     */
+    SelectionComponent.prototype.enableSelectAllButton = function () {
+        this.selectAllButton.disabled = false;
+        this.inverseSelectionButton.disabled = false;
+    };
+    return SelectionComponent;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", Object)
+], SelectionComponent.prototype, "onMenuButtonClick", void 0);
+SelectionComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'ri-selection-dropdown',
+        template: __webpack_require__("../../../../../src/toolbar/selectionDropDown/selection.dropdown.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__configuration_fileManagerConfiguration_service__["a" /* FileManagerConfiguration */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_currentDirectoryFiles_service__["a" /* CurrentDirectoryFilesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_currentDirectoryFiles_service__["a" /* CurrentDirectoryFilesService */]) === "function" && _b || Object])
+], SelectionComponent);
+
+var _a, _b;
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/selection.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/toolbar/selectionDropDown/selection.dropdown.html":
+/***/ (function(module, exports) {
+
+module.exports = "<ri-dropdown *ngIf=\"configuration.isMultiSelection\" [mainButton]=\"selectAllButton\" [buttons]=\"selectButtonsList\"\n             (onClick)=\"onSelectDropdownClick($event)\"></ri-dropdown>\n"
 
 /***/ }),
 
@@ -3045,24 +3816,6 @@ var ToolbarComponent = (function () {
         this.onAddFolderClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.onUpload = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.onMenuButtonClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.selectAllButton = {
-            symbol: __WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].SELECT_ALL,
-            name: 'Select all',
-            label: false,
-            icon: true,
-            iconCssClass: 'fa fa-check-square-o'
-        };
-        this.selectButtonsList = [
-            { symbol: __WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].SELECT_ALL, name: 'Select all', label: true, icon: true, iconCssClass: 'fa fa-check-square-o' },
-            { symbol: __WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].UNSELECT_ALL, name: 'Unselect all', label: true, icon: true, iconCssClass: 'fa fa-square-o' },
-            {
-                symbol: __WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].INVERSE_SELECTION,
-                name: 'Inverse selection',
-                label: true,
-                icon: true,
-                iconCssClass: 'fa fa-check-square'
-            }
-        ];
         this.fileManagerUploader.clear();
         this.fileManagerUploader.uploader.onCompleteAll = function () {
             _this.onUpload.emit(_this.currentFolderId || '');
@@ -3082,10 +3835,6 @@ var ToolbarComponent = (function () {
     ToolbarComponent.prototype.addFolder = function () {
         var event = new __WEBPACK_IMPORTED_MODULE_2__models_toolbarEvent_model__["a" /* ToolbarEventModel */](__WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].ADD_FOLDER, 'Nowy folder');
         this.onAddFolderClick.emit(event);
-    };
-    ToolbarComponent.prototype.onSelectDropdownClick = function (button) {
-        var event = new __WEBPACK_IMPORTED_MODULE_2__models_toolbarEvent_model__["a" /* ToolbarEventModel */](button.symbol);
-        this.onMenuButtonClick.emit(event);
     };
     ToolbarComponent.prototype.onRefreshFilesList = function () {
         var event = new __WEBPACK_IMPORTED_MODULE_2__models_toolbarEvent_model__["a" /* ToolbarEventModel */](__WEBPACK_IMPORTED_MODULE_1__models_button_model__["a" /* Button */].REFRESH_FILES_LIST);
@@ -3111,7 +3860,7 @@ __decorate([
 ], ToolbarComponent.prototype, "onMenuButtonClick", void 0);
 ToolbarComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'toolbar',
+        selector: 'ri-toolbar',
         styles: [__webpack_require__("../../../../../src/toolbar/toolbar.less")],
         template: __webpack_require__("../../../../../src/toolbar/toolbar.html")
     }),
@@ -3119,14 +3868,14 @@ ToolbarComponent = __decorate([
 ], ToolbarComponent);
 
 var _a, _b, _c;
-//# sourceMappingURL=C:/ECTSP/angular2-filemanager/demo/src/toolbar.component.js.map
+//# sourceMappingURL=/home/www/projects/angular2-filemanager/demo/src/toolbar.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/toolbar/toolbar.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"toolbar row\">\r\n  <div class=\"col-md-6\">\r\n    <div class=\"btn-group\">\r\n      <button class=\"btn btn-default\" (click)=\"addFolder()\">\r\n        <i class=\"fa fa-plus\"></i>\r\n        <i class=\"fa fa-folder-o\"></i>\r\n      </button>\r\n      <button class=\"btn btn-default\" (click)=\"fileInput.click()\">\r\n        <i class=\"fa fa-plus\"></i>\r\n        <i class=\"fa fa-file-o\"></i>\r\n      </button>\r\n      <span class=\"hidden-input-file\">\r\n        <input #fileInput type=\"file\" ng2FileSelect [uploader]=\"fileManagerUploader.uploader\" (onCompleteAll)=\"onUpload()\" (onCompleteItem)=\"onUploadItem()\" multiple/>\r\n      </span>\r\n    </div>\r\n    <ri-dropdown *ngIf=\"configuration.isMultiSelection\" [mainButton]=\"selectAllButton\" [buttons]=\"selectButtonsList\"\r\n              (onClick)=\"onSelectDropdownClick($event)\"></ri-dropdown>\r\n    <div class=\"btn-group\">\r\n      <button class=\"btn btn-default\" (click)=\"onRefreshFilesList()\">\r\n        <i class=\"fa fa-refresh\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-3\">\r\n    <ri-file-type-filter [typeFilterList]=\"configuration.fileTypesFilter\"></ri-file-type-filter>\r\n  </div>\r\n  <div class=\"col-md-3\">\r\n    <ri-search-file></ri-search-file>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"toolbar row\">\n  <div class=\"col-md-6\">\n    <div class=\"btn-group\">\n      <button class=\"btn btn-default\" (click)=\"addFolder()\">\n        <i class=\"fa fa-plus\"></i>\n        <i class=\"fa fa-folder-o\"></i>\n      </button>\n      <button class=\"btn btn-default\" (click)=\"fileInput.click()\">\n        <i class=\"fa fa-plus\"></i>\n        <i class=\"fa fa-file-o\"></i>\n      </button>\n      <span class=\"hidden-input-file\">\n        <input #fileInput type=\"file\" ng2FileSelect [uploader]=\"fileManagerUploader.uploader\" (onCompleteAll)=\"onUpload()\" (onCompleteItem)=\"onUploadItem()\" multiple/>\n      </span>\n    </div>\n    <ri-selection-dropdown (onMenuButtonClick)=\"onMenuButtonClick.next($event)\"></ri-selection-dropdown>\n    <div class=\"btn-group\">\n      <button class=\"btn btn-default\" (click)=\"onRefreshFilesList()\">\n        <i class=\"fa fa-refresh\"></i>\n      </button>\n    </div>\n  </div>\n  <div class=\"col-md-3\">\n    <ri-file-type-filter [typeFilterList]=\"configuration.fileTypesFilter\"></ri-file-type-filter>\n  </div>\n  <div class=\"col-md-3\">\n    <ri-search-file></ri-search-file>\n  </div>\n</div>\n"
 
 /***/ }),
 
