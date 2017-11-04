@@ -65,7 +65,7 @@ describe('selection.component', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule],
+      imports: [TranslateModule.forRoot()],
       declarations: [SelectionComponent, DropdownComponent],
       providers: [
         {provide: CurrentDirectoryFilesService, useValue: currentDirectoryFilesServiceStub},

@@ -31,7 +31,7 @@ describe('dropdown.component', () => {
     onClickHandler = jasmine.createSpy('onClickHandler');
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule],
+      imports: [TranslateModule.forRoot()],
       declarations: [DropdownComponent], // declare the test component
     });
 
