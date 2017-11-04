@@ -1,12 +1,12 @@
 <div class="filemanager-container">
   <div class="fm-header">
-    <toolbar
+    <ri-toolbar
       #toolbar
       [currentFolderId]="currentSelectedFolderId"
       (onAddFolderClick)="onAddFolder($event)"
       (onUpload)="onUpload($event)"
       (onMenuButtonClick)="onMenuButtonClick($event)"
-    ></toolbar>
+    ></ri-toolbar>
   </div>
   <div class="fm-main-box">
     <rign-tree class="folders-box" [treeModel]="treeModel"></rign-tree>

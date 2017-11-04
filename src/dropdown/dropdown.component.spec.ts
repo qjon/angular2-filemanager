@@ -5,6 +5,7 @@ import {ButtonClass} from './Button.class';
 import {IButton} from './IButton';
 import {ButtonDividerClass} from './ButtonDivider.class';
 import {By} from '@angular/platform-browser';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('dropdown.component', () => {
   let comp: DropdownComponent;
@@ -30,6 +31,7 @@ describe('dropdown.component', () => {
     onClickHandler = jasmine.createSpy('onClickHandler');
 
     TestBed.configureTestingModule({
+      imports: [TranslateModule],
       declarations: [DropdownComponent], // declare the test component
     });
 

@@ -7,7 +7,7 @@ import {FileManagerUploader} from '../filesList/fileManagerUploader.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 
 @Component({
-  selector: 'toolbar',
+  selector: 'ri-toolbar',
   styleUrls: ['./toolbar.less'],
   templateUrl: './toolbar.html'
 })

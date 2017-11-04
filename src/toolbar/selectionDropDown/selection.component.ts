@@ -21,7 +21,7 @@ export class SelectionComponent implements OnDestroy {
 
   public selectAllButton = new ButtonClass({
     symbol: Button.SELECT_ALL,
-    name: 'Select all',
+    name: 'RI_FM_LBL_SELECT_ALL',
     label: true,
     icon: true,
     iconCssClass: 'fa fa-check-square-o'
@@ -29,7 +29,7 @@ export class SelectionComponent implements OnDestroy {
 
   private unselectAllButton = new ButtonClass({
     symbol: Button.UNSELECT_ALL,
-    name: 'Unselect all',
+    name: 'RI_FM_LBL_UNSELECT_ALL',
     label: true,
     icon: true,
     iconCssClass: 'fa fa-square-o'
@@ -37,7 +37,7 @@ export class SelectionComponent implements OnDestroy {
 
   private inverseSelectionButton = new ButtonClass({
     symbol: Button.INVERSE_SELECTION,
-    name: 'Inverse selection',
+    name: 'RI_FM_LBL_INVERSE_SELECTION',
     label: true,
     icon: true,
     iconCssClass: 'fa fa-check-square'
@@ -45,7 +45,7 @@ export class SelectionComponent implements OnDestroy {
 
   private deleteSelectionButton = new ButtonClass({
     symbol: Button.DELETE_SELECTION,
-    name: 'Delete selection',
+    name: 'RI_FM_LBL_DELETE_SELECTION',
     label: true,
     icon: true,
     iconCssClass: 'fa fa-trash'

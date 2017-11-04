@@ -10,6 +10,7 @@ import {DropdownComponent} from '../../dropdown/dropdown.component';
 import {FileManagerConfiguration} from '../../configuration/fileManagerConfiguration.service';
 import {filesData} from '../../../_unitTestMocks/fileDataMock';
 import {ToolbarEventModel} from '../models/toolbarEvent.model';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('selection.component', () => {
   let comp: SelectionComponent
@@ -33,7 +34,7 @@ describe('selection.component', () => {
 
     selectAllButton = new ButtonClass({
       symbol: Button.SELECT_ALL,
-      name: 'Select all',
+      name: 'RI_FM_LBL_SELECT_ALL',
       label: true,
       icon: true,
       iconCssClass: 'fa fa-check-square-o'
@@ -41,7 +42,7 @@ describe('selection.component', () => {
 
     unselectAllButton = new ButtonClass({
       symbol: Button.UNSELECT_ALL,
-      name: 'Unselect all',
+      name: 'RI_FM_LBL_UNSELECT_ALL',
       label: true,
       icon: true,
       iconCssClass: 'fa fa-square-o'
@@ -49,7 +50,7 @@ describe('selection.component', () => {
 
     inverseSelectionButton = new ButtonClass({
       symbol: Button.INVERSE_SELECTION,
-      name: 'Inverse selection',
+      name: 'RI_FM_LBL_INVERSE_SELECTION',
       label: true,
       icon: true,
       iconCssClass: 'fa fa-check-square'
@@ -57,13 +58,14 @@ describe('selection.component', () => {
 
     deleteSelectionButton = new ButtonClass({
       symbol: Button.DELETE_SELECTION,
-      name: 'Delete selection',
+      name: 'RI_FM_LBL_DELETE_SELECTION',
       label: true,
       icon: true,
       iconCssClass: 'fa fa-trash'
     });
 
     TestBed.configureTestingModule({
+      imports: [TranslateModule],
       declarations: [SelectionComponent, DropdownComponent],
       providers: [
         {provide: CurrentDirectoryFilesService, useValue: currentDirectoryFilesServiceStub},

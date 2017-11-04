@@ -1,4 +1,4 @@
-import {IFileModel} from "./IFileModel";
+import {IFileModel} from './IFileModel';
 
 export interface IFileEvent {
   eventName: string;

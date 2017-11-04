@@ -20,7 +20,7 @@ import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {StoreModule} from '@ngrx/store';
 import {fileManagerReducer} from './store/fileManagerReducer';
 import {FileManagerActionsService} from './store/fileManagerActions.service';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {FileTypeFilterService} from './services/fileTypeFilter.service';
 import {SearchFilterService} from './services/searchFilter.service';
 import {FileManagerDispatcherService} from './store/fileManagerDispatcher.service';
@@ -35,6 +35,7 @@ import {FileManagerBackendApiService} from './store/fileManagerBackendApi.servic
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
 import {FileComponent} from './filesList/file/file.component';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import {FileComponent} from './filesList/file/file.component';
     SimpleNotificationsModule,
     StoreModule.provideStore({files: fileManagerReducer, trees: treeReducer}),
     StoreDevtoolsModule.instrumentOnlyWithExtension({}),
+    TranslateModule,
     TreeModule
   ],
   declarations: [
@@ -85,4 +87,44 @@ import {FileComponent} from './filesList/file/file.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FileManagerModule {
+
+  public constructor(private translate: TranslateService) {
+    this.setTranslationForEN();
+    this.setTranslationForPL();
+    this.translate.use('en');
+  }
+
+  private setTranslationForPL(): void {
+    this.translate.setTranslation('pl', {
+      RI_TREE_LBL_ADD_NODE: 'Dodaj',
+      RI_TREE_LBL_EDIT_NODE: 'Edytuj',
+      RI_TREE_LBL_REMOVE_NODE: 'Usuń',
+      RI_TREE_LBL_DROP_ZONE: 'Upuść tutaj',
+      RI_FM_BTN_LANDSCAPE: 'Poziomo',
+      RI_FM_BTN_PORTRAIT: 'Pionowo',
+      RI_FM_BTN_SAVE: 'Zapisz',
+      RI_FM_LBL_DELETE_SELECTION: 'Usuń wybrane pliki',
+      RI_FM_LBL_INVERSE_SELECTION: 'Odróć zaznaczenie',
+      RI_FM_LBL_SEARCH_FOR: 'Szukaj...',
+      RI_FM_LBL_SELECT_ALL: 'Zaznacz wszystkie',
+      RI_FM_LBL_UNSELECT_ALL: 'Odznacz wszystkie',
+    });
+  }
+
+  private setTranslationForEN(): void {
+    this.translate.setTranslation('en', {
+      RI_TREE_LBL_ADD_NODE: 'Add data',
+      RI_TREE_LBL_EDIT_NODE: 'Edit data',
+      RI_TREE_LBL_REMOVE_NODE: 'Delete data',
+      RI_TREE_LBL_DROP_ZONE: 'Drop here to move data to root level',
+      RI_FM_BTN_LANDSCAPE: 'Landscape',
+      RI_FM_BTN_PORTRAIT: 'Portrait',
+      RI_FM_BTN_SAVE: 'Save',
+      RI_FM_LBL_DELETE_SELECTION: 'Delete selection',
+      RI_FM_LBL_INVERSE_SELECTION: 'Inverse selection',
+      RI_FM_LBL_SEARCH_FOR: 'Search for...',
+      RI_FM_LBL_SELECT_ALL: 'Select all',
+      RI_FM_LBL_UNSELECT_ALL: 'Unselect all',
+    });
+  }
 }

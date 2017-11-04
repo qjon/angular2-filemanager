@@ -10,7 +10,7 @@
     <li role="menuitem" [ngClass]="{divider: button.isDivider(), disabled: button.disabled}" *ngFor="let button of buttons">
       <a (click)="selectButton(button)" *ngIf="!button.isDivider()">
         <span *ngIf="button.icon" class="{{button.iconCssClass}}"></span>
-        <span *ngIf="button.label">{{button.name}}</span>
+        <span *ngIf="button.label">{{button.name | translate}}</span>
       </a>
     </li>
   </ul>

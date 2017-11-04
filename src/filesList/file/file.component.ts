@@ -1,17 +1,12 @@
-import {
-  ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output,
-  ViewEncapsulation
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, ViewEncapsulation} from '@angular/core';
 import {IFileModel} from '../interface/IFileModel';
 import {FileManagerConfiguration} from '../../configuration/fileManagerConfiguration.service';
-import {FileModel} from '../file.model';
 import {IFileEvent} from '../interface/IFileEvent';
 import {FileManagerDispatcherService} from '../../store/fileManagerDispatcher.service';
 
 @Component({
   selector: 'ri-file-component',
   templateUrl: './file.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class FileComponent implements OnChanges {
@@ -23,7 +18,6 @@ export class FileComponent implements OnChanges {
 
   public constructor(public configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService) {
-
   }
 
   public ngOnChanges() {

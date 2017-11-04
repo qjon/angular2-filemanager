@@ -12,12 +12,6 @@ import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 @Injectable()
 export class FileManagerEffectsService {
 
-  constructor(private actions$: Actions,
-              private fileManagerActions: FileManagerActionsService,
-              private filemanagerNotfication: FilemanagerNotifcations,
-              private fileManagerApiService: FileManagerApiService) {
-  }
-
   @Effect()
   public loadFiles$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_LOAD_FILES)
@@ -133,6 +127,12 @@ export class FileManagerEffectsService {
       this.onMoveFilesError();
     });
 
+
+  constructor(private actions$: Actions,
+              private fileManagerActions: FileManagerActionsService,
+              private filemanagerNotfication: FilemanagerNotifcations,
+              private fileManagerApiService: FileManagerApiService) {
+  }
 
   protected cropFile(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {
     return this.fileManagerApiService.cropFile(file.toJSON(), bounds);

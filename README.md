@@ -9,6 +9,7 @@ This project is a very simple __Angular2 file manager__.
 * add option "remove selected files"
 * add LICENCE section
 * move file between folders (in the future, I would like to add possibilities to move selection of files and copy files)
+* add translations
 
 ### v1.0.1
 * fix bugs
@@ -166,6 +167,32 @@ You are able to connect to actions for doing something special (but this is not 
 * _FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_
 * _FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_ERROR_
 * _FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_SUCCESS_ 
+
+## Translation
+
+Filemanager module has configured translation for english (default language) and polish. You can add translations for other languages as it is described in [Translate Module](https://github.com/ngx-translate/core/blob/master/README.md) documentation.
+In _Filemanager Module_ you are able to set following labels:
+
+* RI_TREE_LBL_ADD_NODE - Add node
+* RI_TREE_LBL_EDIT_NODE - Edit node
+* RI_TREE_LBL_REMOVE_NODE - Delete node
+* RI_TREE_LBL_DROP_ZONE - Drop here to move node to root level
+* RI_FM_BTN_LANDSCAPE - Landscape
+* RI_FM_BTN_PORTRAIT - Portrait
+* RI_FM_BTN_SAVE - Save
+* RI_FM_LBL_DELETE_SELECTION - Delete selection
+* RI_FM_LBL_INVERSE_SELECTION - Inverse selection
+* RI_FM_LBL_SEARCH_FOR - Search for...
+* RI_FM_LBL_SELECT_ALL - Select all
+* RI_FM_LBL_UNSELECT_ALL - Unselect all
+
+To change language to polish you have to add these lines to your app module:
+
+    export class AppModule {
+      public constructor(translate: TranslateService) {
+        translate.use('pl');
+      }
+    }
 
 ## Demo
 
