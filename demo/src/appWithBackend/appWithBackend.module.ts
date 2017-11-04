@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppWithBackendComponent} from './appWithBackend.component';
 import {FileManagerModule, FileManagerApiService, IFileManagerConfiguration, FileManagerBackendApiService} from '../../../main';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -14,7 +15,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   },
   isMultiSelection: true,
   mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
-  maxFileSize: 50 * 1024
+  maxFileSize: 5 * 1024 * 1024
 };
 
 @NgModule({
@@ -25,7 +26,8 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     BrowserModule,
     FileManagerModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
     {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration},
@@ -34,4 +36,8 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   bootstrap: [AppWithBackendComponent]
 })
 export class AppWithBackendModule {
+
+  public constructor(translate: TranslateService) {
+    translate.use('en');
+  }
 }

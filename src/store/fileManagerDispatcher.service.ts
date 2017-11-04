@@ -20,8 +20,8 @@ export class FileManagerDispatcherService {
     this.store.dispatch(this.fileManagerActions.deleteFile(file));
   }
 
-  public deleteSelectedFiles(): void {
-    this.store.dispatch(this.fileManagerActions.deleteSelectedFiles());
+  public deleteSelectedFiles(files: string[]): void {
+    this.store.dispatch(this.fileManagerActions.deleteSelectedFiles(files));
   }
 
   public inverseSelection(): void {

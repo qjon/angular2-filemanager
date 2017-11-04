@@ -8,6 +8,7 @@ export interface IFileManagerPayloadData {
   folderId?: string;
   files?: IOuterFile[];
   file?: IFileModel;
+  fileIds?: string[];
   bounds?: ICropBounds;
 }
 
@@ -27,6 +28,8 @@ export class FileManagerActionsService {
   static FILEMANAGER_INVERSE_FILE_SELECTION = 'FILEMANAGER_INVERSE_FILE_SELECTION';
   static FILEMANAGER_LOAD_FILES = 'FILEMANAGER_LOAD_FILES';
   static FILEMANAGER_LOAD_FILES_SUCCESS = 'FILEMANAGER_LOAD_FILES_SUCCESS';
+  static FILEMANAGER_MOVE_FILES_SUCCESS = 'FILEMANAGER_MOVE_FILES_SUCCESS';
+  static FILEMANAGER_MOVE_FILES_ERROR = 'FILEMANAGER_MOVE_FILES_ERROR';
   static FILEMANAGER_SELECT_ALL = 'FILEMANAGER_SELECT_ALL';
   static FILEMANAGER_SELECT_FILE = 'FILEMANAGER_SELECT_FILE';
   static FILEMANAGER_UNSELECT_FILE = 'FILEMANAGER_UNSELECT_FILE';
@@ -42,7 +45,7 @@ export class FileManagerActionsService {
         file: file,
         bounds: bounds
       }
-    }
+    };
   }
 
   public cropFileSuccess(file: IFileModel): IFileManagerAction {
@@ -51,7 +54,7 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
   public cropFileError(file: IFileModel): IFileManagerAction {
@@ -60,7 +63,7 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
   public deleteFile(file: IFileModel): IFileManagerAction {
@@ -69,7 +72,7 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
   public deleteFileSuccess(file: IFileModel): IFileManagerAction {
@@ -78,21 +81,21 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
-  public deleteSelectedFiles(): IFileManagerAction {
+  public deleteSelectedFiles(fileIds: string[]): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
-      payload: {}
-    }
+      payload: {fileIds}
+    };
   }
 
   public deleteSelectedFilesSuccess(files: IOuterFile[]): IFileManagerAction {
     return {
-      type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
+      type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS,
       payload: {files}
-    }
+    };
   }
 
   public loadFiles(folderId: string): IFileManagerAction {
@@ -101,14 +104,14 @@ export class FileManagerActionsService {
       payload: {
         folderId: folderId
       }
-    }
+    };
   }
 
   public inverseFileSelection(): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_INVERSE_FILE_SELECTION,
       payload: {}
-    }
+    };
   }
 
   public loadFilesSuccess(folderId: string, files: IOuterFile[]): IFileManagerAction {
@@ -118,14 +121,28 @@ export class FileManagerActionsService {
         folderId: folderId,
         files: files
       }
-    }
+    };
+  }
+
+  public moveFileSuccess(files: IOuterFile[], folderId: string) {
+    return {
+      type: FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS,
+      payload: {folderId, files}
+    };
+  }
+
+  public moveFileError(files: IOuterFile[]): IFileManagerAction {
+    return {
+      type: FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR,
+      payload: {files}
+    };
   }
 
   public selectAllFiles(): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_SELECT_ALL,
       payload: {}
-    }
+    };
   }
 
   public selectFile(file: IFileModel): IFileManagerAction {
@@ -134,14 +151,14 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
   public unSelectAll(): IFileManagerAction {
     return {
       type: FileManagerActionsService.FILEMANAGER_UNSELECT_ALL,
       payload: {}
-    }
+    };
   }
 
   public unSelectFile(file: IFileModel): IFileManagerAction {
@@ -150,7 +167,7 @@ export class FileManagerActionsService {
       payload: {
         file: file
       }
-    }
+    };
   }
 
   public upload(file: IOuterFile): IFileManagerAction {
@@ -159,7 +176,7 @@ export class FileManagerActionsService {
       payload: {
         files: [file]
       }
-    }
+    };
   }
 
   public uploadSuccess(file: IOuterFile): IFileManagerAction {
@@ -168,7 +185,7 @@ export class FileManagerActionsService {
       payload: {
         files: [file]
       }
-    }
+    };
   }
 
   public uploadError(file: IOuterFile): IFileManagerAction {
@@ -177,6 +194,6 @@ export class FileManagerActionsService {
       payload: {
         files: [file]
       }
-    }
+    };
   }
 }

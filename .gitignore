@@ -43,3 +43,4 @@ src/**/*.css
 proxy.config.json
 demo/data/**/*
 !demo/data/.gitkeep
+./coverage

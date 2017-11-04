@@ -1,16 +1,17 @@
 <div class="filemanager-container">
   <div class="fm-header">
-    <toolbar
+    <ri-toolbar
       #toolbar
       [currentFolderId]="currentSelectedFolderId"
       (onAddFolderClick)="onAddFolder($event)"
       (onUpload)="onUpload($event)"
       (onMenuButtonClick)="onMenuButtonClick($event)"
-    ></toolbar>
+    ></ri-toolbar>
   </div>
   <div class="fm-main-box">
     <rign-tree class="folders-box" [treeModel]="treeModel"></rign-tree>
     <ri-files-list class="files-box" [files]="filteredFiles$ | async"
+                   [selectedFiles]="selectedFiles$ | async"
                 (onPreviewFile)="onPreviewFile($event)"
                 (onCropFile)="onOpenCropFileEditor($event)"
                 (onSelectFile)="onSelectFile($event)"

@@ -129,6 +129,17 @@ describe('fileManagerActions.service', () => {
     });
   });
 
+  describe('cropFileError', () => {
+    it('should return proper object', () => {
+      const expected: IFileManagerAction = {
+        type: FileManagerActionsService.FILEMANAGER_CROP_FILE_ERROR,
+        payload: {file}
+      };
+
+      expect(service.cropFileError(file)).toEqual(expected);
+    });
+  });
+
   describe('deleteFile', () => {
     it('should return proper object', () => {
       const expected: IFileManagerAction = {
@@ -148,6 +159,29 @@ describe('fileManagerActions.service', () => {
       };
 
       expect(service.deleteFileSuccess(file)).toEqual(expected);
+    });
+  });
+
+  describe('deleteSelectedFiles', () => {
+    it('should return proper object', () => {
+      const fileIds = ['some-id'];
+      const expected: IFileManagerAction = {
+        type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION,
+        payload: {fileIds}
+      };
+
+      expect(service.deleteSelectedFiles(fileIds)).toEqual(expected);
+    });
+  });
+
+  describe('deleteSelectedFilesSuccess', () => {
+    it('should return proper object', () => {
+      const expected: IFileManagerAction = {
+        type: FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION_SUCCESS,
+        payload: {files}
+      };
+
+      expect(service.deleteSelectedFilesSuccess(files)).toEqual(expected);
     });
   });
 

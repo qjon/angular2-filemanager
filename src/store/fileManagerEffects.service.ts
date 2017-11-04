@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
+import {ITreeAction, IOuterNode, TreeActionsService} from '@rign/angular2-tree';
 import {FileManagerActionsService, IFileManagerAction} from './fileManagerActions.service';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {Observable} from 'rxjs/Observable';
@@ -11,12 +12,6 @@ import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 @Injectable()
 export class FileManagerEffectsService {
 
-  constructor(private actions$: Actions,
-              private fileManagerActions: FileManagerActionsService,
-              private filemanagerNotfication: FilemanagerNotifcations,
-              private fileManagerApiService: FileManagerApiService) {
-  }
-
   @Effect()
   public loadFiles$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_LOAD_FILES)
@@ -24,7 +19,10 @@ export class FileManagerEffectsService {
       .map((files: IOuterFile[]): IFileManagerAction => {
         return this.fileManagerActions.loadFilesSuccess(action.payload.folderId, files);
       })
-      .catch(() => Observable.of(this.onLoadFilesError(action.payload.folderId)))
+      .catch((e) => {
+        console.log(e);
+        return Observable.of(this.onLoadFilesError(action.payload.folderId));
+      })
     );
 
   @Effect()
@@ -52,6 +50,16 @@ export class FileManagerEffectsService {
       .catch(() => Observable.of(this.onDeleteFileError(action.payload.file)))
     );
 
+  @Effect()
+  public deleteFilesSelection$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SELECTION)
+    .switchMap((action: IFileManagerAction) => this.deleteFilesSelection(action.payload.fileIds)
+      .map((result: boolean): IFileManagerAction => {
+        return this.fileManagerActions.deleteSelectedFilesSuccess(action.payload.files);
+      })
+      .catch(() => Observable.of(this.onDeleteFilesSelectionError(action.payload.files)))
+    );
+
 
   @Effect()
   public uploadFile$ = this.actions$
@@ -61,9 +69,34 @@ export class FileManagerEffectsService {
         return this.fileManagerActions.uploadSuccess(result);
       })
       .catch(() => {
-        return Observable.empty()
+        return Observable.empty();
       })
     );
+
+  @Effect()
+  public moveFile$ = this.actions$
+    .ofType(TreeActionsService.TREE_MOVE_NODE)
+    .filter((action: ITreeAction) => {
+      return action.payload.sourceOfDroppedData === 'FILE';
+    })
+    .switchMap((action: ITreeAction) => this.moveFiles([<IOuterFile>action.payload.oldNode], action.payload.node)
+      .map((result: IOuterFile[]): IFileManagerAction => {
+        const folderId = (<IOuterFile>action.payload.oldNode).folderId;
+        return this.fileManagerActions.moveFileSuccess(result, folderId);
+      })
+      .catch(() => {
+        return Observable.of(this.fileManagerActions.moveFileError([<IOuterFile>action.payload.oldNode]));
+      })
+    );
+
+  @Effect()
+  public filesMoveSuccess$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_SUCCESS)
+    .map((action: IFileManagerAction) => {
+      this.onMoveFilesSuccess();
+
+      return this.fileManagerActions.loadFiles(action.payload.folderId);
+    });
 
   public uploadError$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_ERROR)
@@ -88,6 +121,18 @@ export class FileManagerEffectsService {
   public deleteFileSuccess$ = this.actions$
     .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
 
+  public filesMoveError$ = this.actions$
+    .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR)
+    .subscribe((action: IFileManagerAction) => {
+      this.onMoveFilesError();
+    });
+
+
+  constructor(private actions$: Actions,
+              private fileManagerActions: FileManagerActionsService,
+              private filemanagerNotfication: FilemanagerNotifcations,
+              private fileManagerApiService: FileManagerApiService) {
+  }
 
   protected cropFile(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {
     return this.fileManagerApiService.cropFile(file.toJSON(), bounds);
@@ -97,12 +142,20 @@ export class FileManagerEffectsService {
     return this.fileManagerApiService.removeFile(file.toJSON());
   }
 
+  protected deleteFilesSelection(files: string[]): Observable<boolean> {
+    return this.fileManagerApiService.removeSelectedFiles(files);
+  }
+
   protected loadFiles(folderId: string | null): Observable<IOuterFile[]> {
     return this.fileManagerApiService.loadFiles(folderId);
   }
 
   protected uploadFile(file: IOuterFile): Observable<IOuterFile> {
     return this.fileManagerApiService.uploadFile(file);
+  }
+
+  protected moveFiles(files: IOuterFile[], folder: IOuterNode = null): Observable<IOuterFile[]> {
+    return this.fileManagerApiService.moveFile(files, folder);
   }
 
   protected onCropFileError(file: IFileModel): void {
@@ -121,11 +174,35 @@ export class FileManagerEffectsService {
     });
   }
 
+  protected onDeleteFilesSelectionError(files: IOuterFile[]): void {
+    this.filemanagerNotfication.sendNotification({
+      type: 'error',
+      title: 'Delete selected files',
+      message: '[FILEMANAGER] Not all files were deleted'
+    });
+  }
+
   protected onLoadFilesError(folderId: string): void {
     this.filemanagerNotfication.sendNotification({
       type: 'error',
       title: 'Load files',
       message: '[FILEMANAGER] Can not load files for folder ' + folderId
+    });
+  }
+
+  protected onMoveFilesSuccess(): void {
+    this.filemanagerNotfication.sendNotification({
+      type: 'success',
+      title: 'Move files',
+      message: 'File was successfully moved to folder'
+    });
+  }
+
+  protected onMoveFilesError(): void {
+    this.filemanagerNotfication.sendNotification({
+      type: 'error',
+      title: 'Move files',
+      message: 'File was not successfully moved to new folder'
     });
   }
 }

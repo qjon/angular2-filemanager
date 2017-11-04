@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {FileModel} from './file.model';
 import {IFileEvent} from './interface/IFileEvent';
 import {IFileModel} from './interface/IFileModel';
@@ -11,11 +11,14 @@ import {FileManagerEffectsService} from '../store/fileManagerEffects.service';
 @Component({
   selector: 'ri-files-list',
   templateUrl: './files.html',
-  styleUrls: ['./files-list.less']
+  styleUrls: ['./files-list.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 
 export class FilesListComponent {
   @Input() files: FileModel[];
+  @Input() selectedFiles: string[];
 
   @Output() onPreviewFile = new EventEmitter();
   @Output() onCropFile = new EventEmitter();
@@ -47,43 +50,24 @@ export class FilesListComponent {
     return 'You are try to delete <b>' + file.name + '</b>. Are you sure?';
   }
 
-  /**
-   * Select or unselect all files
-   *
-   * @param selected
-   */
-  public allFilesSelection(selected = true) {
-    this.files.map((file) => file.selected = selected);
-  }
-
-  /**
-   * Select inversion
-   */
-  public selectInversion() {
-    this.files.map((file) => file.selected = !file.selected);
-  }
-
-  public openPreview(file: FileModel): void {
-    let fileEvent: IFileEvent = {
-      eventName: 'onPreviewFile',
-      file: file
-    };
+  public openPreview(fileEvent: IFileEvent): void {
     this.onPreviewFile.emit(fileEvent);
   }
 
-  public openCrop(file: FileModel): void {
-    let fileEvent: IFileEvent = {
-      eventName: 'onCropFile',
-      file: file
-    };
+  public openCrop(fileEvent: IFileEvent): void {
     this.onCropFile.emit(fileEvent);
   }
 
   public toggleSelection(file: IFileModel): void {
+    console.log(file);
     if (file.selected) {
       this.fileManagerDispatcher.unSelectFile(file);
     } else {
       this.fileManagerDispatcher.selectFile(file);
     }
+  }
+
+  public isSelected(file: FileModel): boolean {
+    return this.selectedFiles.indexOf(file.getId().toString()) > -1;
   }
 }

@@ -9,12 +9,12 @@ export class FileManagerConfiguration {
 
   public allowedCropSize: ICropSize[] = [
     {
-      name: 'Landscape',
+      name: 'RI_FM_BTN_LANDSCAPE',
       width: 300,
       height: 100
     },
     {
-      name: 'Portrait',
+      name: 'RI_FM_BTN_PORTRAIT',
       width: 200,
       height: 300
     }

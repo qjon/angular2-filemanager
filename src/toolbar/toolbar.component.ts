@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output, Input, OnChanges} from '@angular/core';
-import {IButton} from '../dropdown/IButton';
 import {Button} from './models/button.model';
 import {ToolbarEventModel} from './models/toolbarEvent.model';
 import {IToolbarEvent} from './interface/IToolbarEvent';
@@ -8,7 +7,7 @@ import {FileManagerUploader} from '../filesList/fileManagerUploader.service';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 
 @Component({
-  selector: 'toolbar',
+  selector: 'ri-toolbar',
   styleUrls: ['./toolbar.less'],
   templateUrl: './toolbar.html'
 })
@@ -20,25 +19,6 @@ export class ToolbarComponent implements OnChanges {
   @Output() onUpload = new EventEmitter();
   @Output() onMenuButtonClick = new EventEmitter();
 
-  public selectAllButton: IButton = {
-    symbol: Button.SELECT_ALL,
-    name: 'Select all',
-    label: false,
-    icon: true,
-    iconCssClass: 'fa fa-check-square-o'
-  };
-
-  public selectButtonsList: IButton[] = [
-    {symbol: Button.SELECT_ALL, name: 'Select all', label: true, icon: true, iconCssClass: 'fa fa-check-square-o'},
-    {symbol: Button.UNSELECT_ALL, name: 'Unselect all', label: true, icon: true, iconCssClass: 'fa fa-square-o'},
-    {
-      symbol: Button.INVERSE_SELECTION,
-      name: 'Inverse selection',
-      label: true,
-      icon: true,
-      iconCssClass: 'fa fa-check-square'
-    }
-  ];
 
   public constructor(public configuration: FileManagerConfiguration,
                      public fileManagerUploader: FileManagerUploader,
@@ -49,7 +29,6 @@ export class ToolbarComponent implements OnChanges {
     this.fileManagerUploader.uploader.onCompleteAll = () => {
       this.onUpload.emit(this.currentFolderId || '');
     };
-
 
     this.fileManagerUploader.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any) => {
       if (status === 200) {
@@ -67,11 +46,6 @@ export class ToolbarComponent implements OnChanges {
   public addFolder() {
     let event: IToolbarEvent = new ToolbarEventModel(Button.ADD_FOLDER, 'Nowy folder');
     this.onAddFolderClick.emit(event);
-  }
-
-  public onSelectDropdownClick(button: IButton) {
-    let event: IToolbarEvent = new ToolbarEventModel(button.symbol);
-    this.onMenuButtonClick.emit(event);
   }
 
   public onRefreshFilesList() {

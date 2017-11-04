@@ -1,18 +1,16 @@
 <div class="btn-group dropdown" [ngClass]="{'open': isOpen}">
-  <button class="btn btn-default" (click)="selectButton(mainButton)">
-    <span *ngIf="mainButton.label">{{mainButton.name}}</span>
+  <button class="btn btn-default" [ngClass]="{disabled: mainButton.disabled}" (click)="selectButton(mainButton)">
+    <span *ngIf="displayMainButtonLabel">{{mainButton.name}}</span>
     <i *ngIf="mainButton.icon" class="{{mainButton.iconCssClass}}"></i>
   </button>
-  <button class="btn btn-default dropdown-toggle" (click)="toggleOpen()">
+  <button class="btn btn-default dropdown-toggle" [ngClass]="{disabled: mainButton.disabled}" (click)="toggleOpen()">
     <span class="caret"></span>
-    <span class="sr-only">Split button!</span>
   </button>
   <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" (mouseleave)="hide()">
-    <!--<li class="divider"></li>-->
-    <li role="menuitem" *ngFor="let button of buttons">
-      <a (click)="selectButton(button)">
+    <li role="menuitem" [ngClass]="{divider: button.isDivider(), disabled: button.disabled}" *ngFor="let button of buttons">
+      <a (click)="selectButton(button)" *ngIf="!button.isDivider()">
         <span *ngIf="button.icon" class="{{button.iconCssClass}}"></span>
-        <span *ngIf="button.label">{{button.name}}</span>
+        <span *ngIf="button.label">{{button.name | translate}}</span>
       </a>
     </li>
   </ul>

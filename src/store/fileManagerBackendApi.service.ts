@@ -4,15 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {ICropBounds, IFileManagerApi, IOuterFile, IFileDataProperties} from '../../main';
 import {Http, Response, URLSearchParams} from '@angular/http';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
 
 @Injectable()
-export class FileManagerBackendApiService implements IFileManagerApi {
-
-  protected nodes: IOuterNode[] = [];
-  protected files: IFileDataProperties[] = [];
+export class FileManagerBackendApiService extends AbstractFileManagerApiService implements IFileManagerApi {
 
   public constructor(private $http: Http,
                      private configuration: FileManagerConfiguration) {
+    super();
+    this.nodes = [];
+    this.files = [];
   }
 
   /**
@@ -157,10 +158,9 @@ export class FileManagerBackendApiService implements IFileManagerApi {
    * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
+    this.currentNodeId = nodeId;
     const params = new URLSearchParams();
     params.append('dirId', nodeId);
-
-    // return Observable.of([]);
 
     return this.$http.get(this.configuration.fileUrl, {search: params})
       .map((response: Response): IOuterFile[] => {
@@ -197,6 +197,24 @@ export class FileManagerBackendApiService implements IFileManagerApi {
       });
   }
 
+  public removeSelectedFiles(selectedFiles: string[]) {
+    const params = new URLSearchParams();
+    params.set('id', selectedFiles.join('|'));
+
+    return this.$http.delete(this.configuration.fileUrl, {search: params})
+      .map((res: Response) => {
+        selectedFiles.forEach((fileId: string) => {
+          const index = this.findIndexByFileId(fileId);
+
+          if (index > -1) {
+            this.files.splice(index, 1);
+          }
+        });
+
+        return true;
+      });
+  }
+
   /**
    * This method is success method, real upload is done in ExtendedFileUploader
    * @param {IOuterFile} file
@@ -207,6 +225,20 @@ export class FileManagerBackendApiService implements IFileManagerApi {
     this.files.push(fileData);
 
     return Observable.of(file);
+  }
+
+  /**
+   * @param {IOuterFile[]} files
+   * @param {IOuterNode} node
+   * @returns {Observable<IOuterFile[]>}
+   */
+  public moveFile(files: IOuterFile[], node: IOuterNode): Observable<IOuterFile[]> {
+    const ids: string[] = files.map(file => file.id.toString());
+
+    return this.$http.put(this.configuration.fileUrl, {files: ids, folderId: node ? node.id : ''})
+      .map((res: Response) => {
+        return res.json();
+      });
   }
 
   /**

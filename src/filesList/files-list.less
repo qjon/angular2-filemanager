@@ -69,6 +69,14 @@
       left: 3px;
       cursor: pointer;
       z-index: 10;
+
+      .checked {
+        display: none;
+      }
+
+      .unchecked {
+        display: block;
+      }
     }
 
     &:hover {
@@ -91,6 +99,18 @@
 
       .file-menu, .file-selection-input {
         display: none;
+      }
+
+      .file-selection-input {
+
+
+        .checked {
+          display: block;
+        }
+
+        .unchecked {
+          display: none;
+        }
       }
 
       &:hover {
