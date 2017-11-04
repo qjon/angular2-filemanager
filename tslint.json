@@ -17,7 +17,7 @@
     ],
     "label-position": true,
     "max-line-length": [
-      true,
+      false,
       140
     ],
     "member-access": false,
@@ -89,8 +89,8 @@
       "check-type"
     ],
 
-    "directive-selector": [true, "attribute", ["app", "ri"], "camelCase"],
-    "component-selector": [true, "element", ["app", "ri"], "kebab-case"],
+    "directive-selector": [true, "attribute", ["app", "crop", "ri"], "camelCase"],
+    "component-selector": [true, "element", ["app", "crop", "ri"], "kebab-case"],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,

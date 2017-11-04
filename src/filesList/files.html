@@ -1,23 +1,5 @@
 <div class="files-list">
-  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': file.selected}" >
-    <div *ngIf="configuration.isMultiSelection" class="file-selection-input">
-      <i class="fa fa-2x" [ngClass]="{'fa-check-square-o': file.selected, 'fa-square-o': !file.selected}" (click)="toggleSelection(file)"></i>
-    </div>
-    <div class="img-rounded file-img" [ngClass]="{'file-img-symbol': !file.isImage()}"
-         [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
-    <span class="file-name">{{file.name}}</span>
-    <div class="file-menu">
-      <button mwlConfirmationPopover [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
-              [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
-              class="btn btn-danger btn-icon">
-        <i class="fa fa-trash"></i>
-      </button>
-      <button (click)="openPreview(file)" class="btn btn-default btn-icon">
-        <i class="fa fa-search"></i>
-      </button>
-      <button (click)="openCrop(file)" class="btn btn-default btn-icon">
-        <i class="fa fa-crop"></i>
-      </button>
-    </div>
+  <div class="file" *ngFor="let file of files" [ngClass]="{'selected': isSelected(file)}"  ri-draggable [data]="file.toJSON()" [sourceType]="'FILE'" [dragZone]="'tree'">
+    <ri-file-component [file]="file" (onPreviewFile)="openPreview($event)" (onCropFile)="openCrop($event)"></ri-file-component>
   </div>
 </div>

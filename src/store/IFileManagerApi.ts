@@ -14,5 +14,8 @@ export interface IFileManagerApi {
   cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile>;
   loadFiles(nodeId: string): Observable<IOuterFile[]>;
   removeFile(file: IOuterFile): Observable<boolean>;
+  removeSelectedFiles(selectedFiles: string[]): Observable<boolean>;
   uploadFile(file: IOuterFile): Observable<IOuterFile>;
+
+  moveFile(files: IOuterFile[], node: IOuterNode): Observable<IOuterFile[]>;
 }

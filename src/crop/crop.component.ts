@@ -1,15 +1,15 @@
 import {
   Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Output,
-  EventEmitter, OnDestroy
-} from "@angular/core";
-import {FileModel} from "../filesList/file.model";
-import {CropperSettings} from "ng2-img-cropper/src/cropperSettings";
-import {ImageCropperComponent} from "ng2-img-cropper/src/imageCropperComponent";
-import {ICropSize} from "./ICropSize";
-import {FileManagerConfiguration} from "../configuration/fileManagerConfiguration.service";
-import {Bounds} from "ng2-img-cropper/src/model/bounds";
-import {ICropBounds} from "./ICropBounds";
-import {FileManagerDispatcherService} from "../store/fileManagerDispatcher.service";
+  EventEmitter, AfterContentInit
+} from '@angular/core';
+import {FileModel} from '../filesList/file.model';
+import {CropperSettings} from 'ng2-img-cropper/src/cropperSettings';
+import {ImageCropperComponent} from 'ng2-img-cropper/src/imageCropperComponent';
+import {ICropSize} from './ICropSize';
+import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
+import {Bounds} from 'ng2-img-cropper/src/model/bounds';
+import {ICropBounds} from './ICropBounds';
+import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
 
 @Component({
   selector: 'crop-image',
@@ -22,13 +22,13 @@ import {FileManagerDispatcherService} from "../store/fileManagerDispatcher.servi
       <div class="btn-toolbar">
         <div class="btn-group">
           <button class="btn btn-primary" *ngFor="let cropSize of cropSizeList" (click)="updateCropSize(cropSize)"
-                  [ngClass]="{'active': cropSize == currentCropSize}">{{cropSize.name}}
+                  [ngClass]="{'active': cropSize == currentCropSize}">{{cropSize.name | translate}}
           </button>
         </div>
         <div class="btn-group pull-right">
           <button class="btn btn-success btn-icon" (click)="cropImage()">
             <i class="fa fa-check"></i>
-            <span>Save</span>
+            <span>{{'RI_FM_BTN_SAVE' | translate}}</span>
           </button>
         </div>
       </div>
@@ -36,7 +36,7 @@ import {FileManagerDispatcherService} from "../store/fileManagerDispatcher.servi
   `
 })
 
-export class CropComponent {
+export class CropComponent implements AfterContentInit {
   @Input() file: FileModel;
 
   @Output() onCrop = new EventEmitter();

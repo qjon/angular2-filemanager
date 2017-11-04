@@ -4,6 +4,13 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v1.1.0
+* change store structure
+* add option "remove selected files"
+* add LICENCE section
+* move file between folders (in the future, I would like to add possibilities to move selection of files and copy files)
+* add translations
+
 ### v1.0.1
 * fix bugs
 
@@ -117,7 +124,7 @@ Then you have to provide this constant as a configuration service
     
 ### Create API service
     
-Now you should create your own API service to communicate with backend or use existing one _FileManagerBackendApiService_.
+Now you should create your own API service to communicate with backend or use existing one _FileManagerBackendApiService_ (remember, it should extend _AbstractFileManagerApi_ and implements _IFileManagerApi_).
 If you create your own API service it should have implemented _IFileManagerApi_ interface
 * _add(node: IOuterNode, parentNodeId: string): Observable<IOuterNode>;_ - create new node of the tree
 * _load(nodeId: string): Observable<IOuterNode[]>;_ - load tree branch (if nodeId is empty string it loads root level)
@@ -126,7 +133,9 @@ If you create your own API service it should have implemented _IFileManagerApi_ 
 * _remove(nodeId: string): Observable<IOuterNode>;_ - remove node
 * _cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile>;_ - crop file to provided bounds 
 * _loadFiles(nodeId: string): Observable<IOuterFile[]>;_ - load files from given node
+* _moveFile(files: IOuterFile[], node: IOuterNode = null): Observable<IOuterFile[]>_ - move single file to new node 
 * _removeFile(file: IOuterFile): Observable<boolean>;_ - remove single file
+* _removeSelectedFiles(selectedFiles: string[]): Observable<boolean>_ - remove selected files
 * _uploadFile(file: IOuterFile): Observable<IOuterFile>;_ - do actions with uploaded file (real upload is done in ng2-upload-file)
 
 All those actions should manipulate on two protected properties: 
@@ -159,6 +168,32 @@ You are able to connect to actions for doing something special (but this is not 
 * _FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_ERROR_
 * _FileManagerActionsService.FILEMANAGER_UPLOAD_FILE_SUCCESS_ 
 
+## Translation
+
+Filemanager module has configured translation for english (default language) and polish. You can add translations for other languages as it is described in [Translate Module](https://github.com/ngx-translate/core/blob/master/README.md) documentation.
+In _Filemanager Module_ you are able to set following labels:
+
+* RI_TREE_LBL_ADD_NODE - Add node
+* RI_TREE_LBL_EDIT_NODE - Edit node
+* RI_TREE_LBL_REMOVE_NODE - Delete node
+* RI_TREE_LBL_DROP_ZONE - Drop here to move node to root level
+* RI_FM_BTN_LANDSCAPE - Landscape
+* RI_FM_BTN_PORTRAIT - Portrait
+* RI_FM_BTN_SAVE - Save
+* RI_FM_LBL_DELETE_SELECTION - Delete selection
+* RI_FM_LBL_INVERSE_SELECTION - Inverse selection
+* RI_FM_LBL_SEARCH_FOR - Search for...
+* RI_FM_LBL_SELECT_ALL - Select all
+* RI_FM_LBL_UNSELECT_ALL - Unselect all
+
+To change language to polish you have to add these lines to your app module:
+
+    export class AppModule {
+      public constructor(translate: TranslateService) {
+        translate.use('pl');
+      }
+    }
+
 ## Demo
 
 To run local demo you have to serve frontend and backend. To do this run:
@@ -177,3 +212,7 @@ To run local demo you have to serve frontend and backend. To do this run:
         npm run backend
 
 Or you can see online [demo](https://qjon.github.io/angular2-filemanager/) with _local storage_
+
+## License
+
+Licensed under [MIT](https://github.com/qjon/angular2-filemanager/blob/master/LICENSE).

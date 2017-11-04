@@ -7,18 +7,13 @@ import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileDataProperties} from '../services/imageDataConverter.service';
 import {ICropBounds} from '../crop/ICropBounds';
 import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
+import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
 
 @Injectable()
-export class FileManagerApiService implements IFileManagerApi {
-
-  protected treeName = 'fileManagerTree';
-  protected fileManagerName = 'fileManagerFiles';
-
-
-  protected nodes: IOuterNode[];
-  protected files: IFileDataProperties[];
+export class FileManagerApiService extends AbstractFileManagerApiService implements IFileManagerApi {
 
   public constructor(private filemanagerNotfication: FilemanagerNotifcations) {
+    super();
   }
 
 
@@ -48,7 +43,7 @@ export class FileManagerApiService implements IFileManagerApi {
 
   public move(srcNode: IOuterNode, targetNode: IOuterNode | null): Observable<IOuterNode> {
     const srcId = srcNode.id;
-    const targetId = targetNode ? targetNode.id : null;
+    const targetId = targetNode ? targetNode.id : '';
 
     const index = this.findIndexByNodeId(srcId);
 
@@ -109,6 +104,8 @@ export class FileManagerApiService implements IFileManagerApi {
    * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
+    this.currentNodeId = nodeId;
+
     if (!this.files) {
       this.files = this.getAllFileDataFromLocalStorage();
     }
@@ -135,6 +132,22 @@ export class FileManagerApiService implements IFileManagerApi {
     return Observable.of(true);
   }
 
+  public removeSelectedFiles(selectedFiles: string[]) {
+    const numberOfFiles = this.files.length;
+
+    selectedFiles.forEach((fileId: string) => {
+      const index = this.findIndexByFileId(fileId);
+
+      if (index > -1) {
+        this.files.splice(index, 1);
+      }
+    });
+
+    this.saveFiles();
+
+    return Observable.of((this.files.length + selectedFiles.length === numberOfFiles));
+  }
+
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
     const fileData = this.convertIOuterFile2LocalData(file);
     this.files.push(fileData);
@@ -146,6 +159,44 @@ export class FileManagerApiService implements IFileManagerApi {
     }
   }
 
+  /**
+   * @param {IOuterFile[]} files
+   * @param {IOuterNode} node
+   * @returns {Observable<IOuterFile[]>}
+   */
+  public moveFile(files: IOuterFile[], node: IOuterNode = null): Observable<IOuterFile[]> {
+    const ids: string[] = files.map(file => file.id.toString());
+    const folderId = node ? node.id.toString() : '';
+
+    const movedFiles = this.files.filter(file => ids.indexOf(file.id.toString()) > -1);
+    const errorMsg = 'Can not move file to the same folder';
+
+    let isMovedToSameFolder = false;
+
+    movedFiles.forEach((file) => {
+      if (node) {
+        if (node.id === file.folderId) {
+        }
+      } else {
+        if (file.folderId === '' || file.folderId === null) {
+          return Observable.throw(errorMsg);
+        }
+      }
+
+
+      file.folderId = folderId;
+    });
+
+    if (isMovedToSameFolder) {
+        return Observable.throw(errorMsg);
+    }
+
+    if (this.saveFiles()) {
+      return Observable.of(movedFiles.map(file => this.convertLocalData2IOuterFile(file)));
+    } else {
+      return Observable.throw('Move files error');
+    }
+  }
 
   private findIndexByNodeId(nodeId: string): number {
     return this.nodes.findIndex((node) => {
@@ -254,7 +305,7 @@ export class FileManagerApiService implements IFileManagerApi {
       height: file.height,
       type: file.type,
       size: file.size
-    }
+    };
   }
 
   /**
@@ -272,6 +323,6 @@ export class FileManagerApiService implements IFileManagerApi {
       size: file.size,
       width: file.width,
       height: file.height
-    }
+    };
   }
 }
