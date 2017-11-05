@@ -1,4 +1,4 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Inject} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Inject, Provider, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -36,6 +36,7 @@ import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.ser
 import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
 import {FileComponent} from './filesList/file/file.component';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @NgModule({
   imports: [
@@ -67,26 +68,58 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     SelectionComponent,
   ],
   entryComponents: [ImageCropperComponent],
-  providers: [
-    CurrentDirectoryFilesService,
-    FileManagerActionsService,
-    FileManagerApiService,
-    FileManagerBackendApiService,
-    FileManagerConfiguration,
-    FileManagerDispatcherService,
-    FileManagerEffectsService,
-    FilemanagerNotifcations,
-    FileManagerUploader,
-    FileTypeFilterService,
-    ImageDataConverter,
-    NotificationsService,
-    SearchFilterService,
-    TreeService
-  ],
   exports: [FileManagerComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FileManagerModule {
+
+  public static forRoot(config: IFileManagerConfiguration, apiProvider: Provider = null): ModuleWithProviders {
+    return {
+      ngModule: FileManagerModule,
+      providers: [
+        CurrentDirectoryFilesService,
+        FileManagerActionsService,
+        FileManagerApiService,
+        FileManagerBackendApiService,
+        FileManagerConfiguration,
+        FileManagerDispatcherService,
+        FileManagerEffectsService,
+        FilemanagerNotifcations,
+        FileManagerUploader,
+        FileTypeFilterService,
+        ImageDataConverter,
+        NotificationsService,
+        SearchFilterService,
+        TreeService,
+        {provide: 'fileManagerConfiguration', useValue: config},
+        apiProvider ? apiProvider : FileManagerApiService
+      ]
+    }
+  }
+
+  public static forChild(config: IFileManagerConfiguration, apiProvider: Provider = null): ModuleWithProviders {
+    return {
+      ngModule: FileManagerModule,
+      providers: [
+        CurrentDirectoryFilesService,
+        FileManagerActionsService,
+        FileManagerApiService,
+        FileManagerBackendApiService,
+        FileManagerConfiguration,
+        FileManagerDispatcherService,
+        FileManagerEffectsService,
+        FilemanagerNotifcations,
+        FileManagerUploader,
+        FileTypeFilterService,
+        ImageDataConverter,
+        NotificationsService,
+        SearchFilterService,
+        TreeService,
+        {provide: 'fileManagerConfiguration', useValue: config},
+        apiProvider ? apiProvider : FileManagerApiService
+      ]
+    }
+  }
 
   public constructor(private translate: TranslateService) {
     this.setTranslationForEN();

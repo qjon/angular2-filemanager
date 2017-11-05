@@ -4,7 +4,12 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppWithBackendComponent} from './appWithBackend.component';
-import {FileManagerModule, FileManagerApiService, IFileManagerConfiguration, FileManagerBackendApiService} from '../../../main';
+import {
+  FileManagerModule,
+  FileManagerApiService,
+  IFileManagerConfiguration,
+  FileManagerBackendApiService
+} from '../../../main';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
@@ -24,14 +29,10 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserModule,
-    FileManagerModule,
+    FileManagerModule.forRoot(fileManagerConfiguration, {provide: FileManagerApiService, useClass: FileManagerBackendApiService}),
     FormsModule,
     HttpModule,
     TranslateModule.forRoot(),
-  ],
-  providers: [
-    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration},
-    {provide: FileManagerApiService, useClass: FileManagerBackendApiService}
   ],
   bootstrap: [AppWithBackendComponent]
 })

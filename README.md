@@ -4,6 +4,9 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v1.1.1
+* add "forRoot" to module initialization
+
 ### v1.1.0
 * change store structure
 * add option "remove selected files"
@@ -106,16 +109,13 @@ You can create a simple configuration object, it should contains a subset of bel
 * __mimeTypes__ - list of file type mimes which are allowed to upload
 * __maxFileSize__ - limit of the single file size
 
-Then you have to provide this constant as a configuration service
+Then you have to provide this value as configuration for the module
    
     @NgModule({
       ...
       imports: [
         ...,
-        FileManagerModule
-      ],
-      providers: [
-        {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
+        FileManagerModule.forRoot(fileManagerConfiguration)
       ],
       bootstrap: [AppComponent]
     })

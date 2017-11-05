@@ -24,13 +24,10 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserModule,
-    FileManagerModule,
+    FileManagerModule.forRoot(fileManagerConfiguration),
     FormsModule,
     HttpModule,
     TranslateModule.forRoot(),
-  ],
-  providers: [
-    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
   ],
   bootstrap: [AppComponent]
 })
