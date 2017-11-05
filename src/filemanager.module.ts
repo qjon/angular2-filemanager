@@ -35,7 +35,7 @@ import {FileManagerBackendApiService} from './store/fileManagerBackendApi.servic
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
 import {FileComponent} from './filesList/file/file.component';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from 'ng2-translate';
 import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 
 @NgModule({

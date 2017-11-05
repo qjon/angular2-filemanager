@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from 'ng2-translate';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {

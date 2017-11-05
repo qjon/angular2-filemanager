@@ -10,7 +10,7 @@ import {
   IFileManagerConfiguration,
   FileManagerBackendApiService
 } from '../../../main';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from 'ng2-translate';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {

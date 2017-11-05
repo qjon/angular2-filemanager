@@ -4,8 +4,9 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
-### v1.1.1
+### v1.2.0
 * add "forRoot" to module initialization
+* change translation module to _ng2-translate_
 
 ### v1.1.0
 * change store structure
