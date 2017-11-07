@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 
 import {AppWithBackendComponent} from './appWithBackend.component';
 import {
@@ -11,6 +10,10 @@ import {
   FileManagerBackendApiService
 } from '../../../main';
 import {TranslateModule, TranslateService} from 'ng2-translate';
+import {HttpClientModule} from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -29,9 +32,12 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserModule,
+    EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration, {provide: FileManagerApiService, useClass: FileManagerBackendApiService}),
     FormsModule,
-    HttpModule,
+    HttpClientModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument(),
     TranslateModule.forRoot(),
   ],
   bootstrap: [AppWithBackendComponent]

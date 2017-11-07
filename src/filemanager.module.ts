@@ -1,8 +1,7 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Inject, Provider, ModuleWithProviders} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Provider, ModuleWithProviders} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TreeModule, treeReducer} from '@rign/angular2-tree';
+import {TreeModule} from '@rign/angular2-tree';
 import {NotificationsService, SimpleNotificationsModule} from 'angular2-notifications';
 import {FileManagerComponent} from './filemanager.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
@@ -37,20 +36,21 @@ import {SelectionComponent} from './toolbar/selectionDropDown/selection.componen
 import {FileComponent} from './filesList/file/file.component';
 import {TranslateModule, TranslateService} from 'ng2-translate';
 import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ConfirmationPopoverModule.forRoot(),
-    EffectsModule.run(FileManagerEffectsService),
+    EffectsModule.forFeature([FileManagerEffectsService]),
     FormsModule,
     FileUploadModule,
-    HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
     SimpleNotificationsModule,
-    StoreModule.provideStore({files: fileManagerReducer, trees: treeReducer}),
-    StoreDevtoolsModule.instrumentOnlyWithExtension({}),
+    StoreModule.forFeature('files', fileManagerReducer),
+    StoreDevtoolsModule.instrument({}),
     TranslateModule,
     TreeModule
   ],

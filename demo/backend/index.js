@@ -9,7 +9,7 @@ var easyimg = require('easyimage');
 
 var fs = require('fs');
 
-var baseDir = '/data/'
+var baseDir = '/data/';
 var basePath = __dirname + '/..' + baseDir;
 
 var isDirectory = function (path) {
@@ -147,8 +147,7 @@ app.post('/folders', function (req, res) {
 
 
 app.delete('/folders', function (req, res) {
-  var data = req.body;
-  var nodeId = data.nodeId || null;
+  var nodeId = req.query.nodeId || '';
 
   if (isDirectory(nodeId)) {
     fs.rmdirSync(basePath + nodeId);

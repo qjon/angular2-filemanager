@@ -8,6 +8,7 @@ import {filesData} from '../../_unitTestMocks/fileDataMock';
 import {IOuterNode} from '@rign/angular2-tree';
 import {Subscription} from 'rxjs/Subscription';
 import {ICropBounds} from '../crop/ICropBounds';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 describe('fileManagerBackendApi.service', () => {
   let service: FileManagerBackendApiService;
@@ -28,7 +29,7 @@ describe('fileManagerBackendApi.service', () => {
       },
       fileUrl: '/files'
     };
-    httpMock = <Http>jasmine.createSpyObj('Http', ['delete', 'get', 'post', 'put']);
+    httpMock = <HttpClient>jasmine.createSpyObj('Http', ['delete', 'get', 'post', 'put']);
 
     service = new FileManagerBackendApiService(httpMock, configuration);
   });
@@ -39,7 +40,7 @@ describe('fileManagerBackendApi.service', () => {
 
   describe('load', () => {
     it('should load all nodes from given node', function () {
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify([rootNode])}))));
+      httpMock.get.and.returnValue(Observable.of([rootNode]));
 
       subscription = service.load('')
         .subscribe(handler);
@@ -66,7 +67,7 @@ describe('fileManagerBackendApi.service', () => {
       createdNode.id = 'some-id';
       createdNode.parentId = nodeId;
 
-      httpMock.post.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(createdNode)}))));
+      httpMock.post.and.returnValue(Observable.of(createdNode));
 
       subscription = service.add(newNode, nodeId)
         .subscribe(handler);
@@ -112,8 +113,8 @@ describe('fileManagerBackendApi.service', () => {
       movedNode = <IOuterNode>Object.assign({}, srcNode);
       movedNode.parentId = '12345678-1234-1234-1234-098765432112';
 
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify([srcNode])}))));
-      httpMock.put.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(movedNode)}))));
+      httpMock.get.and.returnValue(Observable.of([srcNode]));
+      httpMock.put.and.returnValue(Observable.of(movedNode));
 
       subscription = service.load('')
         .subscribe(() => {
@@ -160,8 +161,8 @@ describe('fileManagerBackendApi.service', () => {
         children: []
       }
 
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify([node])}))));
-      httpMock.put.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(updatedNode)}))));
+      httpMock.get.and.returnValue(Observable.of([node]));
+      httpMock.put.and.returnValue(Observable.of(updatedNode));
 
       service.load('');
 
@@ -182,6 +183,7 @@ describe('fileManagerBackendApi.service', () => {
     let node: IOuterNode;
     let removedNode: IOuterNode;
     let subscriptionTwo: Subscription;
+    let params: HttpParams;
 
     beforeEach(() => {
       node = {
@@ -191,6 +193,8 @@ describe('fileManagerBackendApi.service', () => {
         children: []
       };
 
+      params = new HttpParams().set('nodeId', node.id);
+
       removedNode = {
         id: null,
         parentId: null,
@@ -198,8 +202,8 @@ describe('fileManagerBackendApi.service', () => {
         children: []
       };
 
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify([node])}))));
-      httpMock.delete.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(removedNode)}))));
+      httpMock.get.and.returnValue(Observable.of([node]));
+      httpMock.delete.and.returnValue(Observable.of(removedNode));
 
       subscriptionTwo = service.load('')
         .subscribe(() => {
@@ -213,7 +217,7 @@ describe('fileManagerBackendApi.service', () => {
     });
 
     it('should create proper $http request', () => {
-      expect(httpMock.delete).toHaveBeenCalledWith(configuration.folderUrls.foldersUrl, {body: {nodeId: node.id}});
+      expect(httpMock.delete).toHaveBeenCalledWith(configuration.folderUrls.foldersUrl, {params});
     });
 
     it('should return new value of updated node', () => {
@@ -235,7 +239,7 @@ describe('fileManagerBackendApi.service', () => {
         y: 0
       };
 
-      httpMock.put.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(file)}))));
+      httpMock.put.and.returnValue(Observable.of(file));
 
       subscription = service.cropFile(file, bounds)
         .subscribe(handler);
@@ -252,16 +256,15 @@ describe('fileManagerBackendApi.service', () => {
 
 
   describe('loadFiles', () => {
-    let searchParams: URLSearchParams;
+    let params: HttpParams;
     let nodeId: string;
 
     beforeEach(() => {
-      searchParams = new URLSearchParams();
-      searchParams.set('dirId', nodeId);
+      params = new HttpParams().set('dirId', nodeId);
 
       nodeId = '';
 
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(files)}))));
+      httpMock.get.and.returnValue(Observable.of(files));
 
       subscription = service.loadFiles(nodeId)
         .subscribe(handler);
@@ -272,23 +275,22 @@ describe('fileManagerBackendApi.service', () => {
     });
 
     it('should httpMock.get call with proper params', () => {
-      expect(httpMock.get).toHaveBeenCalledWith(configuration.fileUrl, {search: searchParams});
+      expect(httpMock.get).toHaveBeenCalledWith(configuration.fileUrl, {params});
     });
   });
 
   describe('removeSelectedFiles', () => {
     let ids: string;
-    let searchParams: URLSearchParams;
+    let params: HttpParams;
     let selectedFiles: string[];
 
     beforeEach(() => {
       selectedFiles = [files[1].id.toString(), files[2].id.toString()];
       ids = files[1].id + '|' + files[2].id;
-      searchParams = new URLSearchParams();
-      searchParams.set('id', ids);
+      params = new HttpParams().set('id', ids);
 
-      httpMock.get.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify(files)}))));
-      httpMock.delete.and.returnValue(Observable.of(new Response(new ResponseOptions({body: JSON.stringify([])}))));
+      httpMock.get.and.returnValue(Observable.of(files));
+      httpMock.delete.and.returnValue(Observable.of([]));
 
       service.loadFiles('');
 
@@ -301,7 +303,7 @@ describe('fileManagerBackendApi.service', () => {
     });
 
     it('should httpMock.delete has to be called with proper params', () => {
-      expect(httpMock.delete).toHaveBeenCalledWith(configuration.fileUrl, {search: searchParams});
+      expect(httpMock.delete).toHaveBeenCalledWith(configuration.fileUrl, {params});
     });
   });
 
