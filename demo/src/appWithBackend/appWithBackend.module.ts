@@ -1,7 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
 import {AppWithBackendComponent} from './appWithBackend.component';
 import {
   FileManagerModule,
@@ -14,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -31,7 +30,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     AppWithBackendComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration, {provide: FileManagerApiService, useClass: FileManagerBackendApiService}),
     FormsModule,

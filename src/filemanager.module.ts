@@ -1,5 +1,4 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Provider, ModuleWithProviders} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TreeModule} from '@rign/angular2-tree';
 import {NotificationsService, SimpleNotificationsModule} from 'angular2-notifications';
@@ -27,7 +26,6 @@ import {FileTypeFilterComponent} from './toolbar/fileTypeFilter/fileTypeFilter.c
 import {SearchFileComponent} from './toolbar/searchFile/searchFile.component';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {ImageDataConverter} from './services/imageDataConverter.service';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FilemanagerNotifcations} from './services/FilemanagerNotifcations';
 import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {FileManagerBackendApiService} from './store/fileManagerBackendApi.service';
@@ -37,11 +35,11 @@ import {FileComponent} from './filesList/file/file.component';
 import {TranslateModule, TranslateService} from 'ng2-translate';
 import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 import {HttpClientModule} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
     ConfirmationPopoverModule.forRoot(),
     EffectsModule.forFeature([FileManagerEffectsService]),
     FormsModule,

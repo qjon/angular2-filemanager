@@ -1,13 +1,12 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
 import {AppComponent} from './app.component';
 import {FileManagerModule, IFileManagerConfiguration} from '../../../main';
 import {TranslateModule, TranslateService} from 'ng2-translate';
 import {HttpClientModule} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -25,7 +24,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration),
     FormsModule,
