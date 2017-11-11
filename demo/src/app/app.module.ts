@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TreeModule} from '@rign/angular2-tree';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -30,6 +31,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot({}),
+    TreeModule.forRoot(),
     TranslateModule.forRoot(),
   ],
   bootstrap: [AppComponent]
