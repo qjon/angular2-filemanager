@@ -37,7 +37,7 @@
     "@ngrx/effects": "^4.1.0",
     "@ngrx/store": "^4.1.0",
     "@ngrx/store-devtools": "^4.0.0",
-    "@rign/angular2-tree": "https://github.com/qjon/angular2-tree.git#feature/v2.2.0",
+    "@rign/angular2-tree": "^2.2.0",
     "angular-confirmation-popover": "3.2.0",
     "angular2-notifications": "0.7.7",
     "angular2-uuid": "1.1.1",

@@ -8,6 +8,7 @@ import {IFileDataProperties} from '../services/imageDataConverter.service';
 import {ICropBounds} from '../crop/ICropBounds';
 import {FilemanagerNotifcations} from '../services/FilemanagerNotifcations';
 import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/throw';
 

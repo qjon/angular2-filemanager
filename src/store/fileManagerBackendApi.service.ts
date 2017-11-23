@@ -5,6 +5,7 @@ import {ICropBounds, IFileManagerApi, IOuterFile, IFileDataProperties} from '../
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
 import {AbstractFileManagerApiService} from './fileManagerApiAbstract.class';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
