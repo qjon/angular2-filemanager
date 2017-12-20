@@ -1,4 +1,4 @@
-webpackJsonp([0],{
+webpackJsonp(["polyfills"],{
 
 /***/ "../../../../../demo/src/polyfills.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {

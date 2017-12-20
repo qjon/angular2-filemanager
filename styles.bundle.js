@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp(["styles"],{
 
 /***/ "../../../../bootstrap/dist/css/bootstrap.min.css":
 /***/ (function(module, exports, __webpack_require__) {
@@ -15,8 +15,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../css-loader/index.js??ref--9-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css", function() {
-			var newContent = require("!!../../../css-loader/index.js??ref--9-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css");
+		module.hot.accept("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css", function() {
+			var newContent = require("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -190,8 +190,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js??ref--9-1!../../postcss-loader/index.js??postcss!./font-awesome.css", function() {
-			var newContent = require("!!../../css-loader/index.js??ref--9-1!../../postcss-loader/index.js??postcss!./font-awesome.css");
+		module.hot.accept("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./font-awesome.css", function() {
+			var newContent = require("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./font-awesome.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
