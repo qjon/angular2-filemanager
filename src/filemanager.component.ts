@@ -11,6 +11,7 @@ import {
   IConfiguration,
   TreeModel,
   TreeActionsService,
+  treeStateSelector,
   NodeDispatcherService
 } from '@rign/angular2-tree';
 import {FileModel} from './filesList/file.model';
@@ -29,6 +30,7 @@ import {FileManagerEffectsService} from './store/fileManagerEffects.service';
 import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
+import {filter, map} from 'rxjs/operators';
 
 @Component({
   selector: 'ri-filemanager',
@@ -126,12 +128,13 @@ export class FileManagerComponent implements OnInit {
 
     this.store.dispatch(this.treeActions.registerTree(treeId));
 
-    this.folders = this.store.select('trees')
-      .map((data: ITreeState) => {
-        return data[treeId];
-      })
-      .filter((data: ITreeData) => !!data)
-    ;
+    this.folders = this.store.select(treeStateSelector)
+      .pipe(
+        map((data: ITreeState) => {
+          return data[treeId];
+        }),
+        filter((data: ITreeData) => !!data)
+      );
 
     this.treeModel = new TreeModel(this.folders, this.treeConfiguration);
     /*** END - init TREE ***/

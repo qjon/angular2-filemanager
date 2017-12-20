@@ -10,7 +10,7 @@ import {DropdownComponent} from '../../dropdown/dropdown.component';
 import {FileManagerConfiguration} from '../../configuration/fileManagerConfiguration.service';
 import {filesData} from '../../../_unitTestMocks/fileDataMock';
 import {ToolbarEventModel} from '../models/toolbarEvent.model';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule} from 'ng2-translate';
 
 describe('selection.component', () => {
   let comp: SelectionComponent

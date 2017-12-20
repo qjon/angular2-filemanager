@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {SearchFilterService} from '../../services/searchFilter.service';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'ri-search-file',
@@ -16,7 +17,9 @@ export class SearchFileComponent implements OnInit {
 
   ngOnInit() {
     this.searchField.valueChanges
-      .debounceTime(250)
+      .pipe(
+        debounceTime(250)
+      )
       .subscribe((value: string) => this.searchFilterService.setValue(value));
   }
 }

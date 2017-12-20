@@ -1,11 +1,19 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
-
 import {AppWithBackendComponent} from './appWithBackend.component';
-import {FileManagerModule, FileManagerApiService, IFileManagerConfiguration, FileManagerBackendApiService} from '../../../main';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {
+  FileManagerModule,
+  FileManagerApiService,
+  IFileManagerConfiguration,
+  FileManagerBackendApiService
+} from '../../../main';
+import {TranslateModule, TranslateService} from 'ng2-translate';
+import {HttpClientModule} from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TreeModule} from '@rign/angular2-tree';
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -23,15 +31,15 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
     AppWithBackendComponent
   ],
   imports: [
-    BrowserModule,
-    FileManagerModule,
+    BrowserAnimationsModule,
+    EffectsModule.forRoot([]),
+    FileManagerModule.forRoot(fileManagerConfiguration, {provide: FileManagerApiService, useClass: FileManagerBackendApiService}),
     FormsModule,
-    HttpModule,
+    HttpClientModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument(),
+    TreeModule.forRoot(),
     TranslateModule.forRoot(),
-  ],
-  providers: [
-    {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration},
-    {provide: FileManagerApiService, useClass: FileManagerBackendApiService}
   ],
   bootstrap: [AppWithBackendComponent]
 })

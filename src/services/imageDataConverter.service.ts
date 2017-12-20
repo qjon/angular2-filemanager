@@ -1,6 +1,9 @@
 import {Observable} from 'rxjs/Observable';
 import {UUID} from 'angular2-uuid';
 import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/of';
 
 export interface IFileDataProperties {
   id: string | number;
@@ -67,10 +70,13 @@ export class ImageDataConverter {
     reader.readAsDataURL(file);
 
 
-    return Observable.fromEvent(reader, 'load')
-      .map(() => {
-        return reader.result;
-      });
+    return Observable
+      .fromEvent(reader, 'load')
+      .pipe(
+        map(() => {
+          return reader.result;
+        })
+      );
   };
 
   /**
