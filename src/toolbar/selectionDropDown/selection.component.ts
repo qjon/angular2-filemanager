@@ -9,6 +9,8 @@ import {FileManagerConfiguration} from '../../configuration/fileManagerConfigura
 import {IToolbarEvent} from '../interface/IToolbarEvent';
 import {ToolbarEventModel} from '../models/toolbarEvent.model';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
+import {distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'ri-selection-dropdown',
@@ -73,7 +75,9 @@ export class SelectionComponent implements OnDestroy {
       this.currentDirectoryFilesService.currentDirectoryFileIds$,
       this.currentDirectoryFilesService.selectedFiles$
     )
-      .distinctUntilChanged()
+      .pipe(
+        distinctUntilChanged()
+      )
       .subscribe((data: string[][]) => {
         const numberOfFiles = data[0].length;
         const numberOfSelectedFiles = data[1].length;

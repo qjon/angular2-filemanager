@@ -4,8 +4,6 @@ import {IOuterNode} from '@rign/angular2-tree';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {filesData} from '../../_unitTestMocks/fileDataMock';
 import {UUID} from 'angular2-uuid';
-import {rootNode} from '../../_unitTestMocks/folderDataMock';
-import {root} from 'rxjs/util/root';
 
 describe('fileManagerApi.service', () => {
   let service: FileManagerApiService;

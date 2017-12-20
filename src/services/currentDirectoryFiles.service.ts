@@ -4,15 +4,12 @@ import {FileTypeFilterService} from './fileTypeFilter.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FileModel} from '../filesList/file.model';
-import {
-  getAll, IFileManagerState, isChangeStateFiles, isChangeStateSelectedFiles,
-  storeEntities
-} from '../store/fileManagerReducer';
+import {filemanagerStateSelector, getAll, IFileManagerState, storeEntities} from '../store/fileManagerReducer';
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {IFileTypeFilter} from '../toolbar/interface/IFileTypeFilter';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {distinctUntilChanged} from 'rxjs/operator/distinctUntilChanged';
+import {distinctUntilChanged, map, withLatestFrom} from 'rxjs/operators';
+import 'rxjs/add/observable/combineLatest';
 
 @Injectable()
 export class CurrentDirectoryFilesService {
@@ -51,16 +48,24 @@ export class CurrentDirectoryFilesService {
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService) {
 
-    const observable$ = this.store.select('files');
+    const store$ = this.store.select(filemanagerStateSelector);
+    const observable$ = store$;
     this.entities$ = observable$
-      .map((state: IFileManagerState) => state.entities)
-      .distinctUntilChanged();
+      .pipe(
+        map((state: IFileManagerState) => state.entities),
+        distinctUntilChanged()
+      );
 
     this.currentDirectoryFileIds$ = observable$
-      .map((state: IFileManagerState) => state.files)
-      .distinctUntilChanged();
+      .pipe(
+        map((state: IFileManagerState) => state.files),
+        distinctUntilChanged()
+      );
 
-    this.selectedFiles$ = this.store.select('files').map((state: IFileManagerState) => state.selectedFiles);
+    this.selectedFiles$ = store$
+      .pipe(
+        map((state: IFileManagerState) => state.selectedFiles)
+      );
 
     this.files$ = this.getFilesStream();
     this.filteredFiles$ = this.getCurrentDirectoryFilesStream();
@@ -73,19 +78,21 @@ export class CurrentDirectoryFilesService {
    */
   private getFilesStream(): Observable<FileModel[]> {
     return this.currentDirectoryFileIds$
-      .withLatestFrom(this.entities$)
-      .map((ar: any) => {
-        return {
-          entities: ar[1],
-          files: ar[0]
-        };
-      })
-      .map((state: any) => {
-        return getAll(state)
-          .map((file: IOuterFile) => {
-            return new FileModel(file);
-          });
-      });
+      .pipe(
+        withLatestFrom(this.entities$),
+        map((ar: any) => {
+          return {
+            entities: ar[1],
+            files: ar[0]
+          };
+        }),
+        map((state: any) => {
+          return getAll(state)
+            .map((file: IOuterFile) => {
+              return new FileModel(file);
+            });
+        })
+      );
   }
 
   /**
@@ -99,25 +106,27 @@ export class CurrentDirectoryFilesService {
       this.fileTypeFilter.filter$,
       this.searchFilterService.filter$
     )
-      .map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
-        let files = data[0];
-        const fileTypeFilter = data[1];
-        const search = data[2].toLocaleLowerCase();
+      .pipe(
+        map((data: [FileModel[], IFileTypeFilter, string]): FileModel[] => {
+          let files = data[0];
+          const fileTypeFilter = data[1];
+          const search = data[2].toLocaleLowerCase();
 
-        if (search !== '') {
-          files = files.filter((file: FileModel) => {
-            return file.name.toLocaleLowerCase().indexOf(search) > -1;
-          });
-        }
+          if (search !== '') {
+            files = files.filter((file: FileModel) => {
+              return file.name.toLocaleLowerCase().indexOf(search) > -1;
+            });
+          }
 
 
-        if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
-          files = files.filter((file: FileModel) => {
-            return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
-          });
-        }
+          if (fileTypeFilter && fileTypeFilter.mimes.length > 0) {
+            files = files.filter((file: FileModel) => {
+              return fileTypeFilter.mimes.indexOf(file.getMime()) > -1;
+            });
+          }
 
-        return files;
-      });
+          return files;
+        })
+      );
   }
 }

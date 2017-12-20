@@ -1,13 +1,27 @@
+[![npm (scoped)](https://img.shields.io/npm/v/@rign/angular2-filemanager.svg)]()
+[![Build Status](https://travis-ci.org/qjon/angular2-filemanager.svg?branch=master)](https://travis-ci.org/qjon/angular2-filemanager)
+[![npm version](https://badge.fury.io/js/%40rign%2Fangular2-filemanager.svg)](https://badge.fury.io/js/%40rign%2Fangular2-filemanager.svg)
+[![npm](https://img.shields.io/npm/dm/@rign\/angular2-filemanager.svg)](https://img.shields.io/npm/dm/@rign\/angular2-filemanager.svg)
+[![npm](https://img.shields.io/npm/l/@rign\/angular2-filemanager.svg)](https://github.com/qjon/angular2-filemanager/blob/master/LICENSE)
+
 # Angular2 Filemanager
 
 This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+### v1.2.0
+* add "forRoot" to module initialization
+* change translation module to _ng2-translate_
+* upgrade angular to verison _^5.0.0_
+* upgrade @ngrx/store to version ^4.1.0 (use _forFeature_ to init store and effects)
+* upgrade @rign/angular2-tree to version 2.2.0
+
+
 ### v1.1.0
 * change store structure
 * add option "remove selected files"
-* add LICENCE section
+* add LICENSE section
 * move file between folders (in the future, I would like to add possibilities to move selection of files and copy files)
 * add translations
 
@@ -106,16 +120,13 @@ You can create a simple configuration object, it should contains a subset of bel
 * __mimeTypes__ - list of file type mimes which are allowed to upload
 * __maxFileSize__ - limit of the single file size
 
-Then you have to provide this constant as a configuration service
+Then you have to provide this value as configuration for the module
    
     @NgModule({
       ...
       imports: [
         ...,
-        FileManagerModule
-      ],
-      providers: [
-        {provide: 'fileManagerConfiguration', useValue: fileManagerConfiguration}
+        FileManagerModule.forRoot(fileManagerConfiguration)
       ],
       bootstrap: [AppComponent]
     })

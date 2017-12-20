@@ -9,7 +9,7 @@
     ></ri-toolbar>
   </div>
   <div class="fm-main-box">
-    <rign-tree class="folders-box" [treeModel]="treeModel"></rign-tree>
+    <ri-tree class="folders-box" [treeModel]="treeModel"></ri-tree>
     <ri-files-list class="files-box" [files]="filteredFiles$ | async"
                    [selectedFiles]="selectedFiles$ | async"
                 (onPreviewFile)="onPreviewFile($event)"

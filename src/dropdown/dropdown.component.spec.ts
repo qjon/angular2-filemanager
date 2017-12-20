@@ -5,7 +5,7 @@ import {ButtonClass} from './Button.class';
 import {IButton} from './IButton';
 import {ButtonDividerClass} from './ButtonDivider.class';
 import {By} from '@angular/platform-browser';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule} from 'ng2-translate';
 
 describe('dropdown.component', () => {
   let comp: DropdownComponent;

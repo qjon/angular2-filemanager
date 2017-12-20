@@ -9,7 +9,7 @@ import {FileManagerDispatcherService} from '../../store/fileManagerDispatcher.se
   templateUrl: './file.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class FileComponent implements OnChanges {
+export class FileComponent {
   @Input() file: IFileModel;
 
   @Output() onPreviewFile = new EventEmitter();
@@ -18,10 +18,6 @@ export class FileComponent implements OnChanges {
 
   public constructor(public configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService) {
-  }
-
-  public ngOnChanges() {
-    console.log('change', this.file);
   }
 
   /**
