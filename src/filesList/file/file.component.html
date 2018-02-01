@@ -6,15 +6,20 @@
      [style.background-image]="'url(' + file.thumbnailUrl + ')'"></div>
 <span class="file-name">{{file.name}}</span>
 <div class="file-menu">
-  <button mwlConfirmationPopover [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
-          [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
-          class="btn btn-danger btn-icon">
-    <i class="fa fa-trash"></i>
-  </button>
-  <button (click)="openPreview(file)" class="btn btn-default btn-icon">
-    <i class="fa fa-search"></i>
-  </button>
-  <button (click)="openCrop(file)" class="btn btn-default btn-icon">
-    <i class="fa fa-crop"></i>
-  </button>
+  <div class="btn-group btn-group-sm">
+    <button mwlConfirmationPopover [title]="removeTitle" [message]="getRemoveMessage(file)" [appendToBody]="true"
+            [confirmText]="'Yes'" [cancelText]="'No'" placement="bottom" (confirm)="deleteFile(file)"
+            class="btn btn-sm btn-danger btn-icon">
+      <i class="fa fa-trash"></i>
+    </button>
+    <button (click)="openPreview(file)" class="btn btn-sm btn-default btn-icon">
+      <i class="fa fa-search"></i>
+    </button>
+    <button (click)="openCrop(file)" class="btn btn-sm btn-default btn-icon">
+      <i class="fa fa-crop"></i>
+    </button>
+    <button (click)="chooseFile(file)" class="btn btn-sm btn-primary btn-icon">
+      <i class="fa fa-image"></i>
+    </button>
+  </div>
 </div>

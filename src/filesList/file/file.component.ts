@@ -56,4 +56,8 @@ export class FileComponent {
   public unSelectFile(): void {
     this.fileManagerDispatcher.unSelectFile(this.file);
   }
+
+  public chooseFile(file: IFileModel): void {
+    this.fileManagerDispatcher.chooseFiles([file.toJSON()]);
+  }
 }

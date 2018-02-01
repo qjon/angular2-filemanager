@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, HostListener, EventEmitter, Output
+  Component, OnInit, ViewChild, HostListener, EventEmitter, Output, OnDestroy
 } from '@angular/core';
 import {
   TreeComponent,
@@ -31,6 +31,8 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {filter, map} from 'rxjs/operators';
+import {IOuterFile} from './filesList/interface/IOuterFile';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'ri-filemanager',
@@ -38,7 +40,7 @@ import {filter, map} from 'rxjs/operators';
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit {
+export class FileManagerComponent implements OnInit, OnDestroy {
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
@@ -73,7 +75,8 @@ export class FileManagerComponent implements OnInit {
   public contextMenu: IContextMenu[] = [];
 
   public currentSelectedFile: IFileModel;
-  public currentSelectedFiles: string[] = [];
+  public currentSelectedFilesIds: string[] = [];
+  public currentSelectedFiles: IOuterFile[] = [];
 
   public isPreviewMode = false;
   public isCropMode = false;
@@ -93,6 +96,8 @@ export class FileManagerComponent implements OnInit {
    * @type {IContextMenu[]}
    */
   public menu: IContextMenu[];
+
+  private subscription = new Subscription();
 
   public constructor(private store: Store<ITreeState>,
                      private treeActions: TreeActionsService,
@@ -114,13 +119,29 @@ export class FileManagerComponent implements OnInit {
         this.notifications[type](title, message);
       });
 
-    this.currentDirectoryFilesService.selectedFiles$
-      .subscribe((data: string[]) => {
-        this.currentSelectedFiles = data;
-      });
+    this.subscription.add(
+      this.currentDirectoryFilesService.selectedFiles$
+        .subscribe((data: string[]) => {
+          this.currentSelectedFilesIds = data;
+        })
+    );
+
+    this.subscription.add(
+      Observable.combineLatest(
+        this.currentDirectoryFilesService.selectedFiles$,
+        this.currentDirectoryFilesService.entities$,
+      )
+        .subscribe(([ids, entities]: [string[], { [key: string]: IOuterFile }]) => {
+          this.currentSelectedFiles = ids.map((id) => entities[id]);
+        })
+    );
   }
 
-  ngOnInit() {
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  public ngOnInit(): void {
 
     /*** START - init TREE ***/
     const treeId = this.treeConfiguration.treeId;
@@ -146,17 +167,20 @@ export class FileManagerComponent implements OnInit {
     this.selectedFiles$ = this.currentDirectoryFilesService.selectedFiles$;
 
 
-    this.treeModel.currentSelectedNode$
-      .subscribe((node: IOuterNode | null) => {
-        this.loadFiles(node ? node.id : '');
-      });
+    this.subscription.add(
+      this.treeModel.currentSelectedNode$
+        .subscribe((node: IOuterNode | null) => {
+          this.loadFiles(node ? node.id : '');
+        })
+    );
 
     /*** END - init files ***/
-
-    this.fileManagerEffects.cropFileSuccess$
-      .subscribe(() => {
-        this.closeModal();
-      });
+    this.subscription.add(
+      this.fileManagerEffects.cropFileSuccess$
+        .subscribe(() => {
+          this.closeModal();
+        })
+    );
   }
 
   get currentSelectedFolderId(): string | null {
@@ -205,8 +229,11 @@ export class FileManagerComponent implements OnInit {
   @log
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
+      case Button.CHOOSE_SELECTION:
+        this.fileManagerDispatcher.chooseFiles(this.currentSelectedFiles);
+        break;
       case Button.DELETE_SELECTION:
-        this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFiles);
+        this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFilesIds);
         break;
       case Button.SELECT_ALL:
         this.fileManagerDispatcher.selectAllFiles();

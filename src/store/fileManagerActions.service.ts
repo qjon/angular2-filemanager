@@ -18,6 +18,7 @@ export interface IFileManagerAction extends Action {
 
 @Injectable()
 export class FileManagerActionsService {
+  static FILEMANAGER_CHOOSE_FILES = 'FILEMANAGER_CHOOSE_FILES';
   static FILEMANAGER_CROP_FILE = 'FILEMANAGER_CROP_FILE';
   static FILEMANAGER_CROP_FILE_SUCCESS = 'FILEMANAGER_CROP_FILE_SUCCESS';
   static FILEMANAGER_CROP_FILE_ERROR = 'FILEMANAGER_CROP_FILE_ERROR';
@@ -37,6 +38,13 @@ export class FileManagerActionsService {
   static FILEMANAGER_UPLOAD_FILE = 'FILEMANAGER_UPLOAD_FILE';
   static FILEMANAGER_UPLOAD_FILE_ERROR = 'FILEMANAGER_UPLOAD_FILE_ERROR';
   static FILEMANAGER_UPLOAD_FILE_SUCCESS = 'FILEMANAGER_UPLOAD_FILE_SUCCESS';
+
+  public chooseFiles(files: IOuterFile[]): IFileManagerAction {
+    return {
+      type: FileManagerActionsService.FILEMANAGER_CHOOSE_FILES,
+      payload: {files}
+    };
+  }
 
   public cropFile(file: IFileModel, bounds: ICropBounds): IFileManagerAction {
     return {
