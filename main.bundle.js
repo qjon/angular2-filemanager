@@ -2084,7 +2084,7 @@ var ImageDataConverter = /** @class */ (function () {
         };
         var reader = this.getBase64FromFile(file);
         return reader
-            .concatMap(function (data) {
+            .pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["concatMap"])(function (data) {
             properties.data = data;
             if (properties.type.indexOf('image') === 0) {
                 return _this.getImageDimensions(data);
@@ -2092,12 +2092,11 @@ var ImageDataConverter = /** @class */ (function () {
             else {
                 return __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"].of({ width: 0, height: 0 });
             }
-        })
-            .map(function (dimensions) {
+        }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["map"])(function (dimensions) {
             properties.width = dimensions.width;
             properties.height = dimensions.height;
             return properties;
-        });
+        }));
     };
     /**
      * Create observable which return image as base64 data
