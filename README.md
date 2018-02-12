@@ -10,6 +10,10 @@ This project is a very simple __Angular2 file manager__.
 
 ## Features
 
+
+### v1.2.1
+* fix issue - upload files to localStorage
+
 ### v1.2.0
 * add "forRoot" to module initialization
 * change translation module to _ng2-translate_
