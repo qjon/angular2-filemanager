@@ -53,6 +53,14 @@ export class SelectionComponent implements OnDestroy {
     iconCssClass: 'fa fa-trash'
   });
 
+  private chooseSelectionButton = new ButtonClass({
+    symbol: Button.CHOOSE_SELECTION,
+    name: 'RI_FM_LBL_CHOOSE_SELECTION',
+    label: true,
+    icon: true,
+    iconCssClass: 'fa fa-image'
+  });
+
   private onLoadFilesSubscriber: Subscription;
 
   public constructor(public configuration: FileManagerConfiguration,
@@ -129,16 +137,22 @@ export class SelectionComponent implements OnDestroy {
 
   /**
    * Create list of buttons
-   * @returns {IButton[]}
    */
   private createBasicButtons(): IButton[] {
-    return [
+    const buttons = [
       this.selectAllButton,
       this.unselectAllButton,
       this.inverseSelectionButton,
       new ButtonDividerClass(),
-      this.deleteSelectionButton
+      this.deleteSelectionButton,
     ];
+
+    if (this.configuration.allowChooseMultipleFiles) {
+      buttons.push(new ButtonDividerClass());
+      buttons.push(this.chooseSelectionButton);
+    }
+
+    return buttons;
   }
 
   /**

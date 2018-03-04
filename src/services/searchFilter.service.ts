@@ -5,7 +5,6 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class SearchFilterService {
   /**
    * File type filter
-   * @type {BehaviorSubject}
    */
   public filter$: BehaviorSubject<string> = new BehaviorSubject('');
 

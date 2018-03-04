@@ -1,6 +1,6 @@
 import {IOuterFile} from '../filesList/interface/IOuterFile';
 import {FileManagerActionsService, IFileManagerAction} from './fileManagerActions.service';
-import {createFeatureSelector} from '@ngrx/store';
+import {createFeatureSelector, MemoizedSelector} from '@ngrx/store';
 
 export type storeEntities = { [key: string]: IOuterFile };
 
@@ -192,7 +192,7 @@ export function fileManagerReducer(state: IFileManagerState = {
   }
 }
 
-export const filemanagerStateSelector = createFeatureSelector<IFileManagerState>('files');
+export const filemanagerStateSelector: MemoizedSelector<object, IFileManagerState> = createFeatureSelector<IFileManagerState>('files');
 
 export const getAll = (state: IFileManagerState): IOuterFile[] => {
   return state.files.map((id: string) => state.entities[id]);

@@ -12,6 +12,10 @@ export class FileManagerDispatcherService {
   constructor(private store: Store<IFileManagerState>, private fileManagerActions: FileManagerActionsService) {
   }
 
+  public chooseFiles(files: IOuterFile[]): void {
+    this.store.dispatch(this.fileManagerActions.chooseFiles(files));
+  }
+
   public cropFile(file: IFileModel, bounds: ICropBounds): void {
     this.store.dispatch(this.fileManagerActions.cropFile(file, bounds));
   }

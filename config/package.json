@@ -1,0 +1,57 @@
+{
+  "name": "@rign/angular2-filemanager",
+  "version": "1.3.0",
+  "license": "MIT",
+  "angular-cli": {},
+  "scripts": {
+    "start": "ng serve --app withoutBackend",
+    "startWithBackend": "ng serve --proxy-config demo/proxy.config.example.json --app withBackend ",
+    "backend": "node demo/backend/index.js",
+    "test": "ng test --code-coverage",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/qjon/angular2-filemanager.git"
+  },
+  "keywords": [
+    "filemanager",
+    "file",
+    "manager"
+  ],
+  "author": "Rafal Ignaszewski <rafal@ignaszewski.pl> http://ignaszewski.pl",
+  "main": "./bundles/angular2-filemanager.umd.min.js",
+  "module": "./esm5/angular2-filemanager.es5.js",
+  "es2015": "./esm2015/angular2-filemanager.es2015.js",
+  "typings": "./angular2-filemanager.d.ts",
+  "dependencies": {
+    "@angular/animations": "^5.2.0",
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/forms": "^5.2.0",
+    "@angular/http": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "@angular/router": "^5.2.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^5.1.0",
+    "@ngrx/store": "^5.1.0",
+    "@ngrx/store-devtools": "^4.0.0",
+    "@rign/angular2-tree": "2.3.0",
+    "angular-confirmation-popover": "3.2.0",
+    "angular2-notifications": "0.9.5",
+    "angular2-uuid": "1.1.1",
+    "bootstrap": "3.3.7",
+    "core-js": "2.4.1",
+    "font-awesome": "4.6.3",
+    "ng2-file-upload": "1.2.0",
+    "ng2-img-cropper": "0.9.0",
+    "ng2-translate": "^5.0.0",
+    "ngx-contextmenu": "^2.0.0-beta.6",
+    "rxjs": "^5.5.6",
+    "ts-helpers": "1.1.1",
+    "zone.js": "0.8.4"
+  },
+  "devDependencies": {
+  }
+}

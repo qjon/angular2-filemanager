@@ -65,6 +65,8 @@ export class FileManagerConfiguration {
 
   public mimeTypes: string[] | null;
 
+  public allowChooseMultipleFiles: boolean;
+
   constructor(@Inject('fileManagerConfiguration') configuration: IFileManagerConfiguration) {
     const {foldersUrl, folderMoveUrl} = configuration.urls;
     this.folderUrls = {foldersUrl, folderMoveUrl};
@@ -72,5 +74,6 @@ export class FileManagerConfiguration {
     this.isMultiSelection = configuration.isMultiSelection || false;
     this.maxFileSize = configuration.maxFileSize || 0;
     this.mimeTypes = configuration.mimeTypes || null;
+    this.allowChooseMultipleFiles = configuration.allowChooseMultipleFiles || false;
   }
 }

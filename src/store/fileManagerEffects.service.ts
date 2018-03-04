@@ -138,30 +138,31 @@ export class FileManagerEffectsService {
       })
     );
 
-  public cropFileSuccess$ = this.actions$
-    .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS);
-
-
-  public cropFileError$ = this.actions$
-    .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_ERROR)
-    .subscribe((action: IFileManagerAction) => {
-      this.onCropFileError(action.payload.file);
-    });
-
-  public deleteFileSuccess$ = this.actions$
-    .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
-
-  public filesMoveError$ = this.actions$
-    .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR)
-    .subscribe((action: IFileManagerAction) => {
-      this.onMoveFilesError();
-    });
-
+  public cropFileSuccess$: Actions;
+  public deleteFileSuccess$: Actions;
 
   constructor(private actions$: Actions,
               private fileManagerActions: FileManagerActionsService,
               private filemanagerNotfication: FilemanagerNotifcations,
               private fileManagerApiService: FileManagerApiService) {
+
+    this.cropFileSuccess$ = this.actions$
+      .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_SUCCESS);
+
+    this.deleteFileSuccess$ = this.actions$
+      .ofType(FileManagerActionsService.FILEMANAGER_DELETE_FILE_SUCCESS);
+
+    this.actions$
+      .ofType(FileManagerActionsService.FILEMANAGER_CROP_FILE_ERROR)
+      .subscribe((action: IFileManagerAction) => {
+        this.onCropFileError(action.payload.file);
+      });
+
+    this.actions$
+      .ofType(FileManagerActionsService.FILEMANAGER_MOVE_FILES_ERROR)
+      .subscribe((action: IFileManagerAction) => {
+        this.onMoveFilesError();
+      });
   }
 
   protected cropFile(file: IFileModel, bounds: ICropBounds): Observable<IOuterFile> {

@@ -5,4 +5,5 @@ export interface IFileManagerConfiguration {
   isMultiSelection?: boolean;
   maxFileSize?: number;
   mimeTypes?: string[];
+  allowChooseMultipleFiles: boolean;
 }
