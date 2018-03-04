@@ -10,7 +10,7 @@
         <i class="fa fa-file-o"></i>
       </button>
       <span class="hidden-input-file">
-        <input #fileInput type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" (onCompleteAll)="onUpload()" (onCompleteItem)="onUploadItem()" multiple/>
+        <input #fileInput type="file" ng2FileSelect [uploader]="fileManagerUploader.uploader" multiple/>
       </span>
     </div>
     <ri-selection-dropdown (onMenuButtonClick)="onMenuButtonClick.next($event)"></ri-selection-dropdown>

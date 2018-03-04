@@ -8,6 +8,8 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TreeModule} from '@rign/angular2-tree';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -26,6 +28,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserAnimationsModule,
+    ConfirmationPopoverModule.forRoot(),
     EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration),
     FormsModule,

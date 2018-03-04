@@ -5,7 +5,7 @@ import {NotificationsService, SimpleNotificationsModule} from 'angular2-notifica
 import {FileManagerComponent} from './filemanager.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {FilesListComponent} from './filesList/filesList.component';
-import {ImageCropperComponent} from 'ng2-img-cropper';
+import {ImageCropperComponent, ImageCropperModule} from 'ng2-img-cropper';
 import {CropComponent} from './crop/crop.component';
 import {PreviewComponent} from './preview/preview.component';
 import {DropdownComponent} from './dropdown/dropdown.component';
@@ -40,11 +40,12 @@ import {CommonModule} from '@angular/common';
 @NgModule({
   imports: [
     CommonModule,
-    ConfirmationPopoverModule.forRoot(),
+    ConfirmationPopoverModule,
     EffectsModule.forFeature([FileManagerEffectsService]),
     FormsModule,
     FileUploadModule,
     HttpClientModule,
+    ImageCropperModule,
     ReactiveFormsModule,
     SimpleNotificationsModule,
     StoreModule.forFeature('files', fileManagerReducer),
@@ -61,11 +62,12 @@ import {CommonModule} from '@angular/common';
     DropdownComponent,
     PreviewComponent,
     CropComponent,
-    ImageCropperComponent,
     SearchFileComponent,
-    SelectionComponent,
+    SelectionComponent
   ],
-  entryComponents: [ImageCropperComponent],
+  entryComponents: [
+    ImageCropperComponent
+  ],
   exports: [FileManagerComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

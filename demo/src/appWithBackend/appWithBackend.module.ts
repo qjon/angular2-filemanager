@@ -14,8 +14,9 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TreeModule} from '@rign/angular2-tree';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 
-const fileManagerConfiguration: IFileManagerConfiguration = {
+export const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
     foldersUrl: '/api/folder',
     filesUrl: '/api/files',
@@ -32,6 +33,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserAnimationsModule,
+    ConfirmationPopoverModule.forRoot(),
     EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration, {provide: FileManagerApiService, useClass: FileManagerBackendApiService}),
     FormsModule,

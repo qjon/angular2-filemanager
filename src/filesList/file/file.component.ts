@@ -16,6 +16,8 @@ export class FileComponent {
   @Output() onCropFile = new EventEmitter();
   @Output() onSelectFile = new EventEmitter();
 
+  public removeTitle = 'Remove file';
+
   public constructor(public configuration: FileManagerConfiguration,
                      private fileManagerDispatcher: FileManagerDispatcherService) {
   }

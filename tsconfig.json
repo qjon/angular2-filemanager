@@ -11,5 +11,10 @@
     "outDir": "../dist/out-tsc",
     "sourceMap": true,
     "target": "es5"
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": false,
+    "strictMetadataEmit" : true
   }
 }
