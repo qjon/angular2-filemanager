@@ -4,6 +4,7 @@ export interface IFileModel {
   thumbnailUrl: string;
   url: string;
   selected: boolean;
+  isImage(): boolean;
   fromJSON(data: IOuterFile): void;
   toJSON(): IOuterFile;
   getId(): string|number;

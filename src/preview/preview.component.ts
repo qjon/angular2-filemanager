@@ -20,11 +20,10 @@ export class PreviewComponent implements OnChanges {
 
   /**
    * Current index
-   * @type {number}
    */
   public currentIndex = 0;
 
-  private length = 0;
+  public length = 0;
 
   ngOnChanges() {
     this.length = this.files.length;

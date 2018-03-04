@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, HostListener, EventEmitter, Output
+  Component, OnInit, ViewChild, HostListener, EventEmitter, Output, OnDestroy
 } from '@angular/core';
 import {
   TreeComponent,
@@ -12,10 +12,9 @@ import {
   TreeModel,
   TreeActionsService,
   treeStateSelector,
-  NodeDispatcherService
+  NodeDispatcherService,
 } from '@rign/angular2-tree';
 import {FileModel} from './filesList/file.model';
-import {log} from './decorators/logFunction.decorator';
 import {NotificationsService} from 'angular2-notifications';
 import {IFileEvent} from './filesList/interface/IFileEvent';
 import {Button} from './toolbar/models/button.model';
@@ -31,6 +30,8 @@ import {FileManagerApiService} from './store/fileManagerApi.service';
 import {FilemanagerNotifcations, INotification} from './services/FilemanagerNotifcations';
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {filter, map} from 'rxjs/operators';
+import {IOuterFile} from './filesList/interface/IOuterFile';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'ri-filemanager',
@@ -38,7 +39,7 @@ import {filter, map} from 'rxjs/operators';
   styleUrls: ['./main.less'],
   templateUrl: './filemanager.html'
 })
-export class FileManagerComponent implements OnInit {
+export class FileManagerComponent implements OnInit, OnDestroy {
   @Output() onSingleFileSelect = new EventEmitter();
 
   @ViewChild(TreeComponent)
@@ -49,7 +50,6 @@ export class FileManagerComponent implements OnInit {
 
   /**
    * List of files for current selected directory
-   * @typeObserv {Array}
    */
   private files$: Observable<FileModel[]>;
 
@@ -73,7 +73,8 @@ export class FileManagerComponent implements OnInit {
   public contextMenu: IContextMenu[] = [];
 
   public currentSelectedFile: IFileModel;
-  public currentSelectedFiles: string[] = [];
+  public currentSelectedFilesIds: string[] = [];
+  public currentSelectedFiles: IOuterFile[] = [];
 
   public isPreviewMode = false;
   public isCropMode = false;
@@ -90,9 +91,10 @@ export class FileManagerComponent implements OnInit {
 
   /**
    * List of context menu
-   * @type {IContextMenu[]}
    */
   public menu: IContextMenu[];
+
+  private subscription = new Subscription();
 
   public constructor(private store: Store<ITreeState>,
                      private treeActions: TreeActionsService,
@@ -114,13 +116,29 @@ export class FileManagerComponent implements OnInit {
         this.notifications[type](title, message);
       });
 
-    this.currentDirectoryFilesService.selectedFiles$
-      .subscribe((data: string[]) => {
-        this.currentSelectedFiles = data;
-      });
+    this.subscription.add(
+      this.currentDirectoryFilesService.selectedFiles$
+        .subscribe((data: string[]) => {
+          this.currentSelectedFilesIds = data;
+        })
+    );
+
+    this.subscription.add(
+      Observable.combineLatest(
+        this.currentDirectoryFilesService.selectedFiles$,
+        this.currentDirectoryFilesService.entities$,
+      )
+        .subscribe(([ids, entities]: [string[], { [key: string]: IOuterFile }]) => {
+          this.currentSelectedFiles = ids.map((id) => entities[id]);
+        })
+    );
   }
 
-  ngOnInit() {
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  public ngOnInit(): void {
 
     /*** START - init TREE ***/
     const treeId = this.treeConfiguration.treeId;
@@ -146,17 +164,20 @@ export class FileManagerComponent implements OnInit {
     this.selectedFiles$ = this.currentDirectoryFilesService.selectedFiles$;
 
 
-    this.treeModel.currentSelectedNode$
-      .subscribe((node: IOuterNode | null) => {
-        this.loadFiles(node ? node.id : '');
-      });
+    this.subscription.add(
+      this.treeModel.currentSelectedNode$
+        .subscribe((node: IOuterNode | null) => {
+          this.loadFiles(node ? node.id : '');
+        })
+    );
 
     /*** END - init files ***/
-
-    this.fileManagerEffects.cropFileSuccess$
-      .subscribe(() => {
-        this.closeModal();
-      });
+    this.subscription.add(
+      this.fileManagerEffects.cropFileSuccess$
+        .subscribe(() => {
+          this.closeModal();
+        })
+    );
   }
 
   get currentSelectedFolderId(): string | null {
@@ -165,7 +186,7 @@ export class FileManagerComponent implements OnInit {
     return value ? value.id : null;
   }
 
-  @log
+
   public onAddFolder() {
     this.treeComponent.onAdd();
   }
@@ -175,25 +196,24 @@ export class FileManagerComponent implements OnInit {
    **********************************************************************/
   /**
    * Run when all files are uploaded
-   * @param folderId
    */
   public onUpload(folderId: string) {
     this.notifications.success('File upload', 'Upload complete');
   }
 
-  @log
+
   public onPreviewFile(fileEventData: IFileEvent) {
     this.isPreviewMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
 
-  @log
+
   public onOpenCropFileEditor(fileEventData: IFileEvent) {
     this.isCropMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
 
-  @log
+
   public onSelectFile(event: FileModel) {
     this.onSingleFileSelect.next(event.getSelectData());
   }
@@ -202,11 +222,14 @@ export class FileManagerComponent implements OnInit {
    * TOOLBAR EVENTS
    **********************************************************************/
 
-  @log
+
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
+      case Button.CHOOSE_SELECTION:
+        this.fileManagerDispatcher.chooseFiles(this.currentSelectedFiles);
+        break;
       case Button.DELETE_SELECTION:
-        this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFiles);
+        this.fileManagerDispatcher.deleteSelectedFiles(this.currentSelectedFilesIds);
         break;
       case Button.SELECT_ALL:
         this.fileManagerDispatcher.selectAllFiles();

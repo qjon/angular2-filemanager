@@ -7,7 +7,6 @@ export class FileTypeFilterService {
 
   /**
    * File type filter
-   * @type {BehaviorSubject}
    */
   public filter$: BehaviorSubject<IFileTypeFilter | null> = new BehaviorSubject(null);
 
