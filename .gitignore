@@ -44,3 +44,4 @@ proxy.config.json
 demo/data/**/*
 !demo/data/.gitkeep
 ./coverage
+/.rpt2_cache/

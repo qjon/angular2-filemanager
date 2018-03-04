@@ -112,7 +112,6 @@ export class CropComponent implements AfterContentInit {
 
   /**
    * Calculates scale between current file dimensions and box 600x600
-   * @returns {number}
    */
   private calculateScale(): number {
     let scale = this.file.getWidth() / this.file.getHeight();

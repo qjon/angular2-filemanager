@@ -92,10 +92,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
 
   /**
    * Crop file
-   *
-   * @param {IOuterFile} file
-   * @param {ICropBounds} bounds
-   * @returns {Observable<IOuterFile>}
    */
   public cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile> {
     return Observable.throw('This functionality is not available with LocalStorage');
@@ -103,9 +99,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
 
   /**
    * Load files from directory
-   *
-   * @param {string} nodeId
-   * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
     this.currentNodeId = nodeId;
@@ -163,11 +156,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     }
   }
 
-  /**
-   * @param {IOuterFile[]} files
-   * @param {IOuterNode} node
-   * @returns {Observable<IOuterFile[]>}
-   */
   public moveFile(files: IOuterFile[], node: IOuterNode = null): Observable<IOuterFile[]> {
     const ids: string[] = files.map(file => file.id.toString());
     const folderId = node ? node.id.toString() : '';
@@ -293,11 +281,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     }
   }
 
-  /**
-   *
-   * @param file
-   * @returns {{id: string, folderId: string, name: string, thumbnailUrl: string, url: string, width: number, height: number, mime: string}}
-   */
   private convertLocalData2IOuterFile(file: IFileDataProperties): IOuterFile {
     return {
       id: file.id,
@@ -312,11 +295,6 @@ export class FileManagerApiService extends AbstractFileManagerApiService impleme
     };
   }
 
-  /**
-   *
-   * @param file
-   * @returns {{id: (any|string), folderId: string, name: string, type: string, data: string, size: number}}
-   */
   private convertIOuterFile2LocalData(file: IOuterFile): IFileDataProperties {
     return {
       id: file.id.toString(),

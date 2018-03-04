@@ -15,7 +15,6 @@ import {
   NodeDispatcherService,
 } from '@rign/angular2-tree';
 import {FileModel} from './filesList/file.model';
-import {log} from './decorators/logFunction.decorator';
 import {NotificationsService} from 'angular2-notifications';
 import {IFileEvent} from './filesList/interface/IFileEvent';
 import {Button} from './toolbar/models/button.model';
@@ -51,7 +50,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   /**
    * List of files for current selected directory
-   * @typeObserv {Array}
    */
   private files$: Observable<FileModel[]>;
 
@@ -93,7 +91,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   /**
    * List of context menu
-   * @type {IContextMenu[]}
    */
   public menu: IContextMenu[];
 
@@ -189,7 +186,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     return value ? value.id : null;
   }
 
-  @log
+
   public onAddFolder() {
     this.treeComponent.onAdd();
   }
@@ -199,25 +196,24 @@ export class FileManagerComponent implements OnInit, OnDestroy {
    **********************************************************************/
   /**
    * Run when all files are uploaded
-   * @param folderId
    */
   public onUpload(folderId: string) {
     this.notifications.success('File upload', 'Upload complete');
   }
 
-  @log
+
   public onPreviewFile(fileEventData: IFileEvent) {
     this.isPreviewMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
 
-  @log
+
   public onOpenCropFileEditor(fileEventData: IFileEvent) {
     this.isCropMode = true;
     this.currentSelectedFile = fileEventData.file;
   }
 
-  @log
+
   public onSelectFile(event: FileModel) {
     this.onSingleFileSelect.next(event.getSelectData());
   }
@@ -226,7 +222,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
    * TOOLBAR EVENTS
    **********************************************************************/
 
-  @log
+
   public onMenuButtonClick(event: IToolbarEvent) {
     switch (event.name) {
       case Button.CHOOSE_SELECTION:

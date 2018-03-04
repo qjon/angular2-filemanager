@@ -20,9 +20,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Load folder chidls for given folder id
-   *
-   * @param {string} nodeId
-   * @returns {Observable<IOuterNode[]>}
    */
   public load(nodeId = ''): Observable<IOuterNode[]> {
     const nodeIds = this.nodes.map((node: IOuterNode) => node.id);
@@ -46,10 +43,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Create new folder
-   *
-   * @param {IOuterNode} node
-   * @param {string} parentNodeId
-   * @returns {Observable<IOuterNode>}
    */
   public add(node: IOuterNode, parentNodeId: string = null): Observable<IOuterNode> {
     const data = {
@@ -68,10 +61,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Move folder from source parent to target parent
-   *
-   * @param {IOuterNode} srcNode
-   * @param {IOuterNode} targetNode
-   * @returns {Observable<IOuterNode>}
    */
   public move(srcNode: IOuterNode, targetNode: IOuterNode | null): Observable<IOuterNode> {
     const srcId = srcNode.id;
@@ -89,9 +78,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Update folder name
-   *
-   * @param {IOuterNode} node
-   * @returns {Observable<IOuterNode>}
    */
   public update(node: IOuterNode): Observable<IOuterNode> {
     return this.$http.put<IOuterNode>(this.configuration.folderUrls.foldersUrl, node)
@@ -106,9 +92,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Remove node by given id
-   *
-   * @param {string} nodeId
-   * @returns {Observable<IOuterNode>}
    */
   public remove(nodeId: string): Observable<IOuterNode> {
     const index = this.findIndexByNodeId(nodeId);
@@ -131,10 +114,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Crop file
-   *
-   * @param {IOuterFile} file
-   * @param {ICropBounds} bounds
-   * @returns {Observable<IOuterFile>}
    */
   public cropFile(file: IOuterFile, bounds: ICropBounds): Observable<IOuterFile> {
     return this.$http.put<IOuterFile>(this.configuration.fileUrl, {id: file.id, bounds: bounds});
@@ -142,9 +121,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Load files from directory
-   *
-   * @param {string} nodeId
-   * @returns {Observable<IOuterFile[]>}
    */
   public loadFiles(nodeId = ''): Observable<IOuterFile[]> {
     this.currentNodeId = nodeId;
@@ -160,9 +136,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * Remove file from folder
-   *
-   * @param {IOuterFile} file
-   * @returns {Observable<boolean>}
    */
   public removeFile(file: IOuterFile): Observable<boolean> {
     const index = this.findIndexByFileId(file.id.toString());
@@ -200,8 +173,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
 
   /**
    * This method is success method, real upload is done in ExtendedFileUploader
-   * @param {IOuterFile} file
-   * @returns {Observable<IOuterFile>}
    */
   public uploadFile(file: IOuterFile): Observable<IOuterFile> {
     const fileData = <IFileDataProperties>file;
@@ -210,47 +181,26 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
     return Observable.of(file);
   }
 
-  /**
-   * @param {IOuterFile[]} files
-   * @param {IOuterNode} node
-   * @returns {Observable<IOuterFile[]>}
-   */
   public moveFile(files: IOuterFile[], node: IOuterNode): Observable<IOuterFile[]> {
     const ids: string[] = files.map(file => file.id.toString());
 
     return this.$http.put<IOuterFile[]>(this.configuration.fileUrl, {files: ids, folderId: node ? node.id : ''});
   }
 
-  /**
-   * @param {string} nodeId
-   * @returns {number}
-   */
   private findIndexByNodeId(nodeId: string): number {
     return this.nodes.findIndex((node) => {
       return node.id === nodeId;
     });
   }
 
-  /**
-   * @param {string} fileId
-   * @returns {number}
-   */
   private findIndexByFileId(fileId: string): number {
     return this.files.findIndex((file) => file.id === fileId);
   }
 
-  /**
-   * @param {string} nodeId
-   * @returns {IOuterNode[]}
-   */
   private getChildren(nodeId: string): IOuterNode[] {
     return this.nodes.filter((node: IOuterNode) => node.parentId === nodeId);
   }
 
-  /**
-   * @param file
-   * @returns {{id: string, folderId: string, name: string, thumbnailUrl: string, url: string, width: number, height: number, mime: string}}
-   */
   private convertLocalData2IOuterFile(file: IFileDataProperties): IOuterFile {
     return {
       id: file.id,
@@ -265,10 +215,6 @@ export class FileManagerBackendApiService extends AbstractFileManagerApiService 
     }
   }
 
-  /**
-   * @param file
-   * @returns {{id: (any|string), folderId: string, name: string, type: string, data: string, size: number}}
-   */
   private convertIOuterFile2LocalData(file: IOuterFile): IFileDataProperties {
     return {
       id: file.id.toString(),

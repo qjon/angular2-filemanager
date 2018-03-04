@@ -137,7 +137,6 @@ export class SelectionComponent implements OnDestroy {
 
   /**
    * Create list of buttons
-   * @returns {IButton[]}
    */
   private createBasicButtons(): IButton[] {
     const buttons = [

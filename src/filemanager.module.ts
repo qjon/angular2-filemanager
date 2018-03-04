@@ -32,7 +32,7 @@ import {FileManagerBackendApiService} from './store/fileManagerBackendApi.servic
 import {CurrentDirectoryFilesService} from './services/currentDirectoryFiles.service';
 import {SelectionComponent} from './toolbar/selectionDropDown/selection.component';
 import {FileComponent} from './filesList/file/file.component';
-import {TranslateModule, TranslateService} from 'ng2-translate';
+import {TranslateModule} from 'ng2-translate';
 import {IFileManagerConfiguration} from './configuration/IFileManagerConfiguration';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';

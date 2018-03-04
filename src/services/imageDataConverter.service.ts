@@ -24,11 +24,6 @@ export interface IImageDimensions {
 
 @Injectable()
 export class ImageDataConverter {
-  /**
-   * @param {File} file
-   * @param {string} folderId
-   * @returns {Observable<IFileDataProperties>}
-   */
   public getProperties(file: File, folderId: string): Observable<IFileDataProperties> {
     let properties: IFileDataProperties = {
       id: UUID.UUID(),
@@ -64,9 +59,6 @@ export class ImageDataConverter {
 
   /**
    * Create observable which return image as base64 data
-   *
-   * @param file
-   * @return Observable<string>
    */
   private getBase64FromFile(file: File): Observable<string> {
     let reader = new FileReader();
@@ -84,9 +76,6 @@ export class ImageDataConverter {
 
   /**
    * Create observable which return dimensions of the image
-   *
-   * @param data
-   * @returns {Observable<IImageDimensions>}
    */
   private getImageDimensions(data: string): Observable<IImageDimensions> {
     let image = new Image();

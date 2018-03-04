@@ -39,11 +39,6 @@ export class CurrentDirectoryFilesService {
    */
   public currentDirectoryFileIds$: Observable<string[]>;
 
-  /**
-   * @param {Store<ITreeState>} store
-   * @param {FileTypeFilterService} fileTypeFilter
-   * @param {SearchFilterService} searchFilterService
-   */
   public constructor(private store: Store<IFileManagerState>,
                      private fileTypeFilter: FileTypeFilterService,
                      private searchFilterService: SearchFilterService) {
@@ -73,8 +68,6 @@ export class CurrentDirectoryFilesService {
 
   /**
    * Return stream of files
-   *
-   * @returns {Observable<FileModel[]>}
    */
   private getFilesStream(): Observable<FileModel[]> {
     return this.currentDirectoryFileIds$
@@ -97,8 +90,6 @@ export class CurrentDirectoryFilesService {
 
   /**
    * Return stream of current directory filtered files
-   *
-   * @returns {Observable<FileModel[]>}
    */
   private getCurrentDirectoryFilesStream(): Observable<FileModel[]> {
     return Observable.combineLatest(

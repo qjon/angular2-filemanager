@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig-es2015.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../tmp/esm5",
+    "rootDir": "../tmp"
+  },
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "angular2-filemanager.js",
+    "flatModuleId": "@rign/angular2-filemanager"
+  }
+}

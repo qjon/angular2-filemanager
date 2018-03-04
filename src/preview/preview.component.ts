@@ -20,7 +20,6 @@ export class PreviewComponent implements OnChanges {
 
   /**
    * Current index
-   * @type {number}
    */
   public currentIndex = 0;
 
