@@ -12,7 +12,7 @@ import {
   TreeModel,
   TreeActionsService,
   treeStateSelector,
-  NodeDispatcherService
+  NodeDispatcherService,
 } from '@rign/angular2-tree';
 import {FileModel} from './filesList/file.model';
 import {log} from './decorators/logFunction.decorator';

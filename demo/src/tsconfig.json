@@ -18,5 +18,11 @@
     "typeRoots": [
       "../node_modules/@types"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": false,
+    "strictMetadataEmit" : true,
+    "generateCodeForLibraries": true
   }
 }

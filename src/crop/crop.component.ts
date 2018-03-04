@@ -4,12 +4,12 @@ import {
 } from '@angular/core';
 import {FileModel} from '../filesList/file.model';
 import {CropperSettings} from 'ng2-img-cropper/src/cropperSettings';
-import {ImageCropperComponent} from 'ng2-img-cropper/src/imageCropperComponent';
 import {ICropSize} from './ICropSize';
 import {FileManagerConfiguration} from '../configuration/fileManagerConfiguration.service';
 import {Bounds} from 'ng2-img-cropper/src/model/bounds';
 import {ICropBounds} from './ICropBounds';
 import {FileManagerDispatcherService} from '../store/fileManagerDispatcher.service';
+import {ImageCropperComponent} from 'ng2-img-cropper';
 
 @Component({
   selector: 'crop-image',

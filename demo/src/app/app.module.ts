@@ -8,7 +8,9 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TreeModule} from '@rign/angular2-tree';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+
 
 const fileManagerConfiguration: IFileManagerConfiguration = {
   urls: {
@@ -19,7 +21,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   isMultiSelection: true,
   mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'],
   maxFileSize: 50 * 1024,
-  allowChooseMultipleFiles: false
+  allowChooseMultipleFiles: true
 };
 
 @NgModule({
@@ -28,6 +30,7 @@ const fileManagerConfiguration: IFileManagerConfiguration = {
   ],
   imports: [
     BrowserAnimationsModule,
+    ConfirmationPopoverModule.forRoot(),
     EffectsModule.forRoot([]),
     FileManagerModule.forRoot(fileManagerConfiguration),
     FormsModule,
