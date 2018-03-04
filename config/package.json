@@ -7,7 +7,7 @@
     "start": "ng serve --app withoutBackend",
     "startWithBackend": "ng serve --proxy-config demo/proxy.config.example.json --app withBackend ",
     "backend": "node demo/backend/index.js",
-    "test": "ng test --code-coverage",
+    "test": "ng test --code-coverage"
   },
   "repository": {
     "type": "git",
