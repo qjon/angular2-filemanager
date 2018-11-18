@@ -1,5 +1,7 @@
 # Angular2 Filemanager
 
+# [New version of repo is here (v2.0.0)](https://github.com/qjon/angular/tree/master/projects/filemanager)
+
 This project is a very simple __Angular2 file manager__.
 
 [![npm (scoped)](https://img.shields.io/npm/v/@rign/angular2-filemanager.svg)]()
